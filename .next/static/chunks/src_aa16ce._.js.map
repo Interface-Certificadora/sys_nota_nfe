@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/ti002/Documentos/GitHub/sys_nota_nfe/src/providers/ChakraProvider.tsx"],"sourcesContent":["\"use client\"\n\nimport { ChakraProvider, defaultSystem } from \"@chakra-ui/react\"\nimport { ThemeProvider } from \"next-themes\"\n\nexport default function RootLayout(props: { children: React.ReactNode }) {\n  return (\n    <ChakraProvider value={defaultSystem}>\n      <ThemeProvider attribute=\"class\" disableTransitionOnChange>\n        {props.children}\n      </ThemeProvider>\n    </ChakraProvider>\n  )\n}"],"names":[],"mappings":";;;;AAGA;AADA;AAAA;AAFA;;;;AAKe,SAAS,WAAW,KAAoC;IACrE,qBACE,6LAAC,yLAAA,CAAA,iBAAc;QAAC,OAAO,mKAAA,CAAA,gBAAa;kBAClC,cAAA,6LAAC,mJAAA,CAAA,gBAAa;YAAC,WAAU;YAAQ,yBAAyB;sBACvD,MAAM,QAAQ;;;;;;;;;;;AAIvB;KARwB"}},
+    {"offset": {"line": 42, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
