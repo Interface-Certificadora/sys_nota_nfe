@@ -1,11 +1,1 @@
-{
-  "app": {
-    "[project]/src/app/(public-route)/page": [
-      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
-      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
-    ]
-  },
-  "appUsingSizeAdjust": true,
-  "pages": {},
-  "pagesUsingSizeAdjust": false
-}
+{"pages":{},"app":{"/home/kingdev/Documentos/GitHub/sys_nota_nfe/src/app/layout":["static/media/0f3a385557f1712f-s.p.woff2","static/media/47cbc4e2adbc5db9-s.p.woff2","static/media/cd0918d767a3fa86-s.p.woff2","static/media/92f44bb82993d879-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}
