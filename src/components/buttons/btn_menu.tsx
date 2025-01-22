@@ -6,9 +6,11 @@ import {
   MenuItem,
 } from "@/components/ui/menu"
 import { Button, Flex, Link } from "@chakra-ui/react";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import React from "react";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 export default function BtnMenu() {
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
 
     <Flex flexDir={"column"}>
@@ -19,8 +21,9 @@ export default function BtnMenu() {
             _active={{ bg: "transparent", border: "transparent" }}
             _focus={{ boxShadow: "none", border: "none", outline: "none" }}
             size={"sm"}
+            onClick={() => setIsOpen(!isOpen)}
           >
-            Menu <MdKeyboardArrowDown />
+            Menu {isOpen ?  <IoMdArrowDropup /> : <IoMdArrowDropdown /> }
           </Button>
         </MenuTrigger>
         <MenuContent bg={"#FFFFFF"}>
