@@ -20,15 +20,15 @@ import Enterprise from "@/components/page/enterprise";
 const Home = () => {
   return (
     <Flex direction="column" minH="100vh" fontFamily="sans-serif">
-   
-      <Box bg="#15803D" color="white">
-        <Container maxW="1200px" mx="auto" >
-          <Flex align="center" justify="space-between">
-        
+
+      <Box bg="#15803D" color="white" justifyContent={"center"}>
+        <Container maxW="1200px" mx="auto" justifyContent={"center"}>
+          <Flex align="center" justify="center" gap={{ base: 4, md: 8 }} flexWrap="wrap" >
+
             <ButtonPage
               variant="plain"
               color="white"
-              fontSize={{ base: "sm", md: "lg" }}
+              fontSize={{ base: "sm", md: "16px" }}
               fontWeight="lighter"
               _hover={{ textDecoration: "underline" }}
               scrollTo="Sobre"
@@ -36,20 +36,20 @@ const Home = () => {
               SOBRE O EMISSOR
             </ButtonPage>
 
-      
+
             <Flex align="center" justify="center" flex="1">
               <Image
                 src="/NFE.svg"
                 alt="Logo NFE"
-                width="320px"
-                height="120px"
+                width="290px"
+                height="125px"
               />
             </Flex>
 
             <ButtonPage
               variant="plain"
               color="white"
-              fontSize={{ base: "sm", md: "lg" }}
+              fontSize={{ base: "sm", md: "16px" }}
               fontWeight="lighter"
               _hover={{ textDecoration: "underline" }}
               scrollTo="comprar"
@@ -65,7 +65,7 @@ const Home = () => {
       <Box
         position="relative"
         bg="gray.500"
-  
+
         backgroundImage="url('/path/to/image.jpg')"
         backgroundSize="cover"
         backgroundPosition="center"
@@ -153,16 +153,16 @@ const Home = () => {
       {/* Seção intermediária */}
       <Box bg="gray.50">
         <Container
-          p={{ base: 6, md: 12, lg: 32 }} 
-          pb={{ base: 8, md: 12 }} 
+          p={{ base: 6, md: 12, lg: 32 }}
+          pb={{ base: 8, md: 12 }}
           display="grid"
           gridTemplateColumns={{ base: "1fr", md: "3fr 2fr" }}
-          gap={{ base: 8, md: 16 }} 
+          gap={{ base: 8, md: 16 }}
           alignItems="center"
         >
-         
+
           <Flex direction="column" gap={8} p={6}>
-            
+
             <Box
               w="100%"
               bg="gray.300"
@@ -172,9 +172,9 @@ const Home = () => {
               overflow="hidden"
             ></Box>
 
-         
+
             <Flex gap={6}>
-           
+
               <Box
                 w="40%"
                 bg="#15803D"
@@ -183,7 +183,7 @@ const Home = () => {
                 position="relative"
                 overflow="hidden"
               ></Box>
-          
+
               <Box
                 w="60%"
                 bg="gray.300"
@@ -195,11 +195,11 @@ const Home = () => {
             </Flex>
           </Flex>
 
-        
+
           <Flex direction="column" gap={6} w="100%">
             <Text
               color="#15803D"
-              fontSize={{ base: "md", md: "lg" }}
+              fontSize={{ base: "md", md: "2xl" }}
               fontWeight="bold"
             >
               Emissor de Nota Fiscal
@@ -265,7 +265,7 @@ const Home = () => {
                 fontSize={{ base: "sm", md: "md" }}
                 _hover={{ bg: "green.500" }}
               >
-                ENTRE EM CONTATO E PEÇA<br /> A VERSÃO DE TESTE
+                ENTRE EM CONTATO.<br /> FALE COM NOSSO SUPORTE
               </ButtonPage>
               <ButtonPage
                 bg="white"
@@ -289,7 +289,7 @@ const Home = () => {
           </Flex>
         </Box>
 
-       
+
         <Box
           display={{ base: "none", md: "block" }}
           position="absolute"
@@ -309,7 +309,7 @@ const Home = () => {
       </Box>
 
 
-      
+
       <Box bg="gray.100">
         <Container
           maxW="1200px"
@@ -318,8 +318,8 @@ const Home = () => {
           display="flex"
           flexDirection={{ base: "column", md: "row" }}
           alignItems="center"
-          justifyContent="center" 
-          gap={{ base: 6, md: 12 }} 
+          justifyContent="center"
+          gap={{ base: 6, md: 12 }}
         >
           <Enterprise
             altText={"InterfaceLogo"}
