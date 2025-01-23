@@ -3,14 +3,10 @@ import {
   Box,
   Flex,
   Text,
-  Button,
   Image,
   Heading,
   Container,
   SimpleGrid,
-  ListItem,
-  List,
-  useBreakpointValue
 } from "@chakra-ui/react";
 import { ButtonPage } from "@/components/page/button";
 import FeatureCard from "@/components/page/iconcards";
