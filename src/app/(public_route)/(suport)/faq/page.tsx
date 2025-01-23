@@ -1,5 +1,5 @@
 import FaqCard from "@/components/cards/faq_card";
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 export default function Faq() {
   return (
@@ -47,7 +47,21 @@ export default function Faq() {
             <Flex
             w={"100%"}
             h={'15%'}
-            bg={'blue'}>
+            position={'relative'}
+            justifyContent={'center'}
+            >
+              <Box 
+              h={20}
+              w={20}
+              position={'absolute'}
+              top={'-32%'}
+              >
+              <Image
+              display={{ lg: 'none'}}
+              src={'/img/arraste_para_lado.png'}
+              alt={"contato_sup"}
+              />
+              </Box>
 
             </Flex>
 

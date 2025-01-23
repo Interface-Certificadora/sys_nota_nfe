@@ -102,6 +102,7 @@ export default function FaqCard() {
                     justifyContent={"center"}
                     color={"#00713C"}
                     _open={{ bg: "#99E9C3" }}
+                    _hover={{ bg: "#99E9C3", cursor: "pointer" }}
                   >
                     {question.title}
                   </Accordion.ItemTrigger>
@@ -168,6 +169,7 @@ export default function FaqCard() {
                     justifyContent={"center"}
                     color={"#00713C"}
                     _open={{ bg: "#99E9C3" }}
+                    _hover={{ bg: "#99E9C3", cursor: "pointer" }}
                   >
                     {question.title}
                   </Accordion.ItemTrigger>
@@ -235,6 +237,7 @@ export default function FaqCard() {
                     justifyContent={"center"}
                     color={"#00713C"}
                     _open={{ bg: "#99E9C3" }}
+                    _hover={{ bg: "#99E9C3", cursor: "pointer" }}
                   >
                     {question.title}
                   </Accordion.ItemTrigger>
