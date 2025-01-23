@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import ContatoSup from "../cards/contato_sup";
 
 export default function Footer() { 
