@@ -1,16 +1,17 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
+import { ButtonPage } from "../page/button";
 
 
 export default function ContatoSup() {
     return(
         <>
         <Flex
-        w={{base: '90%', lg: '60%'}}
+        w={{base: '90%', lg: '40%'}}
         h={'120%'}
         bg={'#99E9A0'}
         position={'absolute'}
         rounded={'lg'}
-        top={'-70%'}
+        top={{base: '-120%', lg:'-70%'}}
         shadow={'lg'}
         p={{base: '4', lg: '4'}}
         justifyContent={'space-between'}
@@ -35,14 +36,12 @@ export default function ContatoSup() {
                 </Text>
                 
             </Flex>
-            <Button
-            bg={'#00713C'}
-            color={'white'}
-            shadow={'md'}>
-                Suporte
-            </Button>
-        
-
+            <ButtonPage 
+            callnum="551632897402"
+             bg={'#00713C'}
+             color={'white'}
+             shadow={'md'}
+             >Suporte</ButtonPage>
         </Flex>
         </>
     )
