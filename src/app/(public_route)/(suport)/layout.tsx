@@ -13,7 +13,7 @@ export default async function SupportLayout({children}: {children: React.ReactNo
         bg={'#FFFFFF'}
         >
             <Header />
-            <Flex flex={1} w={'100%'}>
+            <Flex flex={1} w={'100%'}  overflowY={'auto'}>
             {children}
             </Flex>
             <Footer />

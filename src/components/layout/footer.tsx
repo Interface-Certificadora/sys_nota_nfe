@@ -1,4 +1,5 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
+import ContatoSup from "../cards/contato_sup";
 
 export default function Footer() { 
     return(
@@ -8,11 +9,12 @@ export default function Footer() {
         alignItems={'center'}
         h={'8%'}
         w={'100%'}
-        bg={'#33D388'}
-        opacity={'50%'}
+        bg={'#99E9C3'}
         alignSelf={'flex-end'}
         justifySelf={'flex-end'}
+        position={'relative'}
         >
+            <ContatoSup />
         </Flex>
         </>
     )
