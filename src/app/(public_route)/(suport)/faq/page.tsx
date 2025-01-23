@@ -1,72 +1,103 @@
+import React from 'react';
 import FaqCard from "@/components/cards/faq_card";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 export default function Faq() {
+  const responsiveFontSizes = {
+    title: ({ base: '2xl', md: '3xl' }),
+    subtitle: ({ base: 'sm', md: 'md' }),
+    header: ({ base: 'sm', md: 'md' })
+  };
+
   return (
-    <>
-      <Flex w={"100%"} h={"100%"}
-      flexDir={"column"}>
+    <Flex 
+      w="100%" 
+      flexDir="column"
+      overflow="hidden"
+    >
+      {/* Header Section */}
+      <Flex
+        gap={4}
+        flexDir="column"
+        justifyContent="center"
+        alignItems="center"
+        bg="#99E9C3"
+        w="100%"
+        p={[4, 6, 8]} // Responsive padding
+        textAlign="center"
+      >
         <Flex
-          gap={4}
-          flexDir={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          bg={"#99E9C3"}
-          w={"100%"}
-          h={"15%"}
+          flexDir="column"
+          justifyContent="center"
+          alignItems="center"
         >
-          <Flex
-            flexDir={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
+          <Text 
+            color="#00713C" 
+            fontSize={responsiveFontSizes.header}
           >
-            <Text color={"#00713C"} fontSize={"sm"}>
-              FAQs
-            </Text>
-            <Text color={"#00713C"} fontSize={{base: "2xl", lg: "4xl"}} fontWeight={"bold"}>
-              Perguntas Frequentes
-            </Text>
-          </Flex>
-          <Text color={"#00713C"} fontSize={{base: "sm", lg: "md"}}>
-            Tem alguma duvida? Estamos aqui para ajudar.
+            FAQs
+          </Text>
+          <Text 
+            color="#00713C" 
+            fontSize={responsiveFontSizes.title} 
+            fontWeight="bold"
+            textAlign="center"
+          >
+            Perguntas Frequentes
           </Text>
         </Flex>
-        <Flex
-          w={"100%"}
-          h={'85%'}
-          flexDir={"column"}
+        <Text 
+          color="#00713C" 
+          fontSize={responsiveFontSizes.subtitle}
         >
-            <Flex
-            w={"100%"}
-            h={'85%'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            >
-                <FaqCard />
-            </Flex>
-            <Flex
-            w={"100%"}
-            h={'15%'}
-            position={'relative'}
-            justifyContent={'center'}
-            >
-              <Box 
-              h={20}
-              w={20}
-              position={'absolute'}
-              top={'-32%'}
-              >
-              <Image
-              display={{ lg: 'none'}}
-              src={'/img/arraste_para_lado.png'}
-              alt={"contato_sup"}
-              />
-              </Box>
+          Tem alguma dúvida? Estamos aqui para ajudar.
+        </Text>
+      </Flex>
 
-            </Flex>
+      {/* Content Section */}
+      <Flex
+        w="100%"
+        flex={1}
+        flexDir="column"
+        position="relative"
+      >
+        {/* FAQ Cards Container */}
+        <Flex
+          w="100%"
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          zIndex={2}
+        >
+          <FaqCard />
+        </Flex>
 
+        {/* Swipe Indicator */}
+        <Flex
+          w="100%"
+          h={"15%"}
+          justifyContent="center"
+          position="relative"
+        >
+          <Box 
+            display={{md: 'none', lg: 'none'}} 
+            maxW={20}
+            maxH={20}
+            position={'absolute'}
+            top={'-80%'}
+            overflow={'hidden'}
+            zIndex={1}
+            
+          >
+            <Image
+              src="/img/arraste_para_lado.png"
+              alt="Arraste para o lado"
+              w="100%"
+              h="100%"
+            />
+          </Box>
         </Flex>
       </Flex>
-    </>
+    </Flex>
   );
 }
