@@ -11,6 +11,51 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { TbError404 } from "react-icons/tb";
 
 export default function FaqCard() {
+
+  const card1 = [
+    {
+      value: "a",
+      title: "Como acesso o sistema de emissão de notas fiscais?",
+      text: "Abra o navegador Google Chrome ou Safari no seu dispositivo e digite o endereço fornecido no campo DOMÍNIO do formulário do emitente."
+    },
+    {
+      value: "b",
+      title: "Quais são as credenciais de login iniciais?",
+      text: "Utilize o nome de usuário do administrador da empresa e a senha pré-definida pelo gestor do sistema para o primeiro acesso."
+    },
+    {
+      value: "c",
+      title: "Como cadastro um novo cliente?",
+      text: "No menu CLIENTES, selecione NOVO e preencha os campos obrigatórios, como CPF/CNPJ, Nome/Razão Social e endereço. Campos numéricos devem ser preenchidos apenas com números, sem caracteres especiais."
+    },
+    {
+      value: "d",
+      title: "O que fazer se o sistema não preencher automaticamente o endereço pelo CEP?",
+      text: "Caso a base de consulta dos CORREIOS esteja fora do ar, preencha manualmente os campos de Logradouro, Bairro, Cidade, UF e Código IBGE. O código do município no IBGE pode ser consultado em https://cidades.ibge.gov.br/."
+    },
+    {
+      value: "e",
+      title: "Como cadastro um novo produto?",
+      text: "No menu PRODUTOS, selecione NOVO e preencha os campos obrigatórios, como Nome do Produto, Valor Unitário, Origem e NCM. Campos numéricos devem ser preenchidos apenas com números, sem caracteres especiais."
+    },
+    {
+      value: "f",
+      title: "Onde encontro o código NCM do produto?",
+      text: "O código NCM pode ser localizado na nota fiscal de compra do seu fornecedor ou no site: https://portalunico.siscomex.gov.br/classif/#/sumario?perfil=publico."
+    },
+    {
+      value: "g",
+      title: "Como busco um cliente ou produto já cadastrado?",
+      text: "No menu CLIENTES ou PRODUTOS, selecione PROCURAR e digite uma letra ou termo relacionado ao nome. Quanto mais específica a busca, menos resultados serão exibidos."
+    },
+    {
+      value: "h",
+      title: "Como edito meu perfil de acesso?",
+      text: "No canto superior esquerdo, clique no ícone de três tracinhos para expandir o menu e acesse as opções de perfil para editar suas informações de acesso."
+    }
+
+  ]
+
   const questions = [
     {
       value: "a",
@@ -52,19 +97,13 @@ export default function FaqCard() {
       gap={[2, 4, 6]}
       justifyContent={["flex-start", "center"]}
       p={[4, 6, 8]}
-      overflowX={["scroll", "visible"]}
-      css={{
-        "&::-webkit-scrollbar": {
-          display: "none"
-        }
-      }}
-    >
+>
               <Flex
           mt={[4, 6, 6]}
           flexDir="column"
           h={'fit-content'}
-          w={["90%", "45%", "30%"]}
-          minW={["90%", "45%", "25%"]}
+          w={["95%", "45%", "30%"]}
+          minW={["95%", "45%", "25%"]}
           bg="#99E9C3"
           shadow="md"
           rounded="xl"
@@ -112,7 +151,7 @@ export default function FaqCard() {
               bg="#99E9C3"
               collapsible
             >
-              {questions.map((question, index) => (
+              {card1.map((question, index) => (
                 <Accordion.Item 
                   bg="white" 
                   key={index} 
@@ -148,8 +187,8 @@ export default function FaqCard() {
           mt={[4, 6, 6]}
           flexDir="column"
           h={'fit-content'}
-          w={["90%", "45%", "30%"]}
-          minW={["90%", "45%", "25%"]}
+          w={["95%", "45%", "30%"]}
+          minW={["95%", "45%", "25%"]}
           bg="#99E9C3"
           shadow="md"
           rounded="xl"
@@ -233,8 +272,8 @@ export default function FaqCard() {
           mt={[4, 6, 6]}
           flexDir="column"
           h={'fit-content'}
-          w={["90%", "45%", "30%"]}
-          minW={["90%", "45%", "25%"]}
+          w={["95%", "45%", "30%"]}
+          minW={["95%", "45%", "25%"]}
           bg="#99E9C3"
           shadow="md"
           rounded="xl"
