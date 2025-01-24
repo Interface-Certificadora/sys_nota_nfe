@@ -1,20 +1,27 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
+import { ButtonPage } from "../page/button";
 
+interface ContatoSupProps {
+    w?: string;
+    h?: string;
+}
 
-export default function ContatoSup() {
+export default function ContatoSup(props: ContatoSupProps) {
+    const {w, h} = props
     return(
         <>
         <Flex
-        w={{base: '90%', lg: '60%'}}
-        h={'120%'}
+        w={{base: '90%', lg: w ? w : '40%'}}
+        h={h ? h : '80%'}
         bg={'#99E9A0'}
-        position={'absolute'}
+        // position={'absolute'}
         rounded={'lg'}
-        top={'-70%'}
+        // bottom={{base: '-10%', lg:'-10%'}}
         shadow={'lg'}
         p={{base: '4', lg: '4'}}
         justifyContent={'space-between'}
         alignItems={'center'}
+        zIndex={1}
         >
             <Flex
             flexDir={'column'}
@@ -35,14 +42,12 @@ export default function ContatoSup() {
                 </Text>
                 
             </Flex>
-            <Button
-            bg={'#00713C'}
-            color={'white'}
-            shadow={'md'}>
-                Suporte
-            </Button>
-        
-
+            <ButtonPage 
+            callnum="551632897402"
+             bg={'#00713C'}
+             color={'white'}
+             shadow={'md'}
+             >Suporte</ButtonPage>
         </Flex>
         </>
     )
