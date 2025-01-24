@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import ProvidersChakra from "@/providers/ProvidersChakra";
 import { roboto } from "./fonts";
+import { useBreakpointValue } from "@chakra-ui/react";
+
 
 
 export const metadata: Metadata = {
