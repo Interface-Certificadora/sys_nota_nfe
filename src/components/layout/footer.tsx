@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/react";
-import ContatoSup from "../cards/contato_sup";
 
 export default function Footer() { 
     return(
@@ -7,14 +6,14 @@ export default function Footer() {
         <Flex 
         justifyContent={'center'} 
         alignItems={'center'}
-        h={'8%'}
+        h={'4%'}
         w={'100%'}
         bg={'#99E9C3'}
         alignSelf={'flex-end'}
         justifySelf={'flex-end'}
         position={'relative'}
+        zIndex={2}
         >
-            <ContatoSup />
         </Flex>
         </>
     )
