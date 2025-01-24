@@ -1,38 +1,38 @@
-import { Box, Image, Text, Flex } from "@chakra-ui/react";
-
+import { Box, Text, Flex } from "@chakra-ui/react";
 
 interface EnterpriseProps {
-    imageSrc?: any;
-    altText: any;
-    label: any;
-  }
-const Enterprise: React.FC<EnterpriseProps> = ({ imageSrc, altText, label }) => {
+  imageSrc: string; // Caminho para o SVG
+  altText: string;  // Texto alternativo para acessibilidade
+  label: string;    // Texto descritivo
+  h?: string;
+  maxW?: string;
+  w?: string;
+}
+
+const Enterprise: React.FC<EnterpriseProps> = ({ imageSrc, altText, label,h,maxW,w }) => {
   return (
     <Flex
       direction="column"
       alignItems="center"
-      position="relative"
-      w="full"
-      h="auto"
+      textAlign="center"
+      w={w}
+      maxW={maxW} 
+      h={h}
     >
-      <Text
-        fontWeight="medium"
-        color="gray.700"
-        top="10%"
-        zIndex="2"
-        textAlign="center"
-      >
+      {/* Texto do rótulo */}
+      <Text fontWeight="medium" color="gray.700" mb={4}>
         {label}
       </Text>
 
-      <Box position="relative" w="full" h="auto">
-        <Image
-          src={imageSrc}
-          alt={altText}
-          width="500px"
-          height="80px"
-        />
-      </Box>
+      {/* Renderiza o SVG ou imagem */}
+      <Box
+        as="img"
+        src={imageSrc}     // Caminho para o SVG
+        alt={altText}      // Texto alternativo
+        w="100%"           // Largura responsiva
+        h="auto"           // Altura proporcional
+        objectFit="contain" // Mantém proporções dentro do contêiner
+      />
     </Flex>
   );
 };
