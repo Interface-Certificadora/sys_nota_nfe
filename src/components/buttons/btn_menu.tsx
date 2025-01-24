@@ -31,7 +31,7 @@ export default function BtnMenu() {
             <Link href="/faq">Suporte</Link>
           </MenuItem>
           <MenuItem asChild color={"black"} value="treinamento" _hover={{ bg: "#33D388", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/treinamento">Treinamento</Link>
+            <Link href="/faqvideos">Videos</Link>
           </MenuItem>
         </MenuContent>
       </MenuRoot>

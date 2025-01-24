@@ -1,6 +1,7 @@
 import React from 'react';
 import FaqCard from "@/components/cards/faq_card";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import ContatoSup from '@/components/cards/contato_sup';
 
 export default function Faq() {
   const responsiveFontSizes = {
@@ -96,6 +97,7 @@ export default function Faq() {
               h="100%"
             />
           </Box>
+          <ContatoSup />
         </Flex>
       </Flex>
     </Flex>
