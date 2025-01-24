@@ -61,6 +61,7 @@ export default function Faq() {
         flex={1}
         flexDir="column"
         position="relative"
+        overflowY={'scroll'}
       >
         {/* FAQ Cards Container */}
         <Flex
@@ -69,7 +70,7 @@ export default function Faq() {
           justifyContent="center"
           alignItems="center"
           zIndex={2}
-        >
+          >
           <FaqCard />
         </Flex>
 
