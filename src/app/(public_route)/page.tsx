@@ -17,10 +17,14 @@ const Home = () => {
   return (
     <Flex direction="column" minH="100vh" fontFamily="sans-serif">
 
-      <Box bg="#15803D" color="white" justifyContent={"center"}>
-        <Container maxW="1200px" mx="auto" justifyContent={"center"}>
-          <Flex align="center" justify="center" gap={{ base: 4, md: 8 }} flexWrap="wrap" >
-
+      <Box bg="#15803D" color="white">
+        <Container maxW="1200px" mx="auto" py={{ base: 4, md: 6 }}>
+          <Flex
+            align="center"
+            justify={{ base: "center", md: "space-between" }}
+            gap={{ base: 4, md: 8 }}
+            flexWrap="wrap"
+          >
             <ButtonPage
               variant="plain"
               color="white"
@@ -32,13 +36,18 @@ const Home = () => {
               SOBRE O EMISSOR
             </ButtonPage>
 
-
-            <Flex align="center" justify="center" flex="1">
+            <Flex
+              align="center"
+              justify="center"
+              flex="1"
+              maxW={{ base: "200px", md: "290px" }}
+              maxH={{ base: "80px", md: "125px" }}
+            >
               <Image
-                src="/NFE.svg"
+                src="/NFEW.svg"
                 alt="Logo NFE"
-                width="290px"
-                height="125px"
+                w="100%"
+                h="auto"
               />
             </Flex>
 
@@ -61,8 +70,7 @@ const Home = () => {
       <Box
         position="relative"
         bg="gray.500"
-
-        backgroundImage="url('/path/to/image.jpg')"
+        backgroundImage="url('/bgpen.jpg')"
         backgroundSize="cover"
         backgroundPosition="center"
       >
@@ -120,33 +128,33 @@ const Home = () => {
       </Box>
 
       {/* Seção "Sobre" */}
-      <Box id="Sobre" bg="#15803D" pt={12} pb={14}>
+      <Box id="Sobre" bg="#15803D" pt={12} pb={10}>
         <Container maxW="1200px" mx="auto" pb={6} px={4}>
-          <SimpleGrid columns={{ base: 1, md: 3 }}>
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={"12"}>
 
             <FeatureCard
               title={"Rapidez"}
               description={"A emissão de notas fiscais de forma rapida e eficiente. Digite os dados, clique e Pronto!"}
-              icon={""}
+              icon={"intuitivo.png"}
             />
 
             <FeatureCard
               title={"Segurança"}
               description={"seus dados protegidos com a mais alta segurança, garantindo privacidade em cada transação"}
-              icon={""}
+              icon={"seguranca.png"}
             />
 
             <FeatureCard
               title={"Intuintivo"}
               description={"Com uma interface amigavel e intuitiva, você consegue emitir suas notas fiscais sem esforço"}
-              icon={""}
+              icon={"rapidez.png"}
             />
 
           </SimpleGrid>
         </Container>
       </Box>
 
-      {/* Seção intermediária */}
+
       <Box bg="gray.50">
         <Container
           p={{ base: 6, md: 12, lg: 32 }}
@@ -166,6 +174,9 @@ const Home = () => {
               pt="50%"
               position="relative"
               overflow="hidden"
+              backgroundImage="url('/clt.jpg')"
+              backgroundSize="cover"
+              backgroundPosition="center"
             ></Box>
 
 
@@ -178,6 +189,9 @@ const Home = () => {
                 pt="35%"
                 position="relative"
                 overflow="hidden"
+                backgroundImage="url('/logointerface.png')"
+                backgroundSize="cover"
+                backgroundPosition="center"
               ></Box>
 
               <Box
@@ -187,6 +201,9 @@ const Home = () => {
                 pt="35%"
                 position="relative"
                 overflow="hidden"
+                backgroundImage="url('/agroboy.jpg')"
+                backgroundSize="cover"
+                backgroundPosition="center"
               ></Box>
             </Flex>
           </Flex>
@@ -235,9 +252,8 @@ const Home = () => {
       </Box>
 
 
-      {/* Seção "Comprar" */}
-      <Box id="comprar" bg="gray.50" position="relative">
-        <Box h="auto" bg="green.700" p={{ base: 6, md: 12 }}>
+      <Box id="comprar" bg="blue" >
+        <Box h="auto" bg="green.700" position="relative" p={{ base: 6, md: 12 }}>
           <Flex
             flexDirection={{ base: "column", md: "row" }}
             alignItems="center"
@@ -245,7 +261,7 @@ const Home = () => {
             px={{ base: 4, md: 12, lg: 32 }}
             gap={{ base: 6, md: 0 }}
           >
-            {/* Botões */}
+
             <Flex flexDirection={{ base: "column", md: "row" }} gap={{ base: 4, md: 0 }}>
               <ButtonPage
                 color="white"
@@ -287,18 +303,18 @@ const Home = () => {
 
 
         <Box
-          display={{ base: "none", md: "block" }}
+          display={{ base: "none", md: "none", lg: "block" }}
           position="absolute"
-          top="50%"
-          right={{ base: "10px", md: "20%" }}
           transform="translateY(-50%)"
           w="100%"
-          maxW="400px"
+          maxW="600px"
+          right={{ md: "15%" }}
+          top="80%"
         >
           <Image
             src="/NB.png"
             alt="Notebook"
-            w={{ base: "200px", md: "200px", lg: "400px" }}
+            w={{ base: "200px", md: "200px", lg: "600px" }}
             maxW="100%"
           />
         </Box>
@@ -321,12 +337,18 @@ const Home = () => {
             altText={"InterfaceLogo"}
             label={"Distribuidora:"}
             imageSrc="/interface.svg"
+            w="200%"
+            maxW="500px"
+            h="auto"
           />
 
           <Enterprise
             altText={"AlsoftLogo"}
             label={"Desenvolvimento:"}
-            imageSrc="/interface.svg"
+            imageSrc="/alsoft.png"
+            w="100%"
+            maxW="150px"
+            h="auto"
           />
         </Container>
       </Box>
@@ -340,6 +362,7 @@ const Home = () => {
           display="flex"
           flexDirection={{ base: "column", md: "row" }}
           alignItems="center"
+          justifyContent={"center"}
         >
           <Text fontSize="sm">@ 2025 todos os direitos reservados</Text>
         </Container>

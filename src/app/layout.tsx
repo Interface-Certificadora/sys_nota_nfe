@@ -1,5 +1,7 @@
 import ProvidersChakra from "@/providers/ProvidersChakra";
 import { roboto } from "./fonts";
+import { useBreakpointValue } from "@chakra-ui/react";
+
 
 export default function RootLayout({
   children,

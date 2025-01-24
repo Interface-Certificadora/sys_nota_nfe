@@ -9,10 +9,10 @@ interface FeatureCardProps {
   }
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => {
   return (
-    <Flex align="center">
+    <Flex align="start">
       <Box
-        w={16}
-        h={16}
+        w={"40"}
+        h={"18"}
         bg="white"
         display="flex"
         alignItems="center"
@@ -20,7 +20,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) =
         borderRadius="lg"
         mr={4}
       >
-        <Image src={icon} alt={title} boxSize={8} />
+        <Image p="3" src={icon} alt={title} />
       </Box>
       <Box color="white">
         <Text fontSize="lg" fontWeight="bold" mb={2}>
