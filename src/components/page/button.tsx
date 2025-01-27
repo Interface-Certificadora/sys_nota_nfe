@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@chakra-ui/react";
+import { IconButton, Box } from "@chakra-ui/react";
 import type { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
 
 interface ButtonLoadingProps {
@@ -11,10 +11,12 @@ interface ButtonLoadingProps {
 export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps {
   scrollTo?: string;
   callnum?: string;
+  IconSize?: string | number; 
+  color?: string; 
 }
 
 export const ButtonPage = (props: ButtonProps) => {
-  const { scrollTo,callnum, ...rest } = props;
+  const { scrollTo, callnum, children, color = "black", ...rest } = props;
 
   const Clickfunc = () => {
     if (scrollTo) {
@@ -24,11 +26,20 @@ export const ButtonPage = (props: ButtonProps) => {
       }
     }
     if (callnum) {
-        const message = encodeURIComponent("Olá, quero adquirir o Nota NFE.");
-        const url = `https://api.whatsapp.com/send?phone=${callnum}&text=${message}`;
-        window.open(url, "_blank");
+      const message = encodeURIComponent("Olá, quero adquirir o Nota NFE.");
+      const url = `https://api.whatsapp.com/send?phone=${callnum}&text=${message}`;
+      window.open(url, "_blank");
     }
   };
 
-  return <Button {...rest} onClick={Clickfunc} />;
+  return (
+    <IconButton
+      {...rest}
+      onClick={Clickfunc}
+    >
+      <Box  color={color}>
+        {children}
+      </Box>
+    </IconButton>
+  );
 };

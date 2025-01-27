@@ -1,6 +1,9 @@
 import PrivateHeader from "@/components/layout/privateHeader";
 import PrivateMenu from "@/components/privateMenu";
 import { Flex } from "@chakra-ui/react";
+import { ChakraProvider } from '@chakra-ui/react'
+import * as React from 'react'
+import ReactDOM from "react-dom/client";
 
 
 export default function PrivateLayout({children}: {children: React.ReactNode}) {
