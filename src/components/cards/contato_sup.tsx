@@ -6,7 +6,7 @@ interface ContatoSupProps {
     h?: string;
 }
 
-export default function ContatoSup(props: ContatoSupProps) {
+export default function     ContatoSup(props: ContatoSupProps) {
     const {w, h} = props
     return(
         <>
