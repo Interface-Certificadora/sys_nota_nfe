@@ -3,7 +3,7 @@
 import { Flex, IconButton, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaUserPlus, FaUsers } from "react-icons/fa";
-import { IoIosMenu } from "react-icons/io";
+import { IoMenu } from "react-icons/io5";
 
 export default function PrivateMenu() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -16,18 +16,25 @@ export default function PrivateMenu() {
         bg={"#00713C"}
         alignItems={isOpen ? "flex-start" : "center"}
         flexDir={"column"}
+        display={{base: 'none', lg: 'flex'}}
         gap={2}
         borderRight={"1px" + " solid" + " #33D388"}
       >
-        <Flex alignSelf={"center"} alignItems={"center"}>
+        <Flex
+          alignSelf={"center"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          w={isOpen ? "100%" : "100%"}
+          _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <IconButton
             bg={"transparent"}
             outline={"none"}
             color={"white"}
             aria-label="Open Menu"
-            onClick={() => setIsOpen(!isOpen)}
           >
-            <IoIosMenu />
+            <IoMenu />
           </IconButton>
           {isOpen && (
             <Text color={"white"} fontSize={"sm"}>
@@ -37,7 +44,6 @@ export default function PrivateMenu() {
         </Flex>
 
         <Flex flexDir={"column"} gap={1} alignItems={"center"} w={"100%"}>
-
           <Link w={"100%"} href={"/home"}>
             <Flex
               flexDir={"row"}
@@ -85,7 +91,6 @@ export default function PrivateMenu() {
               )}
             </Flex>
           </Link>
-
         </Flex>
       </Flex>
     </>

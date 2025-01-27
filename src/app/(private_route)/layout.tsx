@@ -5,9 +5,9 @@ import { Flex } from "@chakra-ui/react";
 
 export default function PrivateLayout({children}: {children: React.ReactNode}) {
     return (
-        <Flex flexDir={'column'} w={'100vw'} h={'100vh'} bg={'#FFFFFF'}>
+        <Flex flexDir={'column'} w={'100vw'} h={{base: '100%', lg: '100vh'}} bg={'#FFFFFF'}>
             <PrivateHeader />
-            <Flex flex={1} w={'100%'}  overflowY={'auto'}>
+            <Flex flexDir={{base: 'column', lg: 'row'}} p={{base: 2, lg: 0}} w={'100%'} h={'100%'} overflowY={'auto'}>
             <PrivateMenu />
             {children}
             </Flex>

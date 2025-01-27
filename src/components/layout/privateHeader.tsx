@@ -13,7 +13,8 @@ export default function PrivateHeader() {
       >
         <Link href="/home" >
           <Image
-            boxSize="150px"
+            w={'150px'}
+            h={'40px'}
             src="/img/Logo_NOTA_NFE_02.svg"
             alt="Logo"
             objectFit="cover"
