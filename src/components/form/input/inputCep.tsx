@@ -27,8 +27,10 @@ export default function InputCep({
             }
           })
           const res = await req.json()
+          if(!req.ok){
+            return 
+          }
           const data = res.data
-          console.log("🚀 ~ handleCep ~ data:", data)
           setRua(data.logradouro)
           setUf(data.uf)
           setBairro(data.bairro)

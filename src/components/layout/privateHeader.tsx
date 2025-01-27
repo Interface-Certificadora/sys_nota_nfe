@@ -1,6 +1,11 @@
+'use client'
 import { Flex, Image, Link } from "@chakra-ui/react";
+import BtnPrivateMenu from "../buttons/btn_private_menu";
+
+
 
 export default function PrivateHeader() {
+  
   return (
     <>
       <Flex
@@ -10,6 +15,7 @@ export default function PrivateHeader() {
         w={"100%"}
         bg={"#00713C"}
         borderBottom={"1px" + " solid" + " #33D388"}
+        position={"relative"}
       >
         <Link href="/home" >
           <Image
@@ -21,6 +27,7 @@ export default function PrivateHeader() {
             cursor={"pointer"}
               />
         </Link>
+        <BtnPrivateMenu />
       </Flex>
     </>     
   );

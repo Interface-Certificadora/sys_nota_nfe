@@ -8,16 +8,13 @@ interface ClientProps {
 }
 
 export default function  ClientProvider({children}: ClientProps){
-    const [cpf, setCpf] = useState<number>(0)
-    const [nome, setNome] = useState<string>('')
+    const [logo, setLogo] = useState<string>('')
 
     return (
         <ClientContext.Provider
         value={{
-            cpf,
-            setCpf,
-            nome,
-            setNome
+            logo,
+            setLogo
         }}
         >
             {children}
