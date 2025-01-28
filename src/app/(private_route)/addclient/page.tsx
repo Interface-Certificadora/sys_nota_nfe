@@ -6,6 +6,7 @@ import UploadLogo from "@/components/form/uploadLogo";
 import { AtivoDesativadoOptions } from "@/data/selectAtivoDesativado";
 import { ComissaoOptions } from "@/data/selectComisao";
 import { SituacaoTributariaOptions } from "@/data/selectSituacaoTributaria";
+import { toaster } from "@/components/ui/toaster"
 
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
@@ -23,6 +24,14 @@ export default function AddClient() {
         "Content-Type": "application/json"
       }
     });
+    if(!req.ok){
+      toaster.create({
+        title: "Erro",
+        description: "CNPJ nao encontrado",
+        type: "error",
+      })
+      return
+    }
     const res = await req.json();
     const data = res.data;
     setRazaoSocial(data.razao_social || "");
@@ -60,7 +69,7 @@ export default function AddClient() {
                 w={"150px"}
                 name="cnpj"
                 color={"black"}
-                onChange={(e) => getInfosCnpj(e.target.value)}
+                onBlur={(e) => getInfosCnpj(e.target.value)}
                 placeholder="00000000000000"
                 obrigatorio
               />
