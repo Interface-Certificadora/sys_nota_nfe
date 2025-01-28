@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import AuthService from "./modules/auth/services/auth-service";
 
 export const config = {
-    matcher: '/((?!_next/static|_next/image|favicon.ico).*)'
+    matcher: '/((?!_next|favicon.ico|public|.*\\..*).*)'
 }
 
 const publicPages = [
