@@ -4,15 +4,11 @@ import CustomTable from '@/components/tabela';
 
 
 const usuario = () => {
-
-
-
     return (
 
         <Box w={"full"} h={"full"} bg={"gray.50"} p={4}>
             <CustomTable></CustomTable>
         </Box>
-
     );
 };
 
