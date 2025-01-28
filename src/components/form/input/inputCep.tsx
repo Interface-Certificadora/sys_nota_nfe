@@ -44,7 +44,7 @@ export default function InputCep({
     }
 
     return(
-        <Flex gap={3} flexWrap={'wrap'} flexDir={{base: 'row', lg: 'row'}}>
+        <Flex gap={3} flexWrap={'wrap'} flexDir={{base: 'column', lg: 'row'}}>
                 <Box>
                     <label>
                         <Text fontSize="sm" color="#000000">
