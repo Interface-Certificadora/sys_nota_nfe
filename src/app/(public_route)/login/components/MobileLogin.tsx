@@ -1,9 +1,12 @@
 import React from "react";
-import { Box, Flex, Text, Image, Input, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Input } from "@chakra-ui/react";
 import { ButtonPage } from "@/components/page/button";
 import { Checkbox } from "@/components/ui/checkbox";
-const MobileLogin = () => (
-    <Flex
+import AuthActions from "@/modules/auth/actions/auth-actions";
+export default function MobileLogin(){
+
+    return(
+        <Flex
         direction="column"
         align="center"
         justify="center"
@@ -22,7 +25,7 @@ const MobileLogin = () => (
             />
         </Box>
 
-
+        <form action={AuthActions.login}>
         <Flex direction="column" w="100%" maxW="360px" gap={4}>
             <Box>
                 <Text fontSize="sm" fontWeight="bold" mb={2} pl={2} color={"black"}>
@@ -32,6 +35,7 @@ const MobileLogin = () => (
                     rounded="xl"
                     placeholder="Digite seu email"
                     type="email"
+                    name="email"
                     h={12}
                     bg="white"
                     borderWidth="2px"
@@ -46,6 +50,7 @@ const MobileLogin = () => (
                     rounded="xl"
                     placeholder="Digite sua senha"
                     type="password"
+                    name="password"
                     h={12}
                     bg="white"
                     borderWidth="2px"
@@ -71,12 +76,14 @@ const MobileLogin = () => (
                 textAlign="center"
                 bg="#00713C"
                 color={"white"}
+                type="submit"
             >
                 Entrar
             </ButtonPage>
         </Box>
+        </form>
     </Flex >
-);
-
-export default MobileLogin;
+    )
+    
+}
 

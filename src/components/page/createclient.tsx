@@ -11,7 +11,7 @@ import { toaster } from "@/components/ui/toaster"
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
-export default function AddClient() {
+export default function PageCreateClient() {
   const [razaosocial, setRazaoSocial] = useState("");
   const [inscestadual, setInscEstadual] = useState("");
   const [email, setEmail] = useState("");
@@ -45,13 +45,13 @@ export default function AddClient() {
   };
 
   return (
+    <>
       <Flex
         border={"2px" + " solid" + "#00713C"}
         shadow={"md"}
         flexDir={"column"}
         w={"100%"}
-        h={"fit-content"}
-        rounded={'md'}
+        h={"full"}
         gap={2}
         m={{ base: "0", lg: "2" }}
         p={4}
@@ -85,7 +85,7 @@ export default function AddClient() {
               />
               <CardForm.InputString
                 label="Razão Social"
-                w={{base: "300px", lg:"400px"}}
+                w={"400px"}
                 name="razaosocial"
                 color={"black"}
                 placeholder="Industria Seven Mob Ltda"
@@ -95,7 +95,7 @@ export default function AddClient() {
               />
               <CardForm.InputString
                 label="Fantasia"
-                w={{base: "300px", lg:"400px"}}
+                w={"400px"}
                 name="fantasia"
                 color={"black"}
                 placeholder="SEVENMOB"
@@ -111,8 +111,7 @@ export default function AddClient() {
             >
               <CardForm.InputString
                 label="Cliente"
-                w={{base: "300px", lg:"400px"}}
-
+                w={"350px"}
                 name="cliente"
                 color={"black"}
                 placeholder="JULIANO HENRIQUE SILVA"
@@ -137,7 +136,7 @@ export default function AddClient() {
               />
               <CardForm.InputString
                 label="E-mail"
-                w={{base: "300px", lg:"400px"}}
+                w={"400px"}
                 name="email"
                 color={"black"}
                 value={email}
@@ -226,12 +225,13 @@ export default function AddClient() {
               />
               <CardForm.InputString
                 label="Observação"
-                w={{base: "300px", lg:"400px"}}
+                w={"400px"}
                 name="observacao"
                 color={"black"}
                 placeholder=""
               />
 
+              {/* gerar dominio automaticamente cnpj.notanfe.com.br */}
             </Flex>
             <Flex
               flexDir={{ base: "column", lg: "row" }}
@@ -280,7 +280,7 @@ export default function AddClient() {
               />
               <CardForm.InputString
                 label="Justificativa"
-                w={{base: "300px", lg:"400px"}}
+                w={"400px"}
                 name="justificativa"
                 color={"black"}
                 placeholder=""
@@ -305,5 +305,6 @@ export default function AddClient() {
           </Flex>
         </CardForm.Form>
       </Flex>
+    </>
   );
 }

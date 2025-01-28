@@ -4,11 +4,13 @@ import {
   Blockquote, 
   Box, 
   Flex, 
+  Link, 
   Text
 } from "@chakra-ui/react";
 import { MdOutlineQuestionMark } from "react-icons/md";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { TbError404 } from "react-icons/tb";
+import { LuExternalLink } from 'react-icons/lu';
+// import { RiLockPasswordLine } from "react-icons/ri";
+// import { TbError404 } from "react-icons/tb";
 
 export default function FaqCard() {
 
@@ -31,7 +33,8 @@ export default function FaqCard() {
     {
       value: "d",
       title: "O que fazer se o sistema não preencher automaticamente o endereço pelo CEP?",
-      text: "Caso a base de consulta dos CORREIOS esteja fora do ar, preencha manualmente os campos de Logradouro, Bairro, Cidade, UF e Código IBGE. O código do município no IBGE pode ser consultado em https://cidades.ibge.gov.br/."
+      text: "Caso a base de consulta dos CORREIOS esteja fora do ar, preencha manualmente os campos de Logradouro, Bairro, Cidade, UF e Código IBGE. O código do município no IBGE pode ser consultado em: ",
+      link: 'https://cidades.ibge.gov.br/'
     },
     {
       value: "e",
@@ -41,7 +44,8 @@ export default function FaqCard() {
     {
       value: "f",
       title: "Onde encontro o código NCM do produto?",
-      text: "O código NCM pode ser localizado na nota fiscal de compra do seu fornecedor ou no site: https://portalunico.siscomex.gov.br/classif/#/sumario?perfil=publico."
+      text: `O código NCM pode ser localizado na nota fiscal de compra do seu fornecedor ou no site: `,
+      link: 'https://portalunico.siscomex.gov.br/classif/#/sumario?perfil=publico'
     },
     {
       value: "g",
@@ -56,38 +60,38 @@ export default function FaqCard() {
 
   ]
 
-  const questions = [
-    {
-      value: "a",
-      title: "Lorem ipsum dolor sit amet consectetur",
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
-    },
-    {
-      value: "b",
-      title: "Lorem ipsum dolor sit amet consectetur",
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
-    },
-    {
-      value: "c",
-      title: "Lorem ipsum dolor sit amet consectetur",
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
-    },
-    {
-      value: "d",
-      title: "Lorem ipsum dolor sit amet consectetur",
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
-    },
-    {
-      value: "e",
-      title: "Lorem ipsum dolor sit amet consectetur",
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
-    },
-    {
-      value: "f",
-      title: "Lorem ipsum dolor sit amet consectetur",
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
-    }
-  ];
+  // const questions = [
+  //   {
+  //     value: "a",
+  //     title: "Lorem ipsum dolor sit amet consectetur",
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
+  //   },
+  //   {
+  //     value: "b",
+  //     title: "Lorem ipsum dolor sit amet consectetur",
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
+  //   },
+  //   {
+  //     value: "c",
+  //     title: "Lorem ipsum dolor sit amet consectetur",
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
+  //   },
+  //   {
+  //     value: "d",
+  //     title: "Lorem ipsum dolor sit amet consectetur",
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
+  //   },
+  //   {
+  //     value: "e",
+  //     title: "Lorem ipsum dolor sit amet consectetur",
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
+  //   },
+  //   {
+  //     value: "f",
+  //     title: "Lorem ipsum dolor sit amet consectetur",
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit culpa unde. Dicta, et, quaerat consequuntur aspernatur "
+  //   }
+  // ];
 
   return (
     <Flex
@@ -133,7 +137,7 @@ export default function FaqCard() {
           <Text 
           color={'#00713C'} 
           fontSize={['sm', 'md', 'lg']}>
-            Topico
+            Sistema NFE
           </Text>
           <Flex
             direction="column"
@@ -173,7 +177,7 @@ export default function FaqCard() {
                     <Accordion.ItemBody ml={1} bg="white">
                       <Blockquote.Root>
                         <Blockquote.Content>
-                          {question.text}
+                          {question.text}{question.link && <Link target='_blank' fontSize={'sm'} color={'blue.600'} href={question.link}>{question.link}<LuExternalLink /></Link>}
                         </Blockquote.Content>
                       </Blockquote.Root>
                     </Accordion.ItemBody>
@@ -183,7 +187,7 @@ export default function FaqCard() {
             </Accordion.Root>
           </Flex>
         </Flex>
-        <Flex
+        {/* <Flex
           mt={[4, 6, 6]}
           flexDir="column"
           h={'fit-content'}
@@ -352,7 +356,7 @@ export default function FaqCard() {
               ))}
             </Accordion.Root>
           </Flex>
-        </Flex>
+        </Flex> */}
     </Flex>
   );
 }
