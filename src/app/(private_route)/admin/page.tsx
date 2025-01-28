@@ -6,7 +6,7 @@ export default function Admin() {
     <>
     <Box>
       <Heading>
-        adm
+        
       </Heading>
     </Box>
     </>

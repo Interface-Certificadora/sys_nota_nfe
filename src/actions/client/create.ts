@@ -1,37 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 export default async function CreateClient(_ : any,form: FormData) {
-    const cnpj = form.get('cnpj')
-    const inscestadual = form.get('inscestadual')
-    const razaosocial = form.get('razaosocial')
-    const fantasia = form.get('fantasia')
-    const logo = form.get('logo')
-    const cliente = form.get('cliente')
-    const whatsapp = form.get('whatsapp')
-    const telefone = form.get('telefone')
-    const email = form.get('email')
-    const cep = form.get('cep')
-    const cidade = form.get('cidade')
-    const uf = form.get('uf')
-    const bairro = form.get('bairro')
-    const rua = form.get('rua')
-    const numero = form.get('numero')
-    const complemento = form.get('complemento')
-    const serieultimanota = form.get('serieultimanota')
-    const numeroultimanota = form.get('numeroultimanota')
-    const comissao = form.get('comissao')
-    const valorcomissao = form.get('valorcomissao')
-    const situacao = form.get('situacao')
-    const valor = form.get('valor')
-    const observacao = form.get('observacao')
-    const contador = form.get('contador')
-    const whatsappcontador = form.get('whatsappcontador')
-    const vencicertificado = form.get('vencicertificado')
+    const cnpj = form.get('cnpj') as string
+    const inscestadual = Number(form.get('inscestadual')) as number
+    const razaosocial = form.get('razaosocial') as string
+    const fantasia = form.get('fantasia') as string
+    const logo = form.get('logo') as string
+    const cliente = form.get('cliente') as string
+    const whatsapp = form.get('whatsapp') as string
+    const telefone = form.get('telefone') as string
+    const email = form.get('email') as string
+    const cep = form.get('cep') as string
+    const cidade = form.get('cidade') as string
+    const uf = form.get('uf') as string
+    const bairro = form.get('bairro') as string
+    const rua = form.get('rua')as string
+    const numero = Number(form.get('numero')) as number
+    const complemento = form.get('complemento') as string
+    const serieultimanota = form.get('serieultimanota') as string
+    const numeroultimanota = form.get('numeroultimanota') as string
+    const comissao = Boolean(form.get('comissao')) as boolean
+    const valorcomissao = Number(form.get('valorcomissao')) as number
+    const situacao = Boolean(form.get('situacao')) as boolean
+    const valor = Number(form.get('valor')) as number
+    const observacao = form.get('observacao') as string
+    const contador = form.get('contador') as string
+    const whatsappcontador = form.get('whatsappcontador') as string
+    const vencicertificado = form.get('vencicertificado') as string
     // Upload doc/ file
-    const situacaotributaria = form.get('situacaotributaria')
-    const justificativa = form.get('justificativa')
-    const usersenha = `${cnpj} / 1234`
-    const url = `www.${cnpj}.notanfe.com.br`
+    const situacaotributaria = form.get('situacaotributaria') as string
+    const justificativa = form.get('justificativa') as string
+    const usersenha = `${cnpj} / 1234` as string
+    const url = `www.${cnpj}.notanfe.com.br` as string
 
     const data = {
         cnpj,

@@ -4,6 +4,7 @@ import { Flex, IconButton, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaUserPlus, FaUsers } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
+import { TiHome } from "react-icons/ti";
 
 export default function PrivateMenu() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -15,7 +16,7 @@ export default function PrivateMenu() {
         bg={"#00713C"}
         alignItems={isOpen ? "flex-start" : "center"}
         flexDir={"column"}
-        display={{base: 'none', lg: 'flex'}}
+        display={{ base: "none", lg: "flex" }}
         gap={2}
         borderRight={"1px" + " solid" + " #33D388"}
       >
@@ -43,6 +44,30 @@ export default function PrivateMenu() {
         </Flex>
 
         <Flex flexDir={"column"} gap={1} alignItems={"center"} w={"100%"}>
+        <Link w={"100%"} href={"/home"}>
+            <Flex
+              flexDir={"row"}
+              alignItems={"center"}
+              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
+              w={"100%"}
+              justifyContent={"center"}
+            >
+              <IconButton
+                bg={"transparent"}
+                outline={"none"}
+                color={"white"}
+                aria-label="Cadastrar Clientes"
+              >
+                <TiHome />
+              </IconButton>
+              {isOpen && (
+                <Text color={"white"} fontSize={"sm"}>
+                  Home
+                </Text>
+              )}
+            </Flex>
+          </Link>
+
           <Link w={"100%"} href={"/addclient"}>
             <Flex
               flexDir={"row"}
@@ -90,27 +115,6 @@ export default function PrivateMenu() {
               )}
             </Flex>
           </Link>
-          <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
-            >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Cadastrar Clientes"
-              >
-                <FaUsers />
-              </IconButton>
-              {isOpen && (
-                <Text color={"white"} fontSize={"sm"}>
-                  Listar Clientes
-                </Text>
-              )}
-            </Flex>
         </Flex>
       </Flex>
     </>

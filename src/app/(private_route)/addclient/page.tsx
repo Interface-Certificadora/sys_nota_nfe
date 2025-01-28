@@ -51,6 +51,7 @@ export default function AddClient() {
         flexDir={"column"}
         w={"100%"}
         h={"fit-content"}
+        rounded={'md'}
         gap={2}
         m={{ base: "0", lg: "2" }}
         p={4}
