@@ -1,27 +1,27 @@
 export type SituacaoTributaria = {
     label: string,
-    value: number
+    value: string
 }
 
 export const SituacaoTributariaOptions : SituacaoTributaria[] = [
     {
         label: 'Simples',
-        value: 1
+        value: 'simples'
     },
     {
         label: 'Simples Mei',
-        value: 2
+        value: 'simples mei'
     },
     {
         label: 'Rural',
-        value: 3
+        value: 'rural'
     },
     {
         label: 'Presumido',
-        value: 4
+        value: 'presumido'
     },
     {
         label: 'Real',
-        value: 5
+        value: 'real'
     }
 ] 
