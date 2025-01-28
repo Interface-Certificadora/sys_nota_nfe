@@ -1,6 +1,6 @@
 import ProvidersChakra from "@/providers/ProvidersChakra";
 import { roboto } from "./fonts";
-import { useBreakpointValue } from "@chakra-ui/react";
+import { Toaster } from "@/components/ui/toaster";
 
 
 export default function RootLayout({
@@ -12,6 +12,7 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${roboto.variable}`}>
       <ProvidersChakra>
+      <Toaster />
         {children}
       </ProvidersChakra>
       </body>

@@ -1,4 +1,5 @@
 'use client'
+import { toaster } from "@/components/ui/toaster";
 import { Box, Flex, Input, InputProps, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -18,7 +19,6 @@ export default function InputCep({
     const [cidade, setCidade] = useState('')
 
     const handleCep = async (cep: string) => {
-        console.log("🚀 ~ handleCep ~ cep:", cep)
         const req = await fetch(`/api/cep/${cep}`,        
             {
             method: "GET",
@@ -28,6 +28,12 @@ export default function InputCep({
           })
           const res = await req.json()
           if(!req.ok){
+            toaster.create({
+                title: "Erro",
+                description: "CEP nao encontrado",
+                type: "error",
+                
+            })
             return 
           }
           const data = res.data
@@ -76,7 +82,7 @@ export default function InputCep({
                             )}
                         </Text>
                     </label>
-                    <Input w={'50px'} value={uf} color={'black'} name="UF" readOnly/>
+                    <Input w={'50px'} value={uf} color={'black'} name="uf" readOnly/>
                 </Box>
                 <Box>
                     <label>
