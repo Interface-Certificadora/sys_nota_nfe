@@ -310,7 +310,10 @@ const CustomTable = () => {
                     </PaginationNextTrigger>
                 </HStack>
             </PaginationRoot>
+<<<<<<< HEAD
             )
+=======
+>>>>>>> fce9aba4d20e991f6b5bc754f03377db938a10c7
         </Stack>
     );
 };
