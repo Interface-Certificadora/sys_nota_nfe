@@ -15,7 +15,6 @@ async function sessionUser(){
     return { error: true, message: "Nenhuma sessão encontrada", data: null }
   }
   const { value } = cookie
-
   const userSession : JWTPayload = await openSessionToken(value)
   
   return {
@@ -23,6 +22,7 @@ async function sessionUser(){
     message: "",
     data: userSession
   } 
+
 }
 
 async function createSessionToken(payload = {}) {
