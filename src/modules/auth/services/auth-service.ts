@@ -8,13 +8,23 @@ async function openSessionToken(token: string) {
   return payload;
 }
 
+async function sessionUser(){
+  const cookie = cookies().get('session')
+  if(!cookie){
+    return { error: true, message: "Nenhuma sessão encontrada", data: null }
+  }
+  
+  const { value } = cookie
+
+  return await openSessionToken(value)
+}
+
 async function createSessionToken(payload = {}) {
   const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
   const session = await new jose.SignJWT(payload)
   .setProtectedHeader({ alg: "HS256" })
   .setExpirationTime("4h")
   .sign(secret);
-  console.log("🚀 ~ createSessionToken ~ session:", session)
   const { exp } = await openSessionToken(session);
 
   cookies().set('session', session, {
@@ -47,7 +57,8 @@ const AuthService = {
   openSessionToken,
   createSessionToken,
   isSessionValid,
-  destroySession
+  destroySession,
+  sessionUser
 };
 
 export default AuthService;
