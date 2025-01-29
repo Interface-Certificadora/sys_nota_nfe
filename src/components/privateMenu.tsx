@@ -4,6 +4,7 @@ import { Flex, IconButton, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaUserPlus, FaUsers } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { TiHome } from "react-icons/ti";
 
 export default function PrivateMenu() {
@@ -44,7 +45,7 @@ export default function PrivateMenu() {
         </Flex>
 
         <Flex flexDir={"column"} gap={1} alignItems={"center"} w={"100%"}>
-        <Link w={"100%"} href={"/home"}>
+          <Link w={"100%"} href={"/home"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -111,6 +112,30 @@ export default function PrivateMenu() {
               {isOpen && (
                 <Text color={"white"} fontSize={"sm"}>
                   Listar Clientes
+                </Text>
+              )}
+            </Flex>
+          </Link>
+
+          <Link w={"100%"} href={"/adduser"}>
+            <Flex
+              flexDir={"row"}
+              alignItems={"center"}
+              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
+              w={"100%"}
+              justifyContent={"center"}
+            >
+              <IconButton
+                bg={"transparent"}
+                outline={"none"}
+                color={"white"}
+                aria-label="Cadastrar Clientes"
+              >
+                <MdAdminPanelSettings />
+              </IconButton>
+              {isOpen && (
+                <Text color={"white"} fontSize={"sm"}>
+                  Criar Usuario
                 </Text>
               )}
             </Flex>
