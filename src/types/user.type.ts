@@ -7,3 +7,12 @@ export interface UserSession {
     token: JWTPayload;
     exp: number
 }
+
+
+export interface UserTable{
+    id: number;
+    cliente: string;
+    cnpj: string;
+    token: JWTPayload;
+    exp: number
+}
