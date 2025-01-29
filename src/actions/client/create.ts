@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
+
+import { data } from "framer-motion/client"
+import { headers } from "next/headers"
+
 export default async function CreateClient(_ : any,form: FormData) {
     const cnpj = form.get('cnpj') as string
     const inscestadual = Number(form.get('inscestadual')) as number
@@ -66,3 +70,11 @@ export default async function CreateClient(_ : any,form: FormData) {
         url
     }
 }
+
+const response = await fetch("http://192.168.0.3:3036/cliente", {
+    method: "POST",
+    headers:{
+        "content-type": "application.json"
+    },
+    body: JSON.stringify(data),
+});

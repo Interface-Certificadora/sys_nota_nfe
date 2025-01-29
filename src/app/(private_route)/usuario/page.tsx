@@ -6,7 +6,7 @@ import CustomTable from '@/components/tabela';
 const usuario = () => {
     return (
 
-        <Box w={"full"} h={"full"} bg={"gray.50"} p={4}>
+        <Box w={"full"} h={"full"} bg={"gray.50"} p={2}>
             <CustomTable></CustomTable>
         </Box>
     );

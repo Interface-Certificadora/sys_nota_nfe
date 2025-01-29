@@ -16,7 +16,7 @@ import {
     VStack,
     Text,
     useBreakpointValue,
-    
+
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
@@ -82,7 +82,7 @@ const CustomTable = () => {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
 
-    
+
     return (
         <Stack width="full" gap="4" h="full" color="white">
             <Flex
@@ -122,7 +122,7 @@ const CustomTable = () => {
                     </Box>
 
                     <Box>
-                        <label>Nome:  </label>
+                        <label>Razão Social:  </label>
                         <Input
                             placeholder="Razão Social"
                             value={filters.rs}
@@ -159,83 +159,90 @@ const CustomTable = () => {
             </Flex>
 
             {isMobile ? (
-        <VStack gap={4}>
-          {paginatedData.map((user) => (
-            <Box
-              key={user.id}
-              bg="green.100"
-              p={4}
-              borderRadius="lg"
-              boxShadow="sm"
-              w="full"
-            >
-              <Text><b>ID:</b> {user.id}</Text>
-              <Text><b>Nome:</b> {user.nome}</Text>
-              <Text><b>Razão Social:</b> {user.rs}</Text>
-              <Text><b>Telefone:</b> {user.telefone}</Text>
-              <Text><b>CNPJ:</b> {user.cnpj}</Text>
-              <HStack mt={4}>
-                <ButtonPage color="red" p="2" variant="outline">
-                  <AiOutlineStop />
-                </ButtonPage>
-                <ButtonPage color="blue" p="2" variant="outline">
-                  <FiAlertTriangle />
-                </ButtonPage>
-              </HStack>
-            </Box>
-          ))}
-        </VStack>
-      ) : (
-            <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black"  >
-                <Table.Header py="8">
-                    <Table.Row bg="green.600" >
-                        <Table.ColumnHeader color="white">Id</Table.ColumnHeader>
-                        <Table.ColumnHeader color="white">Nome</Table.ColumnHeader>
-                        <Table.ColumnHeader color="white">Razão Social</Table.ColumnHeader>
-                        <Table.ColumnHeader color="white">Telefone</Table.ColumnHeader>
-                        <Table.ColumnHeader color="white">CNPJ</Table.ColumnHeader>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
+                <VStack>
                     {paginatedData.map((user) => (
-                        <Table.Row
-                            key={`${user.id}-${Math.random()}`}
-                            _hover={{ bg: "green.100" }}
-                            fontWeight="bold"
+                        <Box
+                            key={user.id}
+                            bg="white"
+                            p={4}
+                            borderRadius="lg"
+                            boxShadow="sm"
+                            w="full"
                             color="black"
+                            _hover={{ bg: "green.100", cursor: "pointer" }} // Adiciona efeito de hover
+                            onClick={() => console.log(`Card clicado: ${user.nome}`)} // Evento de clique
                         >
-                            <Table.Cell>{user.id}</Table.Cell>
-                            <Table.Cell>
-                                <ButtonPage
-                                    variant="plain"
-                                    color="black"
-                                    _hover={{ color: "green.200" }}
-                                >
-                                    {user.nome}
-                                </ButtonPage>
-                            </Table.Cell>
-                            <Table.Cell>{user.rs}</Table.Cell>
-                            <Table.Cell>{user.telefone}</Table.Cell>
-                            <Table.Cell>
-                                <HStack align="center">
-                                    <Box>{user.cnpj}</Box>
-                                    <HStack ml={12}>
-                                        <ButtonPage color="red" p="2" variant="outline" colorPalette="blue" >
-                                            <AiOutlineStop />
-                                        </ButtonPage>
-
-
-                                        <ButtonPage color="blue" p="2" variant="outline" colorPalette="gray" >
-                                            <FiAlertTriangle />
-                                        </ButtonPage>
-                                    </HStack>
-                                </HStack>
-                            </Table.Cell>
-                        </Table.Row>
+                            <ButtonPage w="full" h="full" textAlign="left" variant="plain">
+                                <Text>
+                                    <b>ID:</b> {user.id}
+                                </Text>
+                                <Text>
+                                    <b>Nome:</b> {user.nome}
+                                </Text>
+                                <Text>
+                                    <b>Razão Social:</b> {user.rs}
+                                </Text>
+                                <Text>
+                                    <b>Telefone:</b> {user.telefone}
+                                </Text>
+                                <Text>
+                                    <b>CNPJ:</b> {user.cnpj}
+                                </Text>
+                            </ButtonPage>
+                        </Box>
                     ))}
-                </Table.Body>
-            </Table.Root>
-        )}
+                </VStack>
+            ) : (
+                <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black"  >
+                    <Table.Header py="8">
+                        <Table.Row bg="green.600" >
+                            <Table.ColumnHeader color="white">Id</Table.ColumnHeader>
+                            <Table.ColumnHeader color="white">Nome</Table.ColumnHeader>
+                            <Table.ColumnHeader color="white">Razão Social</Table.ColumnHeader>
+                            <Table.ColumnHeader color="white">Telefone</Table.ColumnHeader>
+                            <Table.ColumnHeader color="white">CNPJ</Table.ColumnHeader>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {paginatedData.map((user) => (
+                            <Table.Row
+                                key={`${user.id}-${Math.random()}`}
+                                _hover={{ bg: "green.100" }}
+                                fontWeight="bold"
+                                color="black"
+                            >
+                                <Table.Cell>{user.id}</Table.Cell>
+                                <Table.Cell>
+                                    <ButtonPage
+                                        variant="plain"
+                                        color="black"
+                                        _hover={{ color: "green.200" }}
+                                    >
+                                        {user.nome}
+                                    </ButtonPage>
+                                </Table.Cell>
+                                <Table.Cell>{user.rs}</Table.Cell>
+                                <Table.Cell>{user.telefone}</Table.Cell>
+                                <Table.Cell>
+                                    <HStack align="center">
+                                        <Box>{user.cnpj}</Box>
+                                        <HStack ml={12}>
+                                            <ButtonPage color="red" p="2" variant="outline" colorPalette="blue" >
+                                                <AiOutlineStop />
+                                            </ButtonPage>
+
+
+                                            <ButtonPage color="blue" p="2" variant="outline" colorPalette="gray" >
+                                                <FiAlertTriangle />
+                                            </ButtonPage>
+                                        </HStack>
+                                    </HStack>
+                                </Table.Cell>
+                            </Table.Row>
+                        ))}
+                    </Table.Body>
+                </Table.Root>
+            )}
             <PaginationRoot
 
                 pb="6"
@@ -303,7 +310,7 @@ const CustomTable = () => {
                     </PaginationNextTrigger>
                 </HStack>
             </PaginationRoot>
-    )
+            )
         </Stack>
     );
 };
