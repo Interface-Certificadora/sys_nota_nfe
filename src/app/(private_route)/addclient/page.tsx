@@ -9,7 +9,7 @@ import { toaster } from "@/components/ui/toaster"
 
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import createClient from "@/modules/auth/actions/auth-createAccount";
+import createClient from "@/modules/auth/actions/auth-createClient";
 
 export default function AddClient() {
   const [razaosocial, setRazaoSocial] = useState("");
