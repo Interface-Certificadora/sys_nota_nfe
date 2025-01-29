@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use server'
 
-// import AuthService from "../services/auth-service"
+import AuthService from "../services/auth-service"
 
-export default async function createClient(_ : any,form: FormData) {
+export default async function createClient(_: any, form: FormData) {
     const cnpj = form.get('cnpj') as string
     const inscestadual = Number(form.get('inscestadual')) as number
     const razaosocial = form.get('razaosocial') as string
@@ -17,7 +17,7 @@ export default async function createClient(_ : any,form: FormData) {
     const cidade = form.get('cidade') as string
     const uf = form.get('uf') as string
     const bairro = form.get('bairro') as string
-    const rua = form.get('rua')as string
+    const rua = form.get('rua') as string
     const numero = Number(form.get('numero')) as number
     const complemento = form.get('complemento') as string
     const serieultimanota = form.get('serieultimanota') as string
@@ -30,7 +30,8 @@ export default async function createClient(_ : any,form: FormData) {
     const contador = form.get('contador') as string
     const whatsappcontador = form.get('whatsappcontador') as string
     const vencicertificado = form.get('vencicertificado') as string
-    // Upload doc/ file
+
+
     const situacaotributaria = form.get('situacaotributaria') as string
     const justificativa = form.get('justificativa') as string
     const usersenha = `${cnpj} / 1234` as string
@@ -68,6 +69,21 @@ export default async function createClient(_ : any,form: FormData) {
         usersenha,
         url
     }
-    console.log("🚀 ~ createAccount ~ data:", data)
+    const sessionData = await AuthService.sessionUser();
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cliente`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionToken.token}`
+            },
+            body: JSON.stringify(AuthService.sessionUser),
+        });
+        const res = await response.json();
+        console.log(res);
 
+    } catch (error: any) {
+        return { success: false, error: error.message || "ta errado isso ai" };
+    }
 }
+

@@ -13,9 +13,7 @@ async function sessionUser(){
   if(!cookie){
     return { error: true, message: "Nenhuma sessão encontrada", data: null }
   }
-  
   const { value } = cookie
-
   return await openSessionToken(value)
 }
 
