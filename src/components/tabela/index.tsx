@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import {
     HStack,
-    Heading,
     Stack,
     Table,
     PaginationItem,
@@ -14,6 +13,10 @@ import {
     Box,
     Input,
     Button,
+    VStack,
+    Text,
+    useBreakpointValue,
+    
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
@@ -21,29 +24,29 @@ import { AiOutlineStop } from "react-icons/ai";
 
 
 const items = [
-    { id: 1, nome: "João Silva", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
-    { id: 2, nome: "Maria Oliveira", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
-    { id: 3, nome: "Pedro Santos", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
-    { id: 4, nome: "Ana Paula", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
-    { id: 5, nome: "Lucas Lima", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
-    { id: 6, nome: "Carla Mendes", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
-    { id: 7, nome: "João Silva", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
-    { id: 8, nome: "Maria Oliveira", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
-    { id: 9, nome: "Pedro Santos", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
-    { id: 10, nome: "Ana Paula", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
-    { id: 11, nome: "Lucas Lima", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
-    { id: 12, nome: "Carla Mendes", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
-    { id: 13, nome: "João Silva", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
-    { id: 14, nome: "Maria Oliveira", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
-    { id: 15, nome: "Pedro Santos", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
-    { id: 16, nome: "Ana Paula", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
-    { id: 17, nome: "Lucas Lima", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
-    { id: 18, nome: "Carla Mendes", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
+    { id: 1, nome: "João Silva", rs: "Shanchez e Sianos", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
+    { id: 2, nome: "Maria Oliveira", rs: "Tech Solutions Ltda.", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
+    { id: 3, nome: "Pedro Santos", rs: "Santos Comércio ME", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
+    { id: 4, nome: "Ana Paula", rs: "Paula e Filhos Ltda.", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
+    { id: 5, nome: "Lucas Lima", rs: "Lima Transportes", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
+    { id: 6, nome: "Carla Mendes", rs: "Mendes Serviços EIRELI", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
+    { id: 7, nome: "João Silva", rs: "Silva Construções", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
+    { id: 8, nome: "Maria Oliveira", rs: "Oliveira Corp", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
+    { id: 9, nome: "Pedro Santos", rs: "Santos e Cia Ltda.", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
+    { id: 10, nome: "Ana Paula", rs: "Ana Paula Consultoria", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
+    { id: 11, nome: "Lucas Lima", rs: "Lima Design Studio", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
+    { id: 12, nome: "Carla Mendes", rs: "Mendes Arquitetura", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
+    { id: 13, nome: "João Silva", rs: "João Serviços Gerais", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
+    { id: 14, nome: "Maria Oliveira", rs: "Oliveira Tech", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
+    { id: 15, nome: "Pedro Santos", rs: "Santos Soluções TI", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
+    { id: 16, nome: "Ana Paula", rs: "Paula Indústrias", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
+    { id: 17, nome: "Lucas Lima", rs: "Lima Comércio Varejo", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
+    { id: 18, nome: "Carla Mendes", rs: "Mendes Consultoria", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
 ];
 
 const CustomTable = () => {
 
-    const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "" });
+    const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
 
     const [filteredData, setFilteredData] = useState(items);
 
@@ -65,18 +68,23 @@ const CustomTable = () => {
     const applyFilters = () => {
         const newFilteredData = items.filter((user) => {
             return (
-                (filters.id === "" || user.id.toString().includes(filters.id)) &&
-                (filters.nome === "" ||
-                    user.nome.toLowerCase().includes(filters.nome.toLowerCase())) &&
-                (filters.cnpj === "" || user.cnpj.includes(filters.cnpj))
+                (filters.id === "" || user.id?.toString().includes(filters.id)) &&
+                (filters.nome === "" || user.nome?.toLowerCase().includes(filters.nome.toLowerCase())) &&
+                (filters.cnpj === "" || user.cnpj?.includes(filters.cnpj)) &&
+                (filters.rs === "" || user.rs?.toLowerCase().includes(filters.rs.toLowerCase()))
             );
         });
+
         setFilteredData(newFilteredData);
         setCurrentPage(1);
     };
 
+
+    const isMobile = useBreakpointValue({ base: true, md: false });
+
+    
     return (
-        <Stack width="full" gap="4" h="full" color="white" px="24" py="4">
+        <Stack width="full" gap="4" h="full" color="white">
             <Flex
                 bg="green.600"
                 p={4}
@@ -114,6 +122,19 @@ const CustomTable = () => {
                     </Box>
 
                     <Box>
+                        <label>Nome:  </label>
+                        <Input
+                            placeholder="Razão Social"
+                            value={filters.rs}
+                            onChange={(e) => handleFilterChange("rs", e.target.value)}
+                            size="sm"
+                            maxW="200px"
+                            bg="white"
+                            color="black"
+                        />
+                    </Box>
+
+                    <Box>
                         <label>CNPJ:  </label>
                         <Input
                             placeholder="Filtrar por CNPJ"
@@ -137,12 +158,40 @@ const CustomTable = () => {
                 </Flex>
             </Flex>
 
-
+            {isMobile ? (
+        <VStack gap={4}>
+          {paginatedData.map((user) => (
+            <Box
+              key={user.id}
+              bg="green.100"
+              p={4}
+              borderRadius="lg"
+              boxShadow="sm"
+              w="full"
+            >
+              <Text><b>ID:</b> {user.id}</Text>
+              <Text><b>Nome:</b> {user.nome}</Text>
+              <Text><b>Razão Social:</b> {user.rs}</Text>
+              <Text><b>Telefone:</b> {user.telefone}</Text>
+              <Text><b>CNPJ:</b> {user.cnpj}</Text>
+              <HStack mt={4}>
+                <ButtonPage color="red" p="2" variant="outline">
+                  <AiOutlineStop />
+                </ButtonPage>
+                <ButtonPage color="blue" p="2" variant="outline">
+                  <FiAlertTriangle />
+                </ButtonPage>
+              </HStack>
+            </Box>
+          ))}
+        </VStack>
+      ) : (
             <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black"  >
                 <Table.Header py="8">
                     <Table.Row bg="green.600" >
                         <Table.ColumnHeader color="white">Id</Table.ColumnHeader>
                         <Table.ColumnHeader color="white">Nome</Table.ColumnHeader>
+                        <Table.ColumnHeader color="white">Razão Social</Table.ColumnHeader>
                         <Table.ColumnHeader color="white">Telefone</Table.ColumnHeader>
                         <Table.ColumnHeader color="white">CNPJ</Table.ColumnHeader>
                     </Table.Row>
@@ -165,6 +214,7 @@ const CustomTable = () => {
                                     {user.nome}
                                 </ButtonPage>
                             </Table.Cell>
+                            <Table.Cell>{user.rs}</Table.Cell>
                             <Table.Cell>{user.telefone}</Table.Cell>
                             <Table.Cell>
                                 <HStack align="center">
@@ -175,7 +225,7 @@ const CustomTable = () => {
                                         </ButtonPage>
 
 
-                                        <ButtonPage color="blue" p="2" variant="outline"  colorPalette="gray" >
+                                        <ButtonPage color="blue" p="2" variant="outline" colorPalette="gray" >
                                             <FiAlertTriangle />
                                         </ButtonPage>
                                     </HStack>
@@ -185,7 +235,7 @@ const CustomTable = () => {
                     ))}
                 </Table.Body>
             </Table.Root>
-
+        )}
             <PaginationRoot
 
                 pb="6"

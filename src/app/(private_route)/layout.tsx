@@ -1,19 +1,32 @@
 import PrivateHeader from "@/components/layout/privateHeader";
 import PrivateMenu from "@/components/privateMenu";
 import { Flex } from "@chakra-ui/react";
-import { ChakraProvider } from '@chakra-ui/react'
-import * as React from 'react'
-import ReactDOM from "react-dom/client";
+import * as React from "react";
 
-
-export default function PrivateLayout({children}: {children: React.ReactNode}) {
+export default function PrivateLayout({ children }: { children: React.ReactNode }) {
     return (
-        <Flex flexDir={'column'} w={'100vw'} h={{base: '100%', lg: '100vh'}} bg={'#FFFFFF'}>
+        <Flex 
+            flexDir="column" 
+            w="100%" 
+            h={{base: '100%', lg: '100vh'}}
+            bg="#FFFFFF"
+        >
             <PrivateHeader />
-            <Flex flexDir={{base: 'column', lg: 'row'}} p={{base: 2, lg: 0}} w={'100%'} h={'100%'} overflowY={'auto'}>
-            <PrivateMenu />
-            {children}
+            <Flex 
+                flexDir={{ base: "column", lg: "row" }} 
+                p={{ base: 2, lg: 0 }} 
+                w="100%" 
+                flex="1"
+                overflowY="auto" 
+            >
+                <PrivateMenu />
+                <Flex 
+                    flex="1" 
+                    overflowY="auto" 
+                >
+                    {children}
+                </Flex>
             </Flex>
         </Flex>
-    )
+    );
 }

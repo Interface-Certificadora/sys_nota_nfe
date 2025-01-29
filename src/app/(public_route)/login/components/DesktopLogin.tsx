@@ -1,6 +1,9 @@
 import { ButtonPage } from "@/components/page/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Box, Flex, Text, Input, Image, Link } from "@chakra-ui/react";
+import login from "@/modules/auth/actions/auth-login";
+
+// import AuthActions from "@/modules/auth/actions/auth-actions";
+import { Box, Flex, Text, Input, Image } from "@chakra-ui/react";
 
 export default function LoginPage() {
   return (
@@ -21,7 +24,7 @@ export default function LoginPage() {
       >
         <Box mb={8}>
           <Image
-            src="/NFEB.svg"
+            src="NFEB.svg"
             alt="Logo NFE"
             width="400px"
             height="175px"
@@ -57,7 +60,7 @@ export default function LoginPage() {
           </Text>
         </Box>
 
-
+        <form action={login} method="post">
         <Flex direction="column" w="100%" maxW="360px" gap={4}>
           <Box>
             <Text fontSize="sm" fontWeight="bold" mb={2} pl={2} color={"black"}>
@@ -67,6 +70,7 @@ export default function LoginPage() {
               rounded="xl"
               placeholder="Digite seu email"
               type="email"
+              name="email"
               h={16}
               bg="white"
               borderWidth="3px"
@@ -82,6 +86,7 @@ export default function LoginPage() {
               rounded="xl"
               placeholder="Digite sua senha"
               type="password"
+              name="password"
               h={16}
               bg="white"
               borderWidth="3px"
@@ -103,6 +108,7 @@ export default function LoginPage() {
             colorScheme="blue"
             size="lg"
             rounded="xl"
+            type="submit"
             w="255px"
             h="50px"
             textAlign="center"
@@ -112,6 +118,7 @@ export default function LoginPage() {
             Entrar
           </ButtonPage>
         </Box>
+        </form>
 
       </Flex>
     </Flex>
