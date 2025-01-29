@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
-export default async function CreateClient(_ : any,form: FormData) {
+
+// import AuthService from "../services/auth-service"
+
+export default async function createClient(_ : any,form: FormData) {
     const cnpj = form.get('cnpj') as string
     const inscestadual = Number(form.get('inscestadual')) as number
     const razaosocial = form.get('razaosocial') as string
@@ -65,4 +68,6 @@ export default async function CreateClient(_ : any,form: FormData) {
         usersenha,
         url
     }
+    console.log("🚀 ~ createAccount ~ data:", data)
+
 }
