@@ -8,7 +8,6 @@ export default function MobileLogin(){
 
 
     return (
-        <form action={AuthActions.login}>
             <Flex
                 direction="column"
                 align="center"
@@ -31,22 +30,6 @@ export default function MobileLogin(){
 
         <form action={login}>
         <Flex direction="column" w="100%" maxW="360px" gap={4}>
-            <Box>
-                <Text fontSize="sm" fontWeight="bold" mb={2} pl={2} color={"black"}>
-                    Email:
-                </Text>
-                <Input
-                    rounded="xl"
-                    placeholder="Digite seu email"
-                    type="email"
-                    name="email"
-                    h={12}
-                    bg="white"
-                    borderWidth="2px"
-                />
-            </Box>
-
-
                 <Flex direction="column" w="100%" maxW="360px" gap={4}>
                     <Box>
                         <Text fontSize="sm" fontWeight="bold" mb={2} pl={2} color={"black"}>
@@ -87,7 +70,7 @@ export default function MobileLogin(){
                     </Flex>
                 </Flex>
 
-                <Box m={32}>
+                <Box m={32} display={'flex'} justifyContent={'center'}>
                     <ButtonPage
                         colorScheme="blue"
                         size="lg"
@@ -105,6 +88,7 @@ export default function MobileLogin(){
 
             </Flex >
         </form>
+            </Flex> 
     )
 
 }
