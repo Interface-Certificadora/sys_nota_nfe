@@ -1,14 +1,9 @@
-import { Box, Heading } from "@chakra-ui/react";
+import {  } from "@chakra-ui/react";
 
 
 export default function Admin() {
   return (
     <>
-    <Box>
-      <Heading>
-        
-      </Heading>
-    </Box>
     </>
   )
 }

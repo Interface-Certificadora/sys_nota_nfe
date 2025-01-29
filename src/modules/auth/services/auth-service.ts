@@ -1,4 +1,5 @@
 import * as jose from "jose";
+import { redirect } from "next/dist/server/api-utils";
 import { cookies } from "next/headers";
 
 async function openSessionToken(token: string) {
@@ -11,9 +12,10 @@ async function openSessionToken(token: string) {
 async function createSessionToken(payload = {}) {
   const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
   const session = await new jose.SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("4h")
-    .sign(secret);
+  .setProtectedHeader({ alg: "HS256" })
+  .setExpirationTime("4h")
+  .sign(secret);
+  console.log("🚀 ~ createSessionToken ~ session:", session)
   const { exp } = await openSessionToken(session);
 
   cookies().set('session', session, {
@@ -21,6 +23,7 @@ async function createSessionToken(payload = {}) {
     path: '/',
     httpOnly: true,
   });
+
 }
 
 async function isSessionValid() {

@@ -1,6 +1,8 @@
 import { ButtonPage } from "@/components/page/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import AuthActions from "@/modules/auth/actions/auth-actions";
+import login from "@/modules/auth/actions/auth-login";
+
+// import AuthActions from "@/modules/auth/actions/auth-actions";
 import { Box, Flex, Text, Input, Image } from "@chakra-ui/react";
 
 export default function LoginPage() {
@@ -58,7 +60,7 @@ export default function LoginPage() {
           </Text>
         </Box>
 
-        <form action={AuthActions.login}>
+        <form action={login} method="post">
         <Flex direction="column" w="100%" maxW="360px" gap={4}>
           <Box>
             <Text fontSize="sm" fontWeight="bold" mb={2} pl={2} color={"black"}>

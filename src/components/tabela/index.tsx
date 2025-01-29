@@ -303,7 +303,6 @@ const CustomTable = () => {
                     </PaginationNextTrigger>
                 </HStack>
             </PaginationRoot>
-    )
         </Stack>
     );
 };
