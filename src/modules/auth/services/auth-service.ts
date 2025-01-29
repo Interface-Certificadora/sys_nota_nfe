@@ -1,4 +1,5 @@
 import * as jose from "jose";
+import { JWTPayload } from "jose";
 import { cookies } from "next/headers";
 
 async function openSessionToken(token: string) {
@@ -13,10 +14,15 @@ async function sessionUser(){
   if(!cookie){
     return { error: true, message: "Nenhuma sessão encontrada", data: null }
   }
-  
   const { value } = cookie
 
-  return await openSessionToken(value)
+  const userSession : JWTPayload = await openSessionToken(value)
+  
+  return {
+    error: false,
+    message: "",
+    data: userSession
+  } 
 }
 
 async function createSessionToken(payload = {}) {
