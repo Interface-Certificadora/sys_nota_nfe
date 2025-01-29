@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     HStack,
     Stack,
@@ -16,53 +16,56 @@ import {
     VStack,
     Text,
     useBreakpointValue,
-
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineStop } from "react-icons/ai";
-
-
-const items = [
-    { id: 1, nome: "João Silva", rs: "Shanchez e Sianos", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
-    { id: 2, nome: "Maria Oliveira", rs: "Tech Solutions Ltda.", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
-    { id: 3, nome: "Pedro Santos", rs: "Santos Comércio ME", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
-    { id: 4, nome: "Ana Paula", rs: "Paula e Filhos Ltda.", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
-    { id: 5, nome: "Lucas Lima", rs: "Lima Transportes", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
-    { id: 6, nome: "Carla Mendes", rs: "Mendes Serviços EIRELI", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
-    { id: 7, nome: "João Silva", rs: "Silva Construções", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
-    { id: 8, nome: "Maria Oliveira", rs: "Oliveira Corp", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
-    { id: 9, nome: "Pedro Santos", rs: "Santos e Cia Ltda.", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
-    { id: 10, nome: "Ana Paula", rs: "Ana Paula Consultoria", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
-    { id: 11, nome: "Lucas Lima", rs: "Lima Design Studio", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
-    { id: 12, nome: "Carla Mendes", rs: "Mendes Arquitetura", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
-    { id: 13, nome: "João Silva", rs: "João Serviços Gerais", telefone: "(11) 99999-1111", cnpj: "12345678000111" },
-    { id: 14, nome: "Maria Oliveira", rs: "Oliveira Tech", telefone: "(21) 98888-2222", cnpj: "98765432000199" },
-    { id: 15, nome: "Pedro Santos", rs: "Santos Soluções TI", telefone: "(31) 97777-3333", cnpj: "45612378000233" },
-    { id: 16, nome: "Ana Paula", rs: "Paula Indústrias", telefone: "(41) 96666-4444", cnpj: "78945612000344" },
-    { id: 17, nome: "Lucas Lima", rs: "Lima Comércio Varejo", telefone: "(51) 95555-5555", cnpj: "15975348000455" },
-    { id: 18, nome: "Carla Mendes", rs: "Mendes Consultoria", telefone: "(61) 94444-6666", cnpj: "75315926000566" },
-];
+import AuthService from "@/modules/auth/services/auth-service";
 
 const CustomTable = () => {
 
+    const [items, setItems] = useState<any[]>([]);
+    const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
 
-    const [filteredData, setFilteredData] = useState(items);
 
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 25;
 
-    const totalPages = Math.ceil(filteredData.length / pageSize);
+    const fetchData = async () => {
+        try {
+            
+            const response = await fetch(`/api/cliente/getall`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+            }
 
-    const paginatedData = filteredData.slice(
-        (currentPage - 1) * pageSize,
-        currentPage * pageSize
-    );
+            const data = await response.json();
+            console.log(data)
+            
+            const transformedData = data.map((item: any) => ({
+                id: item.id,
+                nome: item.cliente,
+                rs: item.razaoSocial,
+                telefone: item.telefone,
+                cnpj: item.cnpj,
+            }));
 
-    const handleFilterChange = (field: string, value: string) => {
-        setFilters((prev) => ({ ...prev, [field]: value }));
+            setItems(transformedData);
+            setFilteredData(transformedData);
+        } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+        }
     };
+
+    useEffect(() => {
+        fetchData(); 
+    }, []);
 
 
     const applyFilters = () => {
@@ -80,11 +83,23 @@ const CustomTable = () => {
     };
 
 
-    const isMobile = useBreakpointValue({ base: true, md: false });
+    const totalPages = Math.ceil(filteredData.length / pageSize);
+    const paginatedData = filteredData.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+    );
 
+
+    const handleFilterChange = (field: string, value: string) => {
+        setFilters((prev) => ({ ...prev, [field]: value }));
+    };
+
+
+    const isMobile = useBreakpointValue({ base: true, md: false });
 
     return (
         <Stack width="full" gap="4" h="full" color="white">
+
             <Flex
                 bg="green.600"
                 p={4}
@@ -93,7 +108,6 @@ const CustomTable = () => {
                 gap={4}
                 boxShadow="md"
             >
-
                 <Flex wrap="wrap" gap={4} justify="space-around">
                     <Box>
                         <label>ID:  </label>
@@ -158,6 +172,7 @@ const CustomTable = () => {
                 </Flex>
             </Flex>
 
+
             {isMobile ? (
                 <VStack>
                     {paginatedData.map((user) => (
@@ -169,8 +184,8 @@ const CustomTable = () => {
                             boxShadow="sm"
                             w="full"
                             color="black"
-                            _hover={{ bg: "green.100", cursor: "pointer" }} // Adiciona efeito de hover
-                            onClick={() => console.log(`Card clicado: ${user.nome}`)} // Evento de clique
+                            _hover={{ bg: "green.100", cursor: "pointer" }}
+                            onClick={() => console.log(`Card clicado: ${user.nome}`)}
                         >
                             <ButtonPage w="full" h="full" textAlign="left" variant="plain">
                                 <Text>
@@ -193,9 +208,9 @@ const CustomTable = () => {
                     ))}
                 </VStack>
             ) : (
-                <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black"  >
+                <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black">
                     <Table.Header py="8">
-                        <Table.Row bg="green.600" >
+                        <Table.Row bg="green.600">
                             <Table.ColumnHeader color="white">Id</Table.ColumnHeader>
                             <Table.ColumnHeader color="white">Nome</Table.ColumnHeader>
                             <Table.ColumnHeader color="white">Razão Social</Table.ColumnHeader>
@@ -230,8 +245,6 @@ const CustomTable = () => {
                                             <ButtonPage color="red" p="2" variant="outline" colorPalette="blue" >
                                                 <AiOutlineStop />
                                             </ButtonPage>
-
-
                                             <ButtonPage color="blue" p="2" variant="outline" colorPalette="gray" >
                                                 <FiAlertTriangle />
                                             </ButtonPage>
@@ -243,8 +256,9 @@ const CustomTable = () => {
                     </Table.Body>
                 </Table.Root>
             )}
-            <PaginationRoot
 
+
+            <PaginationRoot
                 pb="6"
                 count={filteredData.length}
                 pageSize={pageSize}
@@ -254,8 +268,7 @@ const CustomTable = () => {
                     setCurrentPage(page);
                 }}
             >
-                <HStack wrap="wrap" justify="end" mt={4} >
-
+                <HStack wrap="wrap" justify="end" mt={4}>
                     <PaginationPrevTrigger
                         onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                         _hover={{ bg: "green.600", color: "white" }}
@@ -268,7 +281,6 @@ const CustomTable = () => {
                     >
                         Anterior
                     </PaginationPrevTrigger>
-
 
                     {Array.from({ length: totalPages }, (_, index) => (
                         <PaginationItem
