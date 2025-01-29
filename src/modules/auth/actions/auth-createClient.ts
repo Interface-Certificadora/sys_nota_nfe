@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 
-import { data } from "framer-motion/client"
-import { headers } from "next/headers"
+// import AuthService from "../services/auth-service"
 
-export default async function CreateClient(_ : any,form: FormData) {
+export default async function createClient(_ : any,form: FormData) {
     const cnpj = form.get('cnpj') as string
     const inscestadual = Number(form.get('inscestadual')) as number
     const razaosocial = form.get('razaosocial') as string
@@ -69,12 +68,6 @@ export default async function CreateClient(_ : any,form: FormData) {
         usersenha,
         url
     }
-}
+    console.log("🚀 ~ createAccount ~ data:", data)
 
-const response = await fetch("http://192.168.0.3:3036/cliente", {
-    method: "POST",
-    headers:{
-        "content-type": "application.json"
-    },
-    body: JSON.stringify(data),
-});
+}

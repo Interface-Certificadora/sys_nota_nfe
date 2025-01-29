@@ -1,5 +1,4 @@
 "use client";
-import CreateClient from "@/actions/client/create";
 import { CardForm } from "@/components/form";
 import UploadFile from "@/components/form/uploadFile";
 import UploadLogo from "@/components/form/uploadLogo";
@@ -10,6 +9,7 @@ import { toaster } from "@/components/ui/toaster"
 
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import createClient from "@/modules/auth/actions/auth-createClient";
 
 export default function AddClient() {
   const [razaosocial, setRazaoSocial] = useState("");
@@ -56,7 +56,7 @@ export default function AddClient() {
         m={{ base: "0", lg: "2" }}
         p={4}
       >
-        <CardForm.Form action={CreateClient}>
+        <CardForm.Form action={createClient}>
           <Flex w={"full"} flexDir={"column"} flexWrap={"wrap"} gap={3}>
             <Flex
               flexDir={{ base: "column", lg: "row" }}
