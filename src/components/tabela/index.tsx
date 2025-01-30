@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -16,15 +17,16 @@ import {
     VStack,
     Text,
     useBreakpointValue,
+    Link,
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineStop } from "react-icons/ai";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 
 const CustomTable = () => {
-    const router = useRouter();
+    // const router = useRouter();
     const [items, setItems] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
@@ -228,14 +230,15 @@ const CustomTable = () => {
                             >
                                 <Table.Cell>{user.id}</Table.Cell>
                                 <Table.Cell>
-                                    <ButtonPage
+                                    <Link color="black" _hover={{ color: "green.400" }} href={`/cliente/${user.id}`}>{user.nome}</Link>
+                                    {/* <ButtonPage
                                         variant="plain"
                                         color="black"
                                         _hover={{ color: "green.200" }}
                                         onClick={() => router.push(`/cliente/${user.id}`)}
                                     >
                                         {user.nome}
-                                    </ButtonPage>
+                                    </ButtonPage> */}
                                 </Table.Cell>
                                 <Table.Cell>{user.rs}</Table.Cell>
                                 <Table.Cell>{user.telefone}</Table.Cell>
