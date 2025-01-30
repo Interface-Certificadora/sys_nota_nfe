@@ -8,7 +8,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
         <Flex 
             flexDir="column" 
             w="100%" 
-            h={{base: 'full', lg: '100vh'}}
+            h={{base: '100vh', lg: '100vh'}}
             bg="#FFFFFF"
         >
             <PrivateHeader />
@@ -17,12 +17,13 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
                 p={{ base: 2, lg: 0 }} 
                 w="100%" 
                 flex="1"
-                overflowY="auto" 
+                bg={'#FFFFFF'}
             >
                 <PrivateMenu />
                 <Flex 
                     flex="1" 
-                    overflowY="auto" 
+                    w={'full'}
+                    overflowY="auto"
                 >
                     {children}
                 </Flex>

@@ -8,11 +8,10 @@ export interface UserSession {
     exp: number
 }
 
-
-export interface UserTable{
+export interface UserList {
     id: number;
-    cliente: string;
-    cnpj: string;
-    token: JWTPayload;
-    exp: number
-}
+    name: string;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+    status: boolean

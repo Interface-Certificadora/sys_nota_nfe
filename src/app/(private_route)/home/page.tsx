@@ -5,14 +5,15 @@ export default function Home() {
     <>
     <Flex
             w={"full"}
-            h={{ base: "100vh", lg: "full" }}
+            h={{ base: "full", lg: "full" }}
             justifyContent={'center'}
             p={2}
-            gap={2}>
+            gap={2}
+            >
 
                           <Image
-                          h={{base: '65%', lg:'100%'}}
-                          w={'100%'}
+                          h={{base: '65%', lg:'50%'}}
+                          w={{base:'100%', lg:'40%'}}
                             src="/NFEB.svg"
                             alt="Logo"
                             objectFit="cover"
