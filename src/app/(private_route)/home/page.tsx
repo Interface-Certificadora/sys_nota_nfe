@@ -1,3 +1,4 @@
+import CardHome from "@/components/cards/card_home";
 import { Flex, Image } from "@chakra-ui/react";
 
 export default function Home() {
@@ -6,10 +7,12 @@ export default function Home() {
     <Flex
             w={"full"}
             h={{ base: "full", lg: "full" }}
-            justifyContent={'center'}
+            flexDir={'column'}
+            alignItems={'center'}
             p={2}
             gap={2}
             >
+              <CardHome />
 
                           <Image
                           h={{base: '65%', lg:'50%'}}
