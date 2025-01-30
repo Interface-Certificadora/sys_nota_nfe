@@ -7,7 +7,7 @@ const usuario = () => {
     return (
 
         <Box w={"full"} h={"fit-content"} p={4}>
-            <CustomTable></CustomTable>
+            <CustomTable/>
         </Box>
     );
 };
