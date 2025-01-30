@@ -18,17 +18,23 @@ export default function ClientePage({ params }: Props) {
         razaoSocial: "",
         fantasia: "",
         cliente: "",
-        whatsapp: false,
+        whatsapp: true,
         telefone: "",
         telefone2: "",
-        whatsapp2: false,
+        whatsapp2: true,
         email: "",
         user: "",
         password: "",
         cep: "",
+        endereco: "",
+        bairro: "",
+        numero: "",
+        complemento: "",
+        cidade: "",
+        uf: "",
         serieultimanota: "",
         numeroultimanota: "",
-        comissao: false,
+        comissao: true,
         plano: "",
         valorcomissao: "",
         situacao: "",
@@ -40,12 +46,12 @@ export default function ClientePage({ params }: Props) {
         vencicertificado: "",
         situacaotributaria: "",
         justificativa: "",
-        simples: false,
-        status: false,
+        simples: true,
+        status: true,
         dominio: "",
         fechamento: "",
         teste: "",
-        sefaz: false
+        sefaz: true
     });
 
     const [loading, setLoading] = useState(true);
@@ -89,20 +95,25 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString name="inscestadual" color="black" label="Inscrição Estadual" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.ie} onChange={handleChange} required />
                     <CardForm.InputString name="razaosocial" color="black" label="Razão Social" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.razaoSocial} onChange={handleChange} required />
                     <CardForm.InputString name="telefone" color="black" label="Telefone" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone} onChange={handleChange} required />
-                    <CardForm.InputString name="whatsapp" color="black" label="WhatsApp" checked={formData.whatsapp} onChange={handleChange} />
+                    <CardForm.InputString name="whatsapp" color="black" label="WhatsApp" value={formData.telefone} onChange={handleChange} />
                     <CardForm.InputString name="telefone2" color="black" label="Telefone Secundário" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone2} onChange={handleChange} />
-                    <CardForm.InputString name="whatsapp2" color="black" label="WhatsApp Secundário" checked={formData.whatsapp2} onChange={handleChange} />
+
+                    <CardForm.InputString name="CEP" color="black" label="CEP" value={formData.cep} onChange={handleChange} />
+                    <CardForm.InputString name="cidade" color="black" label="cidade" value={formData.cidade} onChange={handleChange} />
+                    <CardForm.InputString name="bairro" color="black" label="bairro" value={formData.bairro} onChange={handleChange} />
+                    <CardForm.InputString name="endereco" color="black" label="endereco" value={formData.endereco} onChange={handleChange} />
+                    <CardForm.InputString name="numero" color="black" label="numero" value={formData.numero} onChange={handleChange} />
+                    <CardForm.InputString name="Complemento" color="black" label="Complemento" value={formData.complemento} onChange={handleChange} />
+
                     <CardForm.InputString name="email" color="black" label="E-mail" w={{ base: "100%", lg: "400px" }} type="email" fontWeight="semibold" value={formData.email} onChange={handleChange} required />
-                    <CardForm.InputString name="user" color="black" label="Usuário" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.user} onChange={handleChange} required />
-                    <CardForm.InputString name="password" color="black" label="Senha" w={{ base: "100%", lg: "200px" }} fontWeight="semibold" value={formData.password} onChange={handleChange} required />
                     <CardForm.InputString name="plano" color="black" label="Plano" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.plano} onChange={handleChange} required />
-                    <CardForm.InputString name="simples" color="black" label="Simples Nacional" checked={formData.simples} onChange={handleChange} />
                     <CardForm.InputString name="status" color="black" label="Status" checked={formData.status} onChange={handleChange} />
                     <CardForm.InputString name="dominio" color="black" label="Domínio" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.dominio} onChange={handleChange} required />
+                    <CardForm.InputString name="valorcomissao" color="black" label="valor da comissao" value={formData.valorcomissao} onChange={handleChange} />
                     <CardForm.InputString name="contador" color="black" label="Contador" w={{ base: "100%", lg: "250px" }} type="text" fontWeight="semibold" value={formData.contador} onChange={handleChange} />
                     <CardForm.InputString name="tel_contador" color="black" label="Telefone Contador" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.tel_contador} onChange={handleChange} />
-                    <CardForm.InputString name="whatsapp_cont" color="black" label="WhatsApp Contador" checked={formData.whatsapp_cont} onChange={handleChange} />
-                    <CardForm.InputNumber name="fechamento" color="black" label="Fechamento" w={{ base: "100%", lg: "100px" }} fontWeight="semibold" value={formData.fechamento} onChange={handleChange} required />
+                    <CardForm.InputString name="whatsapp_cont" color="black" label="WhatsApp Contador" value={formData.tel_contador} onChange={handleChange} />
+                    <CardForm.InputNumber name="fechamento" color="black" label="Data de Fechamento" fontWeight="semibold" value={formData.fechamento} onChange={handleChange} required />
                     <CardForm.InputNumber name="teste" color="black" label="Teste" w={{ base: "100%", lg: "100px" }} fontWeight="semibold" value={formData.teste} onChange={handleChange} required />
                     <CardForm.InputString name="comissao" color="black" label="Comissão" checked={formData.comissao} onChange={handleChange} />
                     <CardForm.InputString name="sefaz" color="black" label="SEFAZ" checked={formData.sefaz} onChange={handleChange} />
