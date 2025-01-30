@@ -36,16 +36,16 @@ export default function BtnPrivateMenu() {
             <Link href="/home"><TiHome />Home</Link>
           </MenuItem>
         <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/addclient"><FaUserPlus />Cadastrar Cliente</Link>
+            <Link href="/cliente/cadastrar"><FaUserPlus />Cadastrar Cliente</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/usuario"><FaUsers />Lista Clientes</Link>
+            <Link href="/cliente"><FaUsers />Lista Clientes</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/adduser"><MdAdminPanelSettings />Criar Usuario</Link>
+            <Link href="/usuarios/cadastrar"><MdAdminPanelSettings />Criar Usuario</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/listusers"><FaUsersCog />Lista Usuarios</Link>
+            <Link href="/usuarios"><FaUsersCog />Lista Usuarios</Link>
           </MenuItem>
         </MenuContent>
       </MenuRoot>
