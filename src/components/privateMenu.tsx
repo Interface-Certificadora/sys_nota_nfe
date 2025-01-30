@@ -69,7 +69,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/addclient"}>
+          <Link w={"100%"} href={"/cliente/cadastrar"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -93,7 +93,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/usuario"}>
+          <Link w={"100%"} href={"/cliente"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -105,7 +105,7 @@ export default function PrivateMenu() {
                 bg={"transparent"}
                 outline={"none"}
                 color={"white"}
-                aria-label="Cadastrar Clientes"
+                aria-label="Listar Clientes"
               >
                 <FaUsers />
               </IconButton>
@@ -117,7 +117,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/adduser"}>
+          <Link w={"100%"} href={"/usuarios/cadastrar"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -129,7 +129,7 @@ export default function PrivateMenu() {
                 bg={"transparent"}
                 outline={"none"}
                 color={"white"}
-                aria-label="Cadastrar Clientes"
+                aria-label="Cadastrar Usuarios"
               >
                 <MdAdminPanelSettings />
               </IconButton>
@@ -141,7 +141,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/listusers"}>
+          <Link w={"100%"} href={"/usuarios"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -153,7 +153,7 @@ export default function PrivateMenu() {
                 bg={"transparent"}
                 outline={"none"}
                 color={"white"}
-                aria-label="Cadastrar Clientes"
+                aria-label="Listar Usuarios"
               >
                 <FaUsersCog />
               </IconButton>
