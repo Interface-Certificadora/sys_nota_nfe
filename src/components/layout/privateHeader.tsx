@@ -24,7 +24,6 @@ export default function PrivateHeader() {
             src="/img/Logo_NOTA_NFE_02.svg"
             alt="Logo"
             objectFit="cover"
-            cursor={"pointer"}
               />
         </Link>
         <BtnPrivateMenu />

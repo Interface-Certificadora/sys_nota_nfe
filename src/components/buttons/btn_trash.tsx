@@ -21,8 +21,8 @@ export default function BtnTrash({id}: BtnTrashProps) {
   const ref = useRef<HTMLButtonElement>(null)
 
   const handleDeleteUser = async () => {
-    
-    const req = await fetch(`/api/deleteuser/${id}`, {
+
+    const req = await fetch(`/api/user/deleteuser/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

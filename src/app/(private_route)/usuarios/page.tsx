@@ -10,10 +10,9 @@ import { MdOutlinePassword } from "react-icons/md";
 
 export default function ListUsers() {
     const [users, setUsers] = useState([] as UserList[]);
-    console.log("🚀 ~ ListUsers ~ users:", users)
 
     const fetchUsers = async () => {
-        const req = await fetch(`/api/listusers/`)
+        const req = await fetch(`/api/user/listusers/`)
 
         if(!req.ok){
             toaster.create({
@@ -26,6 +25,16 @@ export default function ListUsers() {
         }
         const res = await req.json()
         setUsers(res.data)
+    }
+
+    const handleResetPassword = async (id: number) => {
+      const req = await fetch(`/api/user/resetpassword/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        console.log("🚀 ~ handleResetPassword ~ req:", req)
     }
 
     useEffect(() => {
@@ -48,7 +57,6 @@ export default function ListUsers() {
         justifyContent={{base: "normal", lg:"center"}}
         gap={{ base: 2, lg: 5 }}
       >
-        
         {users.map((user) => (
             <Flex
             border={"2px solid #00713C"}
@@ -102,7 +110,7 @@ export default function ListUsers() {
               <Flex w={"100%"} gap={2}  justifyContent={"flex-end"} px={2}>
                   <BtnTrash id={user.id}/>
                 <Tooltip content="Resetar password">
-                  <Button w={'10%'} colorPalette={"green"}>
+                  <Button w={'10%'} onClick={() => handleResetPassword(user.id)} colorPalette={"green"}>
                     <MdOutlinePassword color={"#FFFFFF"} />
                   </Button>
                 </Tooltip>
@@ -112,7 +120,6 @@ export default function ListUsers() {
     ))}
     </Flex>
     </Flex>
-        
     </>
   );
 }
