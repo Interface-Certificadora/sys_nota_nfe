@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body  className={`${roboto.variable}`}>
+      <body  className={`${roboto.variable}`} >
       <ProvidersChakra>
       <Toaster />
         {children}
