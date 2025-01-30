@@ -13,5 +13,5 @@ export const CardForm = {
     InputNumber: InputNumber,
     InputDate: InputDate,
     InputSelect: InputSelect,
-    InputCep: InputCep
+    InputCep: InputCep,
 }
