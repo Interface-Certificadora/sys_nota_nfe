@@ -15,4 +15,3 @@ export interface UserList {
     createdAt: string;
     updatedAt: string;
     status: boolean
-}

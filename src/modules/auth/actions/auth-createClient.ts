@@ -6,7 +6,7 @@ import AuthService from "../services/auth-service"
 
 export default async function createClient(_: any, form: FormData) {
     const cnpj = form.get('cnpj') as string
-    const inscestadual = Number(form.get('inscestadual')) as number
+    const ie = String(form.get('inscestadual')) as string
     const razaosocial = form.get('razaosocial') as string
     const fantasia = form.get('fantasia') as string
     const logo = form.get('logo') as string
@@ -31,57 +31,58 @@ export default async function createClient(_: any, form: FormData) {
     const contador = form.get('contador') as string
     const whatsappcontador = form.get('whatsappcontador') as string
     const vencicertificado = form.get('vencicertificado') as string
-
+    const plano = form.get('plano') as string
 
     const situacaotributaria = form.get('situacaotributaria') as string
     const justificativa = form.get('justificativa') as string
-    const usersenha = `${cnpj} / 1234` as string
+    const user = cnpj as string
+    const senha = "1234" as string
     const url = `www.${cnpj}.notanfe.com.br` as string
 
     const data = {
-        cnpj,
-        inscestadual,
-        razaosocial,
-        fantasia,
-        logo,
-        cliente,
-        whatsapp,
-        telefone,
-        email,
-        cep,
-        cidade,
-        uf,
-        bairro,
-        rua,
-        numero,
-        complemento,
-        serieultimanota,
-        numeroultimanota,
-        comissao,
-        valorcomissao,
-        situacao,
-        valor,
-        observacao,
-        contador,
-        whatsappcontador,
-        vencicertificado,
-        situacaotributaria,
-        justificativa,
-        usersenha,
-        url
+        cliente: cliente,
+        fantasia: fantasia,
+        cnpj: cnpj,
+        ie: ie,
+        razaoSocial: razaosocial,
+        telefone: telefone,
+        email: email,
+        valor: valor,
+        plano: plano,
+        user: user,
+        password: senha,
+        dominio:url,
+        contador: contador,
+        tel_contador: whatsappcontador,
+        situacao: situacaotributaria,
+        
+
     }
     const sessionData = await AuthService.sessionUser();
+    const session = sessionData.data;
+
+    if (!session) {
+        return {
+            error: true,
+            message: "nao possui sessao",
+            data: null
+        }
+    }
+
+
+    console.log(data)
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cliente`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${sessionToken.token}`
+                "Authorization": `Bearer ${session.token}`,
             },
-            body: JSON.stringify(AuthService.sessionUser),
+            
+            body: JSON.stringify(data),
+           
         });
-        const res = await response.json();
-        console.log(res);
+
 
     } catch (error: any) {
         return { success: false, error: error.message || "ta errado isso ai" };
