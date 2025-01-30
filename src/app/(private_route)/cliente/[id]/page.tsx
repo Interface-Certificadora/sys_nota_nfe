@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import { Box, Button, Flex, Input, Text, Spinner } from "@chakra-ui/react";
 
-export default function ClientePage() {
-    const { id } = useParams();  
+type Props = {
+    params: { id: string };
+  };
+export default function ClientePage({ params }: Props) {
+    const { id } = params;  
+    console.log("🚀 ~ ClientePage ~ id:", id)
     const [formData, setFormData] = useState({
         cnpj: "",
         inscestadual: "",
@@ -32,22 +35,25 @@ export default function ClientePage() {
     });
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!id) return;
-            try {
-                const response = await fetch(`/api/cliente/${id}`);
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar dados do cliente");
-                }
-                const data = await response.json();
-                setFormData(data);
-                setLoading(false);
-            } catch (error) {
-                console.error("Erro ao carregar dados:", error);
-                setLoading(false);
+    const fetchData = async () => {
+        if (!id) return;
+        try {
+            console.log("🚀 ~ fetchData ~ id:", id)
+            const response = await fetch(`/api/cliente/getone/${id}`);
+            if (!response.ok) {
+                throw new Error("Erro ao buscar dados do cliente");
             }
-        };
+            const data = await response.json();
+            setFormData(data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Erro ao carregar dados:", error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+       
         fetchData();
     }, [id]);
 
