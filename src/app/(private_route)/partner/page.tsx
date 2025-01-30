@@ -7,7 +7,6 @@ export default function Partner() {
             <Box >
 
             </Box>
-            
         </Box>
         </>
     )
