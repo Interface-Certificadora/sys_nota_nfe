@@ -70,7 +70,6 @@ export default async function createClient(_: any, form: FormData) {
     }
 
 
-    console.log(data)
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cliente`, {
             method: "POST",

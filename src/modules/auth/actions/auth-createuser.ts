@@ -54,7 +54,6 @@ export default async function createUser(_: any, form: FormData) {
         }
 
         const res: NextApiResponse = await req.json();
-        console.log(res);
 
         return {
             error: false,
