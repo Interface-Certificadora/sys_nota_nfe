@@ -20,10 +20,11 @@ import {
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineStop } from "react-icons/ai";
-import AuthService from "@/modules/auth/services/auth-service";
+import { useRouter } from "next/navigation";
+
 
 const CustomTable = () => {
-
+    const router = useRouter();
     const [items, setItems] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
@@ -34,7 +35,7 @@ const CustomTable = () => {
 
     const fetchData = async () => {
         try {
-            
+
             const response = await fetch(`/api/cliente/getall`, {
                 method: "GET",
                 headers: {
@@ -46,8 +47,7 @@ const CustomTable = () => {
             }
 
             const data = await response.json();
-            console.log(data)
-            
+
             const transformedData = data.map((item: any) => ({
                 id: item.id,
                 nome: item.cliente,
@@ -64,7 +64,7 @@ const CustomTable = () => {
     };
 
     useEffect(() => {
-        fetchData(); 
+        fetchData();
     }, []);
 
 
@@ -232,6 +232,7 @@ const CustomTable = () => {
                                         variant="plain"
                                         color="black"
                                         _hover={{ color: "green.200" }}
+                                        onClick={() => router.push(`/cliente/${user.id}`)}
                                     >
                                         {user.nome}
                                     </ButtonPage>
