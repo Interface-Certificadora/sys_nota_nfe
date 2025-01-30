@@ -41,12 +41,12 @@ export default async function createUser(_ : any, form : FormData) {
         },
         body: JSON.stringify(data)
     })
-
+    
     if(!req.ok){
         return {error: true, message: req.statusText, data: null}
     }
-
     const res : NextApiResponse = await req.json()
+
 
     return{
         error: false,

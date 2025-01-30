@@ -1,4 +1,3 @@
-
 import { Button, Group } from "@chakra-ui/react"
 import {
   PopoverArrow,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/popover"
 import { useRef } from "react"
 import { FaRegTrashAlt } from "react-icons/fa"
+import { toaster } from "../ui/toaster"
 
 interface BtnTrashProps {
     id: number
@@ -19,6 +19,35 @@ interface BtnTrashProps {
 
 export default function BtnTrash({id}: BtnTrashProps) {
   const ref = useRef<HTMLButtonElement>(null)
+
+  const handleDeleteUser = async () => {
+    
+    const req = await fetch(`/api/deleteuser/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    const res = await req.json()
+    if(!req.ok){
+        toaster.create({
+            title: "Erro",
+            description: res.message,
+            type: "error",
+            duration: 3000,
+        })
+    }else{
+        toaster.create({
+            title: "Sucesso",
+            description: res.message,
+            type: "success",
+            duration: 3000,
+        })
+        setTimeout(() => {
+            window.location.reload()
+        }, 2000)
+    }
+  }
   return (
     <PopoverRoot initialFocusEl={() => ref.current}>
       <PopoverTrigger asChild>
@@ -34,7 +63,7 @@ export default function BtnTrash({id}: BtnTrashProps) {
         </PopoverBody>
         <PopoverFooter justifyContent={'center'}> 
           <Group>
-            <Button colorPalette={'red'} size="sm">Confirmar</Button>
+            <Button colorPalette={'red'} onClick={handleDeleteUser} size="sm">Confirmar</Button>
           </Group>
         </PopoverFooter>
         <PopoverCloseTrigger  color={'red'} _hover={{bg: 'transparent'}}/>

@@ -57,7 +57,7 @@ export default function ListUsers() {
             alignItems={"center"}
             flexDir={"column"}
             w={{ base: "100%", lg: "19%" }}
-            h={"25%"}
+            h={"fit-content"}
             pb={3}
             key={user.id}
           >
@@ -78,7 +78,7 @@ export default function ListUsers() {
             <Flex
               w={"98%"}
               flexDir={"column"}
-              pt={10}
+              pt={2}
               gap={2}
             >
               <Box display={"flex"} gap={1} flexDir={"row"}>
