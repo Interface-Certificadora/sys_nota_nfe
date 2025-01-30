@@ -3,7 +3,7 @@ import { CardForm } from "@/components/form";
 import UploadFile from "@/components/form/uploadFile";
 import UploadLogo from "@/components/form/uploadLogo";
 import { AtivoDesativadoOptions } from "@/data/selectAtivoDesativado";
-import { ComissaoOptions } from "@/data/selectComisao";
+import { ComissaoOptions, planoOptions } from "@/data/selectComisao";
 import { SituacaoTributariaOptions } from "@/data/selectSituacaoTributaria";
 import { toaster } from "@/components/ui/toaster"
 
@@ -201,6 +201,14 @@ export default function AddClient() {
                 name="comissao"
                 obrigatorio
               />
+               <CardForm.InputSelect
+                label="Plano"
+                w="200px"
+                options={planoOptions}
+                placeholder=""
+                name="plano"
+                obrigatorio
+              />
               <CardForm.InputNumber
                 label="R$ Comissão"
                 w={"75px"}
@@ -247,9 +255,10 @@ export default function AddClient() {
                 name="contador"
                 color={"black"}
                 placeholder="Contabilidade"
+                obrigatorio
               />
               <CardForm.InputNumber
-                label="WhatsApp"
+                label="WhatsApp Contador"
                 w={"150px"}
                 name="whatsappcontador"
                 color={"black"}
