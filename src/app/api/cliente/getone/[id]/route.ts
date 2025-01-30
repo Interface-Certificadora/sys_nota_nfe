@@ -1,9 +1,14 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+    request: Request,
+    { params }: { params: { id: string } }
+) {
+
     try {
         const { id } = params;
+        console.log("🚀 ~ GET ~ id:", id)
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
 
@@ -35,8 +40,10 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         }
 
         const data = await response.json();
+        console.log("🚀 ~ data:", data)
         return NextResponse.json(data, { status: 200 });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return NextResponse.json(
             { error: true, message: "Erro interno ao buscar usuário.", data: null },
