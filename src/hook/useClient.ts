@@ -1,4 +1,4 @@
-import { ClientContext } from "@/context/ClientContext";
+import { ClientContext } from "@/context/LoadingContext";
 import { useContext } from "react";
 
 export default function useClientContext(){
