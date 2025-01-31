@@ -7,7 +7,8 @@ import ContatoSup from '@/components/cards/contato_sup';
 
 const MotionFlex = motion(Flex);
 
-    const testeVideos = [{ 
+    const testeVideos = [
+      { 
         "src" :  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" ,
         "title" : "Big Buck Bunny"
       },
