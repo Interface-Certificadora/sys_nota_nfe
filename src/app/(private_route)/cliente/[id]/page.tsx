@@ -8,7 +8,7 @@ type Props = {
   };
 export default function ClientePage({ params }: Props) {
     const { id } = params;  
-    console.log("🚀 ~ ClientePage ~ id:", id)
+
     const [formData, setFormData] = useState({
         cnpj: "",
         inscestadual: "",
