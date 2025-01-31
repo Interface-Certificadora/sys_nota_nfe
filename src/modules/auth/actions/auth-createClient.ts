@@ -19,7 +19,7 @@ export default async function createClient(_: any, form: FormData) {
     const uf = form.get('uf') as string
     const bairro = form.get('bairro') as string
     const rua = form.get('rua') as string
-    const numero = Number(form.get('numero')) as number
+    const numero = form.get('numero') as string
     const complemento = form.get('complemento') as string
     const serieultimanota = form.get('serieultimanota') as string
     const numeroultimanota = form.get('numeroultimanota') as string
@@ -53,7 +53,7 @@ export default async function createClient(_: any, form: FormData) {
         uf: uf,
         cidade: cidade,
         cep: cep,
-        whatsapp: whatsapp,
+        telefone2: whatsapp,
         logo: logo,
         cliente: cliente,
         fantasia: fantasia,
@@ -69,12 +69,13 @@ export default async function createClient(_: any, form: FormData) {
         dominio:url,
         contador: contador,
         tel_contador: whatsappcontador,
-        situacao: situacaotributaria,
-        
+        situacao: situacaotributaria,    
 
     }
+    console.log("🚀 ~ file: auth-createClient.ts:66 ~ createClient ~ data:", data)
     const sessionData = await AuthService.sessionUser();
     const session = sessionData.data;
+    console.log("🚀 ~ createClient ~ session:", session)
 
     if (!session) {
         return {
@@ -98,8 +99,13 @@ export default async function createClient(_: any, form: FormData) {
         });
 
 
+        const responseData = await response.json();
+        console.log("🚀 ~ createClient ~ responseData:", responseData)
+
+
 
     } catch (error: any) {
+        console.error("Erro ao criar o cliente:", error);
         return { success: false, error: error.message || "ta errado isso ai" };
     }
 }
