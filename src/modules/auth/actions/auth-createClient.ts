@@ -32,7 +32,6 @@ export default async function createClient(_: any, form: FormData) {
     const whatsappcontador = form.get('whatsappcontador') as string
     const vencicertificado = form.get('vencicertificado') as string
     const plano = form.get('plano') as string
-
     const situacaotributaria = form.get('situacaotributaria') as string
     const justificativa = form.get('justificativa') as string
     const user = cnpj as string
@@ -40,6 +39,22 @@ export default async function createClient(_: any, form: FormData) {
     const url = `www.${cnpj}.notanfe.com.br` as string
 
     const data = {
+        justificativa:justificativa,
+        vencicertificado: vencicertificado,
+        observacao: observacao,
+        valorcomissao: valorcomissao,
+        comissao: comissao,
+        numeroultimanota: numeroultimanota,
+        complemento: complemento,
+        serieultimanota: serieultimanota,
+        numero: numero,
+        rua: rua,
+        bairro:bairro,
+        uf: uf,
+        cidade: cidade,
+        cep: cep,
+        whatsapp: whatsapp,
+        logo: logo,
         cliente: cliente,
         fantasia: fantasia,
         cnpj: cnpj,
@@ -79,8 +94,11 @@ export default async function createClient(_: any, form: FormData) {
             },
             
             body: JSON.stringify(data),
-           
+            
         });
+        const res = await response.json();
+        console.log("🚀 ~ createClient ~ res:", res)
+
 
 
     } catch (error: any) {
