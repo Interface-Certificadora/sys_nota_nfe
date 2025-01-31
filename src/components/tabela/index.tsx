@@ -18,6 +18,8 @@ import {
     Text,
     useBreakpointValue,
     Link,
+    LinkBox,
+    LinkOverlay,
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
@@ -208,47 +210,40 @@ const CustomTable = () => {
                     ))}
                 </VStack>
             ) : (
-                <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black">
-                    <Table.Header py="8">
-                        <Table.Row bg="green.600">
-                            <Table.ColumnHeader color="white">Id</Table.ColumnHeader>
-                            <Table.ColumnHeader color="white">Nome</Table.ColumnHeader>
-                            <Table.ColumnHeader color="white">Razão Social</Table.ColumnHeader>
-                            <Table.ColumnHeader color="white">Telefone</Table.ColumnHeader>
-                            <Table.ColumnHeader color="white">CNPJ</Table.ColumnHeader>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {paginatedData.map((user) => (
-                            <Table.Row
-                                key={`${user.id}-${Math.random()}`}
-                                _hover={{ bg: "green.100" }}
-                                fontWeight="bold"
-                                color="black"
-                            >
-                                <Table.Cell>{user.id}</Table.Cell>
-                                <Table.Cell>
-                                    <Link color="black" _hover={{ color: "green.400" }} href={`/cliente/${user.id}`}>{user.nome}</Link>
-                                </Table.Cell>
-                                <Table.Cell>{user.rs}</Table.Cell>
-                                <Table.Cell>{user.telefone}</Table.Cell>
-                                <Table.Cell>
-                                    <HStack align="center">
-                                        <Box>{user.cnpj}</Box>
-                                        <HStack ml={12}>
-                                            <ButtonPage color="red" p="2" variant="outline" colorPalette="blue" >
-                                                <AiOutlineStop />
-                                            </ButtonPage>
-                                            <ButtonPage color="blue" p="2" variant="outline" colorPalette="gray" >
-                                                <FiAlertTriangle />
-                                            </ButtonPage>
-                                        </HStack>
-                                    </HStack>
-                                </Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table.Root>
+    
+
+            <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black">
+                <Table.Header py={4}>
+                    <Table.Row bg="green.600">
+                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="50px" textAlign="center">Id</Table.ColumnHeader>
+                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="150px" textAlign="center">Nome</Table.ColumnHeader>
+                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="200px" textAlign="center">Razão Social</Table.ColumnHeader>
+                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="150px" textAlign="center">Telefone</Table.ColumnHeader>
+                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="180px" textAlign="center">CNPJ</Table.ColumnHeader>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {paginatedData.map((user) => (
+                        <LinkBox as={Table.Row}
+                            key={user.id}
+                            _hover={{ bg: "green.100" }}
+                            fontWeight="bold"
+                            color="black"
+                        >
+                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
+                                <LinkOverlay href={`/cliente/${user.id}`}>{user.id}</LinkOverlay>
+                            </Table.Cell>
+                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
+                                {user.nome}
+                            </Table.Cell>
+                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">{user.rs}</Table.Cell>
+                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">{user.telefone}</Table.Cell>
+                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">{user.cnpj}</Table.Cell>
+                        </LinkBox>
+                    ))}
+                </Table.Body>
+            </Table.Root>
+
             )}
 
 
