@@ -34,17 +34,34 @@ export default function AddClient() {
     }
     const res = await req.json();
     const data = res.data;
-    setRazaoSocial(data.razao_social || "");
-    setInscEstadual(
-      data.estabelecimento.inscricoes_estaduais[0].inscricao_estadual || ""
-    );
-    setEmail(data.estabelecimento.email || "");
-    const telefone =
-      `${data.estabelecimento.ddd1}${data.estabelecimento.telefone1}` || "";
-    setTelefone(telefone);
-  };
+    if(!data.razao_social){
+      setRazaoSocial('')
+    }else{
+      setRazaoSocial(data.razao_social);
+    }
 
+    if(!data.estabelecimento.inscricoes_estaduais[0]){
+      setInscEstadual('')
+    }else{
+      setInscEstadual(
+        data.estabelecimento.inscricoes_estaduais[0].inscricao_estadual || ""
+      );
+    }
 
+    if(!data.estabelecimento.email){
+      setEmail('')
+    }else{
+      setEmail(data.estabelecimento.email || "");
+    }
+
+    if(!data.estabelecimento.ddd1 || !data.estabelecimento.telefone1){
+      setTelefone('')
+    }else{
+      const telefone =
+        `${data.estabelecimento.ddd1}${data.estabelecimento.telefone1}` || "";
+      setTelefone(telefone);
+    }
+  }
 
   return (
       <Flex

@@ -22,11 +22,9 @@ import {
 import { ButtonPage } from "../page/button";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineStop } from "react-icons/ai";
-// import { useRouter } from "next/navigation";
 
 
 const CustomTable = () => {
-    // const router = useRouter();
     const [items, setItems] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
@@ -231,14 +229,6 @@ const CustomTable = () => {
                                 <Table.Cell>{user.id}</Table.Cell>
                                 <Table.Cell>
                                     <Link color="black" _hover={{ color: "green.400" }} href={`/cliente/${user.id}`}>{user.nome}</Link>
-                                    {/* <ButtonPage
-                                        variant="plain"
-                                        color="black"
-                                        _hover={{ color: "green.200" }}
-                                        onClick={() => router.push(`/cliente/${user.id}`)}
-                                    >
-                                        {user.nome}
-                                    </ButtonPage> */}
                                 </Table.Cell>
                                 <Table.Cell>{user.rs}</Table.Cell>
                                 <Table.Cell>{user.telefone}</Table.Cell>
