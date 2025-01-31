@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex, Text, Image, Input } from "@chakra-ui/react";
 import { ButtonPage } from "@/components/page/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,6 +8,8 @@ import { useRememberMe } from "@/hook/useRememberMe";
 import { toaster } from "@/components/ui/toaster";
 import { useRouter } from "next/navigation";
 export default function MobileLogin() {
+      const [loading, setLoading] = useState<boolean>(false);
+    
   const {
     email,
     setEmail,
@@ -21,6 +23,7 @@ export default function MobileLogin() {
   const router = useRouter();
 
   const handleLogin = async (formData: FormData) => {
+    setLoading(true);
     const success = await login(formData);
 
     if (success.error === true) {
@@ -129,6 +132,7 @@ export default function MobileLogin() {
               rounded="xl"
               w="255px"
               h="50px"
+              loading={loading}
               textAlign="center"
               bg="#00713C"
               color={"white"}
