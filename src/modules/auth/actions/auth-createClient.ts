@@ -79,8 +79,10 @@ export default async function createClient(_: any, form: FormData) {
             },
             
             body: JSON.stringify(data),
-           
+            
         });
+        const res = await response.json();
+        console.log("🚀 ~ createClient ~ res:", res)
 
 
     } catch (error: any) {

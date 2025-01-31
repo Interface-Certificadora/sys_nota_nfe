@@ -1,27 +1,15 @@
-import CardHome from "@/components/cards/card_home";
-import { Flex, Image } from "@chakra-ui/react";
+import Home from "@/components/page/home";
+import AuthService from "@/modules/auth/services/auth-service";
+import { ApiResponse } from "@/types/apiResponse.type";
+import { JWTPayload } from "jose";
 
-export default function Home() {
+export default async function Page() {
+  
+    const session : ApiResponse<JWTPayload> = await AuthService.sessionUser();
+    
   return (
     <>
-    <Flex
-            w={"full"}
-            h={{ base: "full", lg: "full" }}
-            flexDir={'column'}
-            alignItems={'center'}
-            p={2}
-            gap={2}
-            >
-              <CardHome />
-
-                          <Image
-                          h={{base: '65%', lg:'50%'}}
-                          w={{base:'100%', lg:'40%'}}
-                            src="/NFEB.svg"
-                            alt="Logo"
-                            objectFit="cover"
-                              />
-    </Flex>
+      <Home card={session.data} />
     </>
   );
 }
