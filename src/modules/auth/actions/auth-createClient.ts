@@ -11,7 +11,7 @@ export default async function createClient(_: any, form: FormData) {
     const fantasia = form.get('fantasia') as string
     const logo = form.get('logo') as string
     const cliente = form.get('cliente') as string
-    const whatsapp = form.get('whatsapp') as string
+    const whatsapp = form.get('whatsapp') 
     const telefone = form.get('telefone') as string
     const email = form.get('email') as string
     const cep = form.get('cep') as string
@@ -69,8 +69,7 @@ export default async function createClient(_: any, form: FormData) {
         dominio:url,
         contador: contador,
         tel_contador: whatsappcontador,
-        situacao: situacaotributaria,    
-
+        situacao: situacaotributaria,
     }
     console.log("🚀 ~ file: auth-createClient.ts:66 ~ createClient ~ data:", data)
     const sessionData = await AuthService.sessionUser();
