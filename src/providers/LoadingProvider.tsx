@@ -7,7 +7,7 @@ interface ClientProps {
     children: React.ReactNode
 }
 
-export default function  ClientProvider({children}: ClientProps){
+export default function  LoadingProvider({children}: ClientProps){
     const [loading, setLoading] = useState<boolean>(false)
 
     return (

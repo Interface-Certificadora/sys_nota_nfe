@@ -3,12 +3,10 @@
 import BtnSubmit from "@/components/buttons/btn_submit";
 import { CardForm } from "@/components/form";
 import createUser from "@/modules/auth/actions/auth-createuser";
-import ClientProvider from "@/providers/ClientProvider";
-import { Box,  Flex, Spacer, Text } from "@chakra-ui/react";
+import LoadingProvider from "@/providers/LoadingProvider";
+import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
 
 export default function AddUser() {
-  
-
   return (
     <Flex
       w="100%"
@@ -39,72 +37,71 @@ export default function AddUser() {
           mt={4}
           rounded="md"
         >
-          <ClientProvider>
-          <CardForm.Form action={createUser}>
-            <Flex
-              flexDir={{ base: "column", lg: "column" }}
-              flexWrap={{ base: "nowrap", lg: "wrap" }}
-              gap={{ base: 2, lg: 4 }}
-            >
-              <Box
-                display={"flex"}
-                flexDir={{ base: "column", lg: "row" }}
-                gap={2}
+          <LoadingProvider>
+            <CardForm.Form action={createUser}>
+              <Flex
+                flexDir={{ base: "column", lg: "column" }}
+                flexWrap={{ base: "nowrap", lg: "wrap" }}
+                gap={{ base: 2, lg: 4 }}
               >
-                <CardForm.InputString
-                  name="nome"
-                  color={'black'}
-                  label="Nome Completo"
-                  w={{ base: "100%", lg: "400px" }}
-                  type="text"
-                  placeholder="Insira seu Nome e Sobrenome"
-                  obrigatorio
+                <Box
+                  display={"flex"}
+                  flexDir={{ base: "column", lg: "row" }}
+                  gap={2}
+                >
+                  <CardForm.InputString
+                    name="nome"
+                    color={"black"}
+                    label="Nome Completo"
+                    w={{ base: "100%", lg: "400px" }}
+                    type="text"
+                    placeholder="Insira seu Nome e Sobrenome"
+                    obrigatorio
+                  />
+                  <CardForm.InputString
+                    name="email"
+                    label="Email"
+                    color={"black"}
+                    w={{ base: "100%", lg: "400px" }}
+                    type="email"
+                    placeholder="Insira seu Email"
+                    obrigatorio
+                  />
+                </Box>
+                <Box
+                  display={"flex"}
+                  flexDir={{ base: "column", lg: "row" }}
+                  gap={2}
+                >
+                  <CardForm.InputString
+                    name="password"
+                    label="Senha"
+                    color={"black"}
+                    w={{ base: "100%", lg: "400px" }}
+                    type="password"
+                    placeholder="Insira a senha"
+                    obrigatorio
+                  />
+                  <CardForm.InputString
+                    name="confirmpassword"
+                    color={"black"}
+                    label="Confirme a Senha"
+                    w={{ base: "100%", lg: "400px" }}
+                    type="password"
+                    placeholder="Confirme sua senha"
+                    obrigatorio
+                  />
+                </Box>
+                <Spacer />
+                <BtnSubmit
+                  type="submit"
+                  colorPalette={"green"}
+                  w={{ base: "40%", lg: "15%" }}
+                  label="Salvar"
                 />
-                <CardForm.InputString
-                  name="email"
-                  label="Email"
-                  color={'black'}
-                  w={{ base: "100%", lg: "400px" }}
-                  type="email"
-                  placeholder="Insira seu Email"
-                  obrigatorio
-                />
-              </Box>
-              <Box
-                display={"flex"}
-                flexDir={{ base: "column", lg: "row" }}
-                gap={2}
-              >
-                <CardForm.InputString
-                  name="password"
-                  label="Senha"
-                  color={'black'}
-                  w={{ base: "100%", lg: "400px" }}
-                  type="password"
-                  placeholder="Insira a senha"
-                  obrigatorio
-                />
-                <CardForm.InputString
-                  name="confirmpassword"
-                  color={'black'}
-                  label="Confirme a Senha"
-                  w={{ base: "100%", lg: "400px" }}
-                  type="password"
-                  placeholder="Confirme sua senha"
-                  obrigatorio
-                />
-              </Box>
-              <Spacer />
-              <BtnSubmit />
-              {/* <Button
-              type="submit"
-              colorPalette={'green'}
-              w={{ base: "40%", lg: "15%" }}>
-                Salvar
-              </Button> */}
-            </Flex>
-          </CardForm.Form>
-          </ClientProvider>
+              </Flex>
+            </CardForm.Form>
+          </LoadingProvider>
         </Flex>
       </Flex>
     </Flex>

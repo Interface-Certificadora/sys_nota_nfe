@@ -7,8 +7,10 @@ import { useRememberMe } from "@/hook/useRememberMe";
 import login from "@/modules/auth/actions/auth-login";
 import { Box, Flex, Text, Input, Image } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     email,
     setEmail,
@@ -18,11 +20,11 @@ export default function LoginPage() {
     setRememberMe,
     saveCredentials,
   } = useRememberMe();
-    console.log("🚀 ~ LoginPage ~ rememberMe:", rememberMe)
 
   const router = useRouter();
 
   const handleLogin = async (formData: FormData) => {
+    setLoading(true);
     const success = await login(formData);
 
     if (success.error === true) {
@@ -135,6 +137,7 @@ export default function LoginPage() {
               type="submit"
               w="255px"
               h="50px"
+              loading={loading}
               textAlign="center"
               bg="#00713C"
               color="white"
