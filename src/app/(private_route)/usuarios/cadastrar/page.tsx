@@ -1,10 +1,14 @@
 "use client";
 
+import BtnSubmit from "@/components/buttons/btn_submit";
 import { CardForm } from "@/components/form";
 import createUser from "@/modules/auth/actions/auth-createuser";
-import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
+import ClientProvider from "@/providers/ClientProvider";
+import { Box,  Flex, Spacer, Text } from "@chakra-ui/react";
 
 export default function AddUser() {
+  
+
   return (
     <Flex
       w="100%"
@@ -35,6 +39,7 @@ export default function AddUser() {
           mt={4}
           rounded="md"
         >
+          <ClientProvider>
           <CardForm.Form action={createUser}>
             <Flex
               flexDir={{ base: "column", lg: "column" }}
@@ -90,14 +95,16 @@ export default function AddUser() {
                 />
               </Box>
               <Spacer />
-              <Button
+              <BtnSubmit />
+              {/* <Button
               type="submit"
               colorPalette={'green'}
               w={{ base: "40%", lg: "15%" }}>
                 Salvar
-              </Button>
+              </Button> */}
             </Flex>
           </CardForm.Form>
+          </ClientProvider>
         </Flex>
       </Flex>
     </Flex>

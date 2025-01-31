@@ -1,6 +1,6 @@
 'use client'
 
-import { ClientContext } from "@/context/ClientContext"
+import { LoadingContext } from "@/context/LoadingContext"
 import { useState } from "react"
 
 interface ClientProps {
@@ -8,16 +8,16 @@ interface ClientProps {
 }
 
 export default function  ClientProvider({children}: ClientProps){
-    const [logo, setLogo] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
 
     return (
-        <ClientContext.Provider
+        <LoadingContext.Provider
         value={{
-            logo,
-            setLogo
+            loading,
+            setLoading
         }}
         >
             {children}
-        </ClientContext.Provider>
+        </LoadingContext.Provider>
     )
 }
