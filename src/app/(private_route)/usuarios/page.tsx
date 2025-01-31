@@ -64,7 +64,7 @@ export default function ListUsers() {
             justifyContent={"center"}
             alignItems={"center"}
             flexDir={"column"}
-            w={{ base: "100%", lg: "19%" }}
+            w={{ base: "100%", lg: "24%" }}
             h={"fit-content"}
             pb={3}
             key={user.id}
