@@ -7,7 +7,7 @@ import { ComissaoOptions, planoOptions } from "@/data/selectComisao";
 import { SituacaoTributariaOptions } from "@/data/selectSituacaoTributaria";
 import { toaster } from "@/components/ui/toaster"
 
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import createClient from "@/modules/auth/actions/auth-createClient";
 
@@ -64,6 +64,7 @@ export default function AddClient() {
   }
 
   return (
+    
       <Flex
         border={"2px" + " solid" + "#00713C"}
         shadow={"md"}
@@ -75,6 +76,10 @@ export default function AddClient() {
         m={{ base: "0", lg: "2" }}
         p={4}
       >
+        <Flex
+          w={"full"}> <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>Cadastrar Cliente</Text>
+          </Flex>
+          <Spacer />
         <CardForm.Form action={createClient}>
           <Flex w={"full"} flexDir={"column"} flexWrap={"wrap"} gap={3}>
             <Flex
