@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { toaster } from "@/components/ui/toaster";
-import { useRouter } from "next/navigation";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { LoadingContext } from "@/context/LoadingContext";
+import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 
 type HTMLFormProps = React.DetailedHTMLProps<
@@ -19,9 +19,14 @@ type FormProps = PropsWithChildren<
 export function FormComponent(props: FormProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
-  const route = useRouter();
+  const {setLoading} = useContext(LoadingContext)
 
   const [state, formAction] = useFormState(props.action, { error: null });
+  console.log("🚀 ~ FormComponent ~ state:", state)
+
+  const handleSubmit = () => {
+    setLoading(true)
+  };
 
   useEffect(() => {
     if (state?.error) {
@@ -43,7 +48,10 @@ export function FormComponent(props: FormProps) {
         type: "success",
         duration: 3000,
       });
-     route.refresh();
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000)
+      setLoading(false)
       setIsSuccess(false); // Reset state after showing toast
     }
     if (isError) {
@@ -61,9 +69,10 @@ export function FormComponent(props: FormProps) {
         type: "error",
         duration: 3000,
       });
+      setLoading(false)
       setIsError(false); // Reset state after showing toast
     }
-  }, [isSuccess, isError, route, state?.message]);
+  }, [isSuccess, isError, setLoading ,state?.message]);
 
-  return <form {...props} action={formAction} />;
+  return <form {...props} action={formAction} onSubmit={handleSubmit} />;
 }
