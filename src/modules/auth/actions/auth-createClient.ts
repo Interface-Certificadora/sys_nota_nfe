@@ -11,7 +11,7 @@ export default async function createClient(_: any, form: FormData) {
     const fantasia = form.get('fantasia') as string
     const logo = form.get('logo') as string
     const cliente = form.get('cliente') as string
-    const whatsapp = form.get('whatsapp') as string
+    const whatsapp = form.get('whatsapp') 
     const telefone = form.get('telefone') as string
     const email = form.get('email') as string
     const cep = form.get('cep') as string
@@ -19,7 +19,7 @@ export default async function createClient(_: any, form: FormData) {
     const uf = form.get('uf') as string
     const bairro = form.get('bairro') as string
     const rua = form.get('rua') as string
-    const numero = Number(form.get('numero')) as number
+    const numero = form.get('numero') as string
     const complemento = form.get('complemento') as string
     const serieultimanota = form.get('serieultimanota') as string
     const numeroultimanota = form.get('numeroultimanota') as string
@@ -70,8 +70,6 @@ export default async function createClient(_: any, form: FormData) {
         contador: contador,
         tel_contador: whatsappcontador,
         situacao: situacaotributaria,
-        
-
     }
     const sessionData = await AuthService.sessionUser();
     const session = sessionData.data;

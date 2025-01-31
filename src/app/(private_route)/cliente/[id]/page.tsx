@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text, Toast } from "@chakra-ui/react";
 import { CardForm } from "@/components/form";
-
+import AuthService from "@/modules/auth/services/auth-service";
+import { deleteCliente } from "@/modules/auth/actions/auth-deleteClient";
+import { toaster } from "@/components/ui/toaster"
+import { describe } from "node:test";
+import { MdDescription } from "react-icons/md";
 type Props = {
     params: { id: string };
 };
 
 export default function ClientePage({ params }: Props) {
-    const { id } = params;  
 
-
+    const [deleting, setdelete] = useState(false)
+    const [loading, setLoading] = useState(true);
+    const [saving, setsaving] = useState(false);
+    const { id } = params;
     const [formData, setFormData] = useState({
         cnpj: "",
         ie: "",
@@ -54,27 +60,25 @@ export default function ClientePage({ params }: Props) {
         sefaz: true
     });
 
-    const [loading, setLoading] = useState(true);
+    const fetchData = async () => {
+        try {
+
+            const response = await fetch(`/api/cliente/getone/${id}`);
+            if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
+
+            const data = await response.json();
+            setFormData(data);
+        } catch (error) {
+            console.error("Erro ao carregar dados:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        if (!id) return;
-        const fetchData = async () => {
-            try {
-                console.log("🚀 ~ fetchData ~ id:", id);
-                const response = await fetch(`/api/cliente/getone/${id}`);
-                if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
-
-                const data = await response.json();
-                setFormData(data);
-            } catch (error) {
-                console.error("Erro ao carregar dados:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchData();
-    }, [id]);
+    }, []);
+
 
     const handleChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -84,8 +88,52 @@ export default function ClientePage({ params }: Props) {
         }));
     };
 
+    const handleDelete = async () => {
+        if (!confirm("deseja realmente excluir esse cliente da lista de ativos?")) return;
+
+        setdelete(true);
+
+        const response = await deleteCliente(id);
+
+        if (!response) {
+            toaster.create({
+                title: "erro",
+                description: "o cliente não foi excluido corretamente",
+                type: "error"
+            })
+        } else
+            toaster.create({
+                title: "sucesso",
+                description: response.message,
+                type: "success"
+            })
+        setdelete(false);
+    }
+    const handlePatch = async () => {
+
+
+        setsaving(true);
+        const response = await patchCliente(id);
+
+        if (!response) {
+            toaster.create({
+                title: "Erro",
+                description: response?.message,
+                type: "error",
+            });
+        } else {
+            toaster.create({
+                title: "Sucesso",
+                description: response.message,
+                type: "success",
+            });
+        }
+
+        setsaving(false);
+    };
+
     return (
-        <Box w="full" h="full" p={4}>
+        <Box w="full" h="full" p={4} bg="gray.50">
             <Text fontSize="2xl" color="black" fontWeight="bold">Detalhes do Cliente</Text>
             <Flex direction="column" gap={4} mt={4}>
                 <Flex wrap="wrap" gap={3}>
@@ -118,10 +166,15 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString name="comissao" color="black" label="Comissão" checked={formData.comissao} onChange={handleChange} />
                     <CardForm.InputString name="sefaz" color="black" label="SEFAZ" checked={formData.sefaz} onChange={handleChange} />
                 </Flex>
-                <Flex w="full" justify="start">
-                    <Button bg="#00713C" color="white" _hover={{ background: "green.100" }} w="150px">Salvar</Button>
+                <Flex w="full" gap={5} justify="start">
+                    <Button type="submit" bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
+                    <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
                 </Flex>
             </Flex>
         </Box>
     );
 }
+function patchCliente(id: string) {
+    throw new Error("Function not implemented.");
+}
+
