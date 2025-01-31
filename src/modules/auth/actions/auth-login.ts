@@ -1,6 +1,5 @@
 'use server'
 
-import { redirect } from "next/navigation"
 import AuthService from "../services/auth-service"
 
 
@@ -25,7 +24,7 @@ export default async function login(formData : FormData) {
     const token = res.token
 
     if(!id || !name || !email|| !token){
-        console.log("Erro ao logar")
+        return { error: true, message: "Usuario ou senha incorretos.", data: null };
     }
 
     const dataUser = {
@@ -36,7 +35,6 @@ export default async function login(formData : FormData) {
     }
 
     await AuthService.createSessionToken(dataUser)
-
-    redirect('/home')
     
+    return { error: false, message: "", data: dataUser };    
 }
