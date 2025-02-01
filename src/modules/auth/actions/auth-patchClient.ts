@@ -4,7 +4,7 @@
 
 import AuthService from "../services/auth-service"
 
-export default async function createClient(_: any, form: FormData) {
+export default async function patchClient(_: any, form: FormData) {
     const cnpj = form.get('cnpj') as string
     const ie = String(form.get('inscestadual')) as string
     const razaosocial = form.get('razaosocial') as string
@@ -87,7 +87,7 @@ export default async function createClient(_: any, form: FormData) {
 
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cliente`, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,

@@ -143,17 +143,17 @@ export default function AddClient() {
                 obrigatorio
               />
               <CardForm.InputNumber
-                label="WhatsApp"
+                label="Telefone"
                 w={"150px"}
-                name="whatsapp"
+                name="telefone"
                 color={"black"}
                 placeholder="16993672156"
                 obrigatorio
               />
               <CardForm.InputNumber
-                label="Telefone"
+                label="Telefone2"
                 w={"150px"}
-                name="telefone"
+                name="telefone2"
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
                 color={"black"}

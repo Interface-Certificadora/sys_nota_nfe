@@ -1,18 +1,21 @@
-import AuthService from "@/modules/auth/services/auth-service";
-import {  NextResponse } from "next/server";
 
-export async function GET(
+import AuthService from "@/modules/auth/services/auth-service";
+import { NextResponse } from "next/server";
+
+
+export async function PATCH(
+
     request: Request,
     { params }: { params: { id: string } }
 ) {
-
     try {
+        const body = await request.json();
+        
         const { id } = params;
-     
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
 
-        if (!session || !session.token) {
+        if (!session) {
             console.error("Usuário não autenticado. Token ausente.");
             return NextResponse.json(
                 { error: true, message: "Usuário não autenticado." },
@@ -20,33 +23,23 @@ export async function GET(
             );
         }
 
-        if (!id) {
-            return NextResponse.json(
-                { error: true, message: "ID do usuário não fornecido." },
-                { status: 400 }
-            );
-        }
-
+        console.log(body);
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cliente/${id}`, {
-            method: "GET",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,
             },
+            body: JSON.stringify(body),
         });
-
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar dados do cliente: ${response.statusText}`);
-        }
-
         const data = await response.json();
-
+        console.log(data);
         return NextResponse.json(data, { status: 200 });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) { 
         return NextResponse.json(
-            { error: true, message: "Erro interno ao buscar usuário.", data: null },
+            { error: true, message: error, data: null },
             { status: 500 }
         );
     }
