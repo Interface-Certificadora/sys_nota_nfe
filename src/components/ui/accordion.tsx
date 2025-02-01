@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import { Accordion, HStack } from "@chakra-ui/react"
 import * as React from "react"
 import { LuChevronDown } from "react-icons/lu"
