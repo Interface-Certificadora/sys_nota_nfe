@@ -1,41 +1,113 @@
-import AuthService from "../services/auth-service";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-export async function patchCliente(id: string) {
-    try {
-        const sessionData = await AuthService.sessionUser();
-        const session = sessionData.data;
-        if (!session) {
-            return {
-                error: true,
-                message: "Sessão não foi encontrada",
-            };
-        }
+'use server'
 
-        const response = await fetch(`/api/cliente/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Authorization": `Bearer ${session.token}`,
-                "Content-Type": "application/json",
-            },
-        });
+import AuthService from "../services/auth-service"
 
-        if (!response.ok) {
-            return {
-                error: true,
-                message: "Não foi possível realizar a atualização",
-            };
-        }
+export default async function patchClient(_: any, form: FormData) {
+    const cnpj = form.get('cnpj') as string
+    const ie = String(form.get('inscestadual')) as string
+    const razaosocial = form.get('razaosocial') as string
+    const fantasia = form.get('fantasia') as string
+    const logo = form.get('logo') as string
+    const cliente = form.get('cliente') as string
+    const whatsapp = form.get('whatsapp') 
+    const telefone = form.get('telefone') as string
+    const email = form.get('email') as string
+    const cep = form.get('cep') as string
+    const cidade = form.get('cidade') as string
+    const uf = form.get('uf') as string
+    const bairro = form.get('bairro') as string
+    const rua = form.get('rua') as string
+    const numero = form.get('numero') as string
+    const complemento = form.get('complemento') as string
+    const serieultimanota = form.get('serieultimanota') as string
+    const numeroultimanota = form.get('numeroultimanota') as string
+    const comissao = Boolean(form.get('comissao')) as boolean
+    const valorcomissao = Number(form.get('valorcomissao')) as number
+    const situacao = Boolean(form.get('situacao')) as boolean
+    const valor = Number(form.get('valor')) as number
+    const observacao = form.get('observacao') as string
+    const contador = form.get('contador') as string
+    const whatsappcontador = form.get('whatsappcontador') as string
+    const vencicertificado = form.get('vencicertificado') as string
+    const plano = form.get('plano') as string
+    const situacaotributaria = form.get('situacaotributaria') as string
+    const justificativa = form.get('justificativa') as string
+    const user = cnpj as string
+    const senha = "1234" as string
+    const url = `www.${cnpj}.notanfe.com.br` as string
 
-        const res = await response.json();
-        return {
-            error: false,
-            message: res.message || "Cliente atualizado com sucesso!",
-        };
-        
-    } catch (error) {
+    const data = {
+        justificativa:justificativa,
+        vencicertificado: vencicertificado,
+        observacao: observacao,
+        valorcomissao: valorcomissao,
+        comissao: comissao,
+        numeroultimanota: numeroultimanota,
+        complemento: complemento,
+        serieultimanota: serieultimanota,
+        numero: numero,
+        rua: rua,
+        bairro:bairro,
+        uf: uf,
+        cidade: cidade,
+        cep: cep,
+        telefone2: whatsapp,
+        logo: logo,
+        cliente: cliente,
+        fantasia: fantasia,
+        cnpj: cnpj,
+        ie: ie,
+        razaoSocial: razaosocial,
+        telefone: telefone,
+        email: email,
+        valor: valor,
+        plano: plano,
+        user: user,
+        password: senha,
+        dominio:url,
+        contador: contador,
+        tel_contador: whatsappcontador,
+        situacao: situacaotributaria,
+    }
+    console.log("🚀 ~ file: auth-createClient.ts:66 ~ createClient ~ data:", data)
+    const sessionData = await AuthService.sessionUser();
+    const session = sessionData.data;
+    console.log("🚀 ~ createClient ~ session:", session)
+
+    if (!session) {
         return {
             error: true,
-            message: "Erro ao conectar com o servidor.",
-        };
+            message: "nao possui sessao",
+            data: null
+        }
+    }
+
+
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cliente`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${session.token}`,
+            },
+            
+            body: JSON.stringify(data),
+            
+        });
+        const res = await response.json();
+        console.log("🚀 ~ createClient ~ res:", res)
+
+
+        const responseData = await response.json();
+        console.log("🚀 ~ createClient ~ responseData:", responseData)
+
+
+
+    } catch (error: any) {
+        console.error("Erro ao criar o cliente:", error);
+        return { success: false, error: error.message || "ta errado isso ai" };
     }
 }
+
