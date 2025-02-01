@@ -35,7 +35,7 @@ export async function patchCliente(id: string) {
     } catch (error) {
         return {
             error: true,
-            message: "Erro ao conectar com o servidor.",
+            message: error,
         };
     }
 }

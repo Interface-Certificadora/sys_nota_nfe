@@ -1,5 +1,5 @@
 "use client";
-import CreateClient from "@/actions/client/create";
+import CreateClient from "@/modules/auth/actions/auth-createClient";
 import { CardForm } from "@/components/form";
 import UploadFile from "@/components/form/uploadFile";
 import UploadLogo from "@/components/form/uploadLogo";

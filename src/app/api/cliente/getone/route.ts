@@ -1,7 +1,7 @@
 import AuthService from "@/modules/auth/services/auth-service";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GETONE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
