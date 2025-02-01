@@ -1,7 +1,7 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const sessionData = await AuthService.sessionUser();
         const session = sessionData.data;
@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,
             },
-            
         });
         
         const data = await response.json();

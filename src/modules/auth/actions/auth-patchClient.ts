@@ -97,17 +97,16 @@ export default async function patchClient(_: any, form: FormData) {
             
         });
         const res = await response.json();
-        console.log("🚀 ~ createClient ~ res:", res)
-
-
-        const responseData = await response.json();
-        console.log("🚀 ~ createClient ~ responseData:", responseData)
-
-
-
-    } catch (error: any) {
-        console.error("Erro ao criar o cliente:", error);
-        return { success: false, error: error.message || "ta errado isso ai" };
+        return {
+            error: false,
+            message: res.message || "Cliente atualizado com sucesso!",
+        };
+        
+    } catch (error) {
+        return {
+            error: true,
+            message: error,
+        };
     }
 }
 
