@@ -7,9 +7,10 @@ export const config = {
 
 const publicPages = [
     '/',
-    '/faq',
-    '/faqvideos',
-    '/login'
+    '/notanfe',
+    '/notanfe/faq',
+    '/notanfe/faqvideos',
+    '/notanfe/login'
 ]
 
 
