@@ -36,7 +36,7 @@ export default function LoginPage() {
       })
     }else{
       saveCredentials(); 
-      router.push('/home')
+      router.push('/notanfe/home')
     }
   };
 

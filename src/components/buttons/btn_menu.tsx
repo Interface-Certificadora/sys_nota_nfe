@@ -28,14 +28,13 @@ export default function BtnMenu() {
         </MenuTrigger>
         <MenuContent bg={"#FFFFFF"}>
           <MenuItem asChild color={"black"} value="suporte" _hover={{ bg: "#33D388", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/faq">Suporte</Link>
+            <Link href="/notanfe/faq">Suporte</Link>
           </MenuItem>
           {/* <MenuItem asChild color={"black"} value="treinamento" _hover={{ bg: "#33D388", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/faqvideos">Videos</Link>
+            <Link href="/notanfe/faqvideos">Videos</Link>
           </MenuItem> */}
         </MenuContent>
       </MenuRoot>
     </Flex>
-    
   );
 }

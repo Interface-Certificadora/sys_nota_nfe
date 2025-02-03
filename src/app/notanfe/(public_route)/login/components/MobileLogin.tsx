@@ -35,7 +35,7 @@ export default function MobileLogin() {
       });
     } else {
       saveCredentials();
-      router.push("/home");
+      router.push("/notanfe/home");
     }
   };
 
