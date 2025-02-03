@@ -29,7 +29,7 @@ export async function middleware(req: NextRequest){
         if(isAPIRoute){
             return NextResponse.json({ message:'Unauthorized' }, { status: 401 })
         }
-        return NextResponse.redirect(new URL('/login', req.url))
+        return NextResponse.redirect(new URL('/notanfe/login', req.url))
     }
 
     return NextResponse.next()

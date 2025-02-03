@@ -3,10 +3,7 @@ import AuthService from "@/modules/auth/services/auth-service";
 import { NextResponse } from "next/server";
 
 
-export async function PATCH(
-
-    request: Request,
-    { params }: { params: { id: string } }
+export async function PATCH (request: Request, { params }: { params: { id: string } }
 ) {
     try {
         const body = await request.json();

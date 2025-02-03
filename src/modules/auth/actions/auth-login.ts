@@ -20,7 +20,7 @@ export default async function login(formData : FormData) {
         body: JSON.stringify(data)
     })
     const res = await req.json()
-    const {id, name, email} = res.user 
+    const {id, name, email} = res.user || {}
     const token = res.token
 
     if(!id || !name || !email|| !token){
