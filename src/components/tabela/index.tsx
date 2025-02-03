@@ -17,13 +17,11 @@ import {
     VStack,
     Text,
     useBreakpointValue,
-    Link,
     LinkBox,
     LinkOverlay,
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
-import { FiAlertTriangle } from "react-icons/fi";
-import { AiOutlineStop } from "react-icons/ai";
+
 
 
 const CustomTable = () => {

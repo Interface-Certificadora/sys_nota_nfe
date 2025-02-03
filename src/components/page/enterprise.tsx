@@ -1,4 +1,4 @@
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Text, Flex, Image } from "@chakra-ui/react";
 
 interface EnterpriseProps {
   imageSrc: string; // Caminho para o SVG
@@ -25,7 +25,7 @@ const Enterprise: React.FC<EnterpriseProps> = ({ imageSrc, altText, label,h,maxW
       </Text>
 
       {/* Renderiza o SVG ou imagem */}
-      <Box
+      <Image
         as="img"
         src={imageSrc}     // Caminho para o SVG
         alt={altText}      // Texto alternativo
