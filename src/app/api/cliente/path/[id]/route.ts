@@ -30,7 +30,6 @@ export async function PATCH (request: Request, { params }: { params: { id: strin
             body: JSON.stringify(body),
         });
         const data = await response.json();
-        console.log(data);
         return NextResponse.json(data, { status: 200 });
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
