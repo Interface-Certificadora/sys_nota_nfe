@@ -1,19 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Button, Flex, Input, Text, Toast } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { CardForm } from "@/components/form";
-import AuthService from "@/modules/auth/services/auth-service";
 import { deleteCliente } from "@/modules/auth/actions/auth-deleteClient";
 import { toaster } from "@/components/ui/toaster"
-import { describe } from "node:test";
-import { MdDescription } from "react-icons/md";
+import { useRouter } from "next/navigation";
+
+
 type Props = {
     params: { id: string };
 };
 
+
 export default function ClientePage({ params }: Props) {
 
+
+    const route = useRouter();
     const [deleting, setdelete] = useState(false)
     const [loading, setLoading] = useState(true);
     const [saving, setsaving] = useState(false);
@@ -59,6 +62,40 @@ export default function ClientePage({ params }: Props) {
         teste: "",
         sefaz: true
     });
+
+
+    const body = {
+
+        cnpj: formData.cnpj.replace(/[^a-zA-Z0-9]/g, ""),
+        ie: formData.ie,
+        razaoSocial: formData.razaoSocial,
+        fantasia: formData.fantasia,
+        cliente: formData.cliente,
+        telefone: formData.telefone.replace(/[^a-zA-Z0-9]/g, ""),
+        telefone2: formData.telefone2.replace(/[^a-zA-Z0-9]/g, ""),
+        email: formData.email,
+        cep: formData.cep,
+        endereco: formData.endereco,
+        bairro: formData.bairro,
+        numero: formData.numero,
+        complemento: formData.complemento,
+        cidade: formData.cidade,
+        uf: formData.uf,
+        serieultimanota: formData.serieultimanota,
+        numeroultimanota: formData.numeroultimanota,
+        plano: formData.plano,
+        valorcomissao: formData.valorcomissao,
+        situacao: formData.situacao,
+        valor: formData.valor,
+        observacao: formData.observacao,
+        contador: formData.contador,
+        tel_contador: formData.tel_contador.replace(/[^a-zA-Z0-9]/g, ""),
+        vencicertificado: formData.vencicertificado,
+        situacaotributaria: formData.situacaotributaria,
+        justificativa: formData.justificativa,
+        dominio: formData.dominio,
+        fechamento: formData.fechamento,
+    }
 
     const fetchData = async () => {
         try {
@@ -110,27 +147,48 @@ export default function ClientePage({ params }: Props) {
         setdelete(false);
     }
     const handlePatch = async () => {
-
-
         setsaving(true);
-        const response = await patchCliente(id);
 
-        if (!response) {
-            toaster.create({
-                title: "Erro",
-                description: response?.message,
-                type: "error",
+        try {
+
+            const response = await fetch(`/api/cliente/path/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
             });
-        } else {
+
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Erro ao atualizar cliente");
+            }
+            const data = await response.json();
+
+
             toaster.create({
                 title: "Sucesso",
-                description: response.message,
+                description: data.message || "Cliente atualizado com sucesso!",
                 type: "success",
             });
-        }
 
-        setsaving(false);
+
+            setTimeout( () => {route.push('') }, 500 );
+            
+
+        } catch (error) {
+            toaster.create({
+                title: "Erro",
+                description: "Falha ao atualizar o cliente",
+                type: "error",
+            });
+
+        } finally {
+            setsaving(false);
+        }
     };
+
 
     return (
         <Box w="full" h="full" p={4} bg="gray.50">
@@ -146,7 +204,7 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString name="whatsapp" color="black" label="WhatsApp" value={formData.telefone} onChange={handleChange} />
                     <CardForm.InputString name="telefone2" color="black" label="Telefone Secundário" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone2} onChange={handleChange} />
 
-                    <CardForm.InputString name="CEP" color="black" label="CEP" value={formData.cep} onChange={handleChange} />
+                    <CardForm.InputString name="cep" color="black" label="CEP" value={formData.cep} onChange={handleChange} />
                     <CardForm.InputString name="cidade" color="black" label="cidade" value={formData.cidade} onChange={handleChange} />
                     <CardForm.InputString name="bairro" color="black" label="bairro" value={formData.bairro} onChange={handleChange} />
                     <CardForm.InputString name="endereco" color="black" label="endereco" value={formData.endereco} onChange={handleChange} />
@@ -167,14 +225,10 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString name="sefaz" color="black" label="SEFAZ" checked={formData.sefaz} onChange={handleChange} />
                 </Flex>
                 <Flex w="full" gap={5} justify="start">
-                    <Button type="submit" bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
+                    <Button type="submit" onClick={handlePatch} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
                     <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
                 </Flex>
             </Flex>
         </Box>
     );
 }
-function patchCliente(id: string) {
-    throw new Error("Function not implemented.");
-}
-
