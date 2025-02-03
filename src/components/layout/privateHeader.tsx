@@ -42,7 +42,7 @@ export default function PrivateHeader() {
         position={"relative"}
       >
         <Flex>
-        <Link href="/home" >
+        <Link href="/notanfe/home" >
           <Image
             w={'150px'}
             h={'40px'}

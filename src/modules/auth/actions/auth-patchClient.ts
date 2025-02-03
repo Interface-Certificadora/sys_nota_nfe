@@ -11,7 +11,7 @@ export default async function patchClient(_: any, form: FormData) {
     const fantasia = form.get('fantasia') as string
     const logo = form.get('logo') as string
     const cliente = form.get('cliente') as string
-    const whatsapp = form.get('whatsapp') 
+    const whatsapp = form.get('whatsapp')
     const telefone = form.get('telefone') as string
     const email = form.get('email') as string
     const cep = form.get('cep') as string
@@ -39,7 +39,7 @@ export default async function patchClient(_: any, form: FormData) {
     const url = `www.${cnpj}.notanfe.com.br` as string
 
     const data = {
-        justificativa:justificativa,
+        justificativa: justificativa,
         vencicertificado: vencicertificado,
         observacao: observacao,
         valorcomissao: valorcomissao,
@@ -49,7 +49,7 @@ export default async function patchClient(_: any, form: FormData) {
         serieultimanota: serieultimanota,
         numero: numero,
         rua: rua,
-        bairro:bairro,
+        bairro: bairro,
         uf: uf,
         cidade: cidade,
         cep: cep,
@@ -66,7 +66,7 @@ export default async function patchClient(_: any, form: FormData) {
         plano: plano,
         user: user,
         password: senha,
-        dominio:url,
+        dominio: url,
         contador: contador,
         tel_contador: whatsappcontador,
         situacao: situacaotributaria,
@@ -92,16 +92,16 @@ export default async function patchClient(_: any, form: FormData) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,
             },
-            
+
             body: JSON.stringify(data),
-            
+
         });
         const res = await response.json();
         return {
             error: false,
             message: res.message || "Cliente atualizado com sucesso!",
         };
-        
+
     } catch (error) {
         return {
             error: true,
@@ -109,4 +109,3 @@ export default async function patchClient(_: any, form: FormData) {
         };
     }
 }
-

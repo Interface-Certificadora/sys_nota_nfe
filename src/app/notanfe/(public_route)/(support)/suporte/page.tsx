@@ -11,20 +11,20 @@ export default function Faq() {
   };
 
   return (
-    <Flex 
-      w="100%" 
+    <Flex
+      w="100%"
       flexDir="column"
       overflow="hidden"
     >
-      {/* Header Section */}
+
       <Flex
-        gap={4}
+        gap={1}
         flexDir="column"
         justifyContent="center"
         alignItems="center"
         bg="#99E9C3"
         w="100%"
-        p={[4, 6, 8]} // Responsive padding
+        p={[1, 3, 5]}
         textAlign="center"
       >
         <Flex
@@ -32,23 +32,18 @@ export default function Faq() {
           justifyContent="center"
           alignItems="center"
         >
-          <Text 
-            color="#00713C" 
-            fontSize={responsiveFontSizes.header}
-          >
-            FAQs
-          </Text>
-          <Text 
-            color="#00713C" 
-            fontSize={responsiveFontSizes.title} 
+
+          <Text
+            color="#00713C"
+            fontSize={responsiveFontSizes.title}
             fontWeight="bold"
             textAlign="center"
           >
             Perguntas Frequentes
           </Text>
         </Flex>
-        <Text 
-          color="#00713C" 
+        <Text
+          color="#00713C"
           fontSize={responsiveFontSizes.subtitle}
         >
           Tem alguma dúvida? Estamos aqui para ajudar.
@@ -70,7 +65,7 @@ export default function Faq() {
           justifyContent="center"
           alignItems="center"
           zIndex={2}
-          >
+        >
           <FaqCard />
         </Flex>
 
@@ -81,15 +76,15 @@ export default function Faq() {
           justifyContent="center"
           position="relative"
         >
-          <Box 
-            display={{md: 'none', lg: 'none'}} 
+          <Box
+            display={{ md: 'none', lg: 'none' }}
             maxW={20}
             maxH={20}
             position={'absolute'}
             top={'-80%'}
             overflow={'hidden'}
             zIndex={1}
-            
+
           >
             <Image
               src="/img/arraste_para_lado.png"

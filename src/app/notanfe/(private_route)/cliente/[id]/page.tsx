@@ -5,7 +5,6 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { CardForm } from "@/components/form";
-import { deleteCliente } from "@/modules/auth/actions/auth-deleteClient";
 import { toaster } from "@/components/ui/toaster"
 import { useRouter } from "next/navigation";
 
@@ -132,22 +131,33 @@ export default function ClientePage({ params }: Props) {
 
         setdelete(true);
 
-        const response = await deleteCliente(id);
+        const response = await fetch(`/api/cliente/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
         if (!response) {
             toaster.create({
                 title: "erro",
-                description: "o cliente não foi excluido corretamente",
+                description: response ||
+                 "o cliente não foi excluido corretamente",
                 type: "error"
             })
         } else
             toaster.create({
                 title: "sucesso",
-                description: response.message,
+                description: "",
                 type: "success"
             })
+            setTimeout(() => {
+                route.push("/notanfe/cliente");
+            }, 500);
         setdelete(false);
     }
+
+
     const handlePatch = async () => {
         setsaving(true);
 
@@ -174,10 +184,6 @@ export default function ClientePage({ params }: Props) {
                 description: data.message || "Cliente atualizado com sucesso!",
                 type: "success",
             });
-
-
-            setTimeout( () => {route.push('') }, 500 );
-            
 
         } catch (error) {
             toaster.create({

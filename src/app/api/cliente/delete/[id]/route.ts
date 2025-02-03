@@ -11,6 +11,8 @@ export async function DELETE(
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
 
+
+        console.log("hello")
         if (!session) {
             console.error("Usuário não autenticado. Token ausente.");
             return NextResponse.json(
@@ -37,7 +39,6 @@ export async function DELETE(
 
 
         const data = await response.json();
-        console.log("🚀 ~ data:", data)
         return NextResponse.json(data, { status: 200 });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
