@@ -6,7 +6,6 @@ import { AtivoDesativadoOptions } from "@/data/selectAtivoDesativado";
 import { ComissaoOptions, planoOptions } from "@/data/selectComisao";
 import { SituacaoTributariaOptions } from "@/data/selectSituacaoTributaria";
 import { toaster } from "@/components/ui/toaster"
-
 import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import createClient from "@/modules/auth/actions/auth-createClient";

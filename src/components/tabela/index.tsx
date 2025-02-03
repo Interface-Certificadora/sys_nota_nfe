@@ -229,7 +229,7 @@ const CustomTable = () => {
                             color="black"
                         >
                             <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
-                                <LinkOverlay href={`/cliente/${user.id}`}>{user.id}</LinkOverlay>
+                                <LinkOverlay href={`/notanfe/cliente/${user.id}`}>{user.id}</LinkOverlay>
                             </Table.Cell>
                             <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
                                 {user.nome}
