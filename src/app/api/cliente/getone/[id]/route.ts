@@ -8,7 +8,7 @@ export async function GET(
 
     try {
         const { id } = params;
-        console.log("🚀 ~ GET ~ id:", id)
+     
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
 
@@ -40,7 +40,7 @@ export async function GET(
         }
 
         const data = await response.json();
-        console.log("🚀 ~ data:", data)
+
         return NextResponse.json(data, { status: 200 });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

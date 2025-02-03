@@ -1,21 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text, Toast } from "@chakra-ui/react";
 import { CardForm } from "@/components/form";
+import AuthService from "@/modules/auth/services/auth-service";
 import { deleteCliente } from "@/modules/auth/actions/auth-deleteClient";
 import { toaster } from "@/components/ui/toaster"
-
+import { describe } from "node:test";
+import { MdDescription } from "react-icons/md";
 type Props = {
     params: { id: string };
 };
 
 export default function ClientePage({ params }: Props) {
 
-    // const [deleting, setdelete] = useState(false)
-    // const [loading, setLoading] = useState(true);
-    // const [saving, setsaving] = useState(false);
+    const [deleting, setdelete] = useState(false)
+    const [loading, setLoading] = useState(true);
+    const [saving, setsaving] = useState(false);
     const { id } = params;
     const [formData, setFormData] = useState({
         cnpj: "",
@@ -70,7 +71,7 @@ export default function ClientePage({ params }: Props) {
         } catch (error) {
             console.error("Erro ao carregar dados:", error);
         } finally {
-            // setLoading(false);
+            setLoading(false);
         }
     };
 
@@ -90,7 +91,7 @@ export default function ClientePage({ params }: Props) {
     const handleDelete = async () => {
         if (!confirm("deseja realmente excluir esse cliente da lista de ativos?")) return;
 
-        // setdelete(true);
+        setdelete(true);
 
         const response = await deleteCliente(id);
 
@@ -106,30 +107,30 @@ export default function ClientePage({ params }: Props) {
                 description: response.message,
                 type: "success"
             })
-        // setdelete(false);
+        setdelete(false);
     }
-    // const handlePatch = async () => {
+    const handlePatch = async () => {
 
 
-    //     setsaving(true);
-    //     const response = await patchCliente(id);
+        setsaving(true);
+        const response = await patchCliente(id);
 
-    //     if (!response) {
-    //         toaster.create({
-    //             title: "Erro",
-    //             description: response?.message,
-    //             type: "error",
-    //         });
-    //     } else {
-    //         toaster.create({
-    //             title: "Sucesso",
-    //             description: response.message,
-    //             type: "success",
-    //         });
-    //     }
+        if (!response) {
+            toaster.create({
+                title: "Erro",
+                description: response?.message,
+                type: "error",
+            });
+        } else {
+            toaster.create({
+                title: "Sucesso",
+                description: response.message,
+                type: "success",
+            });
+        }
 
-    //     setsaving(false);
-    // };
+        setsaving(false);
+    };
 
     return (
         <Box w="full" h="full" p={4} bg="gray.50">
@@ -172,5 +173,8 @@ export default function ClientePage({ params }: Props) {
             </Flex>
         </Box>
     );
+}
+function patchCliente(id: string) {
+    throw new Error("Function not implemented.");
 }
 
