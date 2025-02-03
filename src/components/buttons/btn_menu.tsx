@@ -36,6 +36,5 @@ export default function BtnMenu() {
         </MenuContent>
       </MenuRoot>
     </Flex>
-    
   );
 }
