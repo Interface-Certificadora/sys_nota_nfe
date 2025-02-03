@@ -25,7 +25,7 @@ export default async function patchClient(_: any, form: FormData) {
     const numeroultimanota = form.get('numeroultimanota') as string
     const comissao = Boolean(form.get('comissao')) as boolean
     const valorcomissao = Number(form.get('valorcomissao')) as number
-    const situacao = Boolean(form.get('situacao')) as boolean
+    // const situacao = Boolean(form.get('situacao')) as boolean
     const valor = Number(form.get('valor')) as number
     const observacao = form.get('observacao') as string
     const contador = form.get('contador') as string
