@@ -3,6 +3,7 @@ import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import BtnPrivateMenu from "../buttons/btn_private_menu";
 import { FaPowerOff } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { toaster } from "../ui/toaster";
 
 
 
@@ -13,9 +14,16 @@ export default function PrivateHeader() {
     try{
      const res = await fetch('/api/logout')
      if(!res.ok){
-       throw new Error('Erro ao deslogar')
+       toaster.create({
+         title: "Erro",
+         description: "Erro!",
+         type: "error",
+         duration: 3000,
+       })
+
+       
      }else{
-       router.push('/login')
+       router.push('/notante/login')
      }
     }catch(err){
       console.log(err)

@@ -34,7 +34,21 @@ export default function ListUsers() {
             "Content-Type": "application/json"
           }
         })
-        console.log("🚀 ~ handleResetPassword ~ req:", req)
+        if(!req.ok){
+            toaster.create({
+                title: "Erro",
+                description: "Erro ao resetar senha",
+                type: "error",
+                duration: 3000,
+            })
+        }else{
+            toaster.create({
+                title: "Sucesso",
+                description: "Senha resetada com sucesso",
+                type: "success",
+                duration: 3000,
+            })
+        }
     }
 
     useEffect(() => {

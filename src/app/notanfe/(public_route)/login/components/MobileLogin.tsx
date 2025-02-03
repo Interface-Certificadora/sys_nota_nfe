@@ -33,6 +33,7 @@ export default function MobileLogin() {
         type: "error",
         duration: 3000
       });
+      setLoading(false);
     } else {
       saveCredentials();
       router.push("/notanfe/home");
