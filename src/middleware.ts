@@ -8,8 +8,8 @@ export const config = {
 const publicPages = [
     '/',
     '/notanfe',
-    '/notanfe/faq',
-    '/notanfe/faqvideos',
+    '/notanfe/suporte',
+    '/notanfe/treinamento',
     '/notanfe/login'
 ]
 
