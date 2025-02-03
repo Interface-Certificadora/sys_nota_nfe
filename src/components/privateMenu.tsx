@@ -45,7 +45,7 @@ export default function PrivateMenu() {
         </Flex>
 
         <Flex flexDir={"column"} gap={1} alignItems={"center"} w={"100%"}>
-          <Link w={"100%"} href={"/home"}>
+          <Link w={"100%"} href={"/notanfe/home"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -69,7 +69,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/cliente/cadastrar"}>
+          <Link w={"100%"} href={"/notanfe/cliente/cadastrar"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -93,7 +93,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/cliente"}>
+          <Link w={"100%"} href={"/notanfe/cliente"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -117,7 +117,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/usuarios/cadastrar"}>
+          <Link w={"100%"} href={"/notanfe/usuarios/cadastrar"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}
@@ -141,7 +141,7 @@ export default function PrivateMenu() {
             </Flex>
           </Link>
 
-          <Link w={"100%"} href={"/usuarios"}>
+          <Link w={"100%"} href={"/notanfe/usuarios"}>
             <Flex
               flexDir={"row"}
               alignItems={"center"}

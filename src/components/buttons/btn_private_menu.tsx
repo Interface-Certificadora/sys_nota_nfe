@@ -33,19 +33,19 @@ export default function BtnPrivateMenu() {
         </MenuTrigger>
         <MenuContent bg={"#00713C"}>
         <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/home"><TiHome />Home</Link>
+            <Link href="/notanfe/home"><TiHome />Home</Link>
           </MenuItem>
         <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/cliente/cadastrar"><FaUserPlus />Cadastrar Cliente</Link>
+            <Link href="/notanfe/cliente/cadastrar"><FaUserPlus />Cadastrar Cliente</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/cliente"><FaUsers />Lista Clientes</Link>
+            <Link href="/notanfe/cliente"><FaUsers />Lista Clientes</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/usuarios/cadastrar"><MdAdminPanelSettings />Criar Usuario</Link>
+            <Link href="/notanfe/usuarios/cadastrar"><MdAdminPanelSettings />Criar Usuario</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/usuarios"><FaUsersCog />Lista Usuarios</Link>
+            <Link href="/notanfe/usuarios"><FaUsersCog />Lista Usuarios</Link>
           </MenuItem>
         </MenuContent>
       </MenuRoot>
