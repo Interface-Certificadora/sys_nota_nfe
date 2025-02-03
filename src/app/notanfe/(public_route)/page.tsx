@@ -7,6 +7,7 @@ import {
   Heading,
   Container,
   SimpleGrid,
+  Link,
 } from "@chakra-ui/react";
 import { ButtonPage } from "@/components/page/button";
 import FeatureCard from "@/components/page/iconcards";
@@ -244,6 +245,7 @@ const Home = () => {
               borderRadius="md"
               fontSize={{ base: "sm", md: "md" }}
               _hover={{ bg: "#166534" }}
+              callnum="551632897402"
             >
               Adquirir agora
             </ButtonPage>
@@ -276,6 +278,7 @@ const Home = () => {
                 bg="transparent"
                 fontSize={{ base: "sm", md: "md" }}
                 _hover={{ bg: "green.500" }}
+                href="/notanfe/faq"
               >
                 ENTRE EM CONTATO.<br /> FALE COM NOSSO SUPORTE
               </ButtonPage>
