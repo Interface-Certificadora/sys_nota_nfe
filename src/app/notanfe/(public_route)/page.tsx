@@ -14,7 +14,12 @@ import FeatureCard from "@/components/page/iconcards";
 import FeatureList from "@/components/page/list";
 import Enterprise from "@/components/page/enterprise";
 
+
+
+
 const Home = () => {
+
+
   return (
     <Flex direction="column" minH="100vh" fontFamily="sans-serif">
 

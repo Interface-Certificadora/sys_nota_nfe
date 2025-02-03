@@ -7,7 +7,6 @@ import { useState } from "react";
 
 export default function Partner() {
 
-
   const [formData, setFormData] = useState({
     nome: "",
     cpf: "",
@@ -16,8 +15,6 @@ export default function Partner() {
     pix: "",
     valor: "",
   });
-
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
