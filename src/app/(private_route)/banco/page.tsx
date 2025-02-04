@@ -172,14 +172,14 @@ const LogsTable = () => {
               </Table.Header>
               <Table.Body>
                 {paginatedData.map((log) => (
-                  <LinkBox as={Table.Row}
+                  <Box as={Table.Row}
                     key={log.id}
                     _hover={{ bg: "green.100" }}
                     fontWeight="bold"
                     color="black"
                   >
                     <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
-                      <LinkOverlay href={`/logs/${log.id}`}>{log.id}</LinkOverlay>
+                     {log.id}
                     </Table.Cell>
                     <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
                       {log.ip}
@@ -187,7 +187,7 @@ const LogsTable = () => {
                     <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
                       {new Date(log.accessed_at).toLocaleString()}
                     </Table.Cell>
-                  </LinkBox>
+                  </Box>
                 ))}
               </Table.Body>
             </Table.Root>
