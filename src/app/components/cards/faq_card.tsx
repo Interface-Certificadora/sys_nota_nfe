@@ -203,6 +203,7 @@ export default function FaqCard() {
             ))}
           </Accordion.Root>
         </Flex>
+          <Link fontSize={'sm'} color={'blue.700'} href="/suporte/sistema">Ver Passo a Passo...</Link>
       </Flex>
       <Flex
         mt={[4, 6, 6]}
@@ -277,6 +278,7 @@ export default function FaqCard() {
             ))}
           </Accordion.Root>
         </Flex>
+        <Link fontSize={'sm'} color={'blue.700'} href="/suporte/clienteseprodutos">Ver Passo a Passo...</Link>
       </Flex>
       <Flex
         mt={[4, 6, 6]}
