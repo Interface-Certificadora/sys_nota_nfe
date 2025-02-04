@@ -52,12 +52,6 @@ export default function Partner() {
   return (
     <>
       <Flex flexDir={"column"} p={3} w="full" h="full">
-        <Flex w={"full"}>
-          {" "}
-          <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>
-            Cadastrar Parceiro
-          </Text>
-        </Flex>
         <Flex
           w={"full"}
 
@@ -66,6 +60,11 @@ export default function Partner() {
           p={2}
           gap={3}
         >
+          <Flex w={"full"}>
+            <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>
+              Cadastrar Parceiro
+            </Text>
+          </Flex>
           <LoadingProvider>
             <CardForm.Form action={handleCreatePartner}>
               <Flex gap={2} flexDir={"column"} flexWrap={"wrap"}>

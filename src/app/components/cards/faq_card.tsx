@@ -3,25 +3,22 @@ import { Accordion, Blockquote, Box, Flex, Link, Text } from "@chakra-ui/react";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { LuExternalLink } from "react-icons/lu";
 
-// import { RiLockPasswordLine } from "react-icons/ri";
-// import { TbError404 } from "react-icons/tb";
-
 export default function FaqCard() {
   const card1 = [
     {
       value: "a",
       title: "Como posso acessar o emissor de notas fiscais?",
-      text: 'Você deve abrir o navegador Google Chrome ou Safari no seu computador, tablet ou celular e digitar o endereço informado no campo "DOMÍNIO" do formulário do emitente.'
+      text: 'Você deve abrir o navegador Google Chrome ou Safari no seu computador, tablet ou celular e digitar o endereço informado no campo "DOMÍNIO" do formulário do emitente.',
     },
     {
       value: "b",
       title: "Quais são as etapas para fazer login no sistema?",
-      text: 'No campo "Login", digite o nome do usuário administrador da empresa. No campo "Senha", insira a senha pré-definida pelo gestor do sistema para o primeiro acesso. Em seguida, clique no botão "LOGIN" para continuar.'
+      text: 'No campo "Login", digite o nome do usuário administrador da empresa. No campo "Senha", insira a senha pré-definida pelo gestor do sistema para o primeiro acesso. Em seguida, clique no botão "LOGIN" para continuar.',
     },
     {
       value: "c",
       title: "O que encontro na tela inicial após o login?",
-      text: "Na tela inicial, serão exibidas mensagens importantes, caso existam. No canto superior esquerdo, você encontrará o menu do sistema, que pode ser expandido ao clicar no ícone de três tracinhos."
+      text: "Na tela inicial, serão exibidas mensagens importantes, caso existam. No canto superior esquerdo, você encontrará o menu do sistema, que pode ser expandido ao clicar no ícone de três tracinhos.",
     }
   ];
 
@@ -29,17 +26,17 @@ export default function FaqCard() {
     {
       value: "a",
       title: "Como posso buscar clientes já cadastrados?",
-      text: 'No menu "CLIENTES", na opção "PROCURAR", você pode realizar uma busca inserindo qualquer letra ou número. Por exemplo, ao digitar a letra "A", serão exibidos todos os clientes que possuem essa letra no nome. Quanto mais específica a busca, menos resultados serão retornados. Também é possível buscar pelo número completo do CPF ou CNPJ para um resultado exato, se existir.'
+      text: 'No menu "CLIENTES", na opção "PROCURAR", você pode realizar uma busca inserindo qualquer letra ou número. Por exemplo, ao digitar a letra "A", serão exibidos todos os clientes que possuem essa letra no nome. Quanto mais específica a busca, menos resultados serão retornados. Também é possível buscar pelo número completo do CPF ou CNPJ para um resultado exato, se existir.',
     },
     {
       value: "b",
       title: "Como faço para cadastrar um novo cliente?",
-      text: 'No menu "CLIENTES", selecione a opção "NOVO" para cadastrar um novo cliente. Os campos com asterisco (*) são obrigatórios. Preencha as informações conforme solicitado, lembrando que campos numéricos devem ser preenchidos apenas com números, sem caracteres especiais como ".", ",", "-", ou "/". Após preencher todos os campos necessários, clique em "SALVAR" para concluir o cadastro.'
+      text: 'No menu "CLIENTES", selecione a opção "NOVO" para cadastrar um novo cliente. Os campos com asterisco (*) são obrigatórios. Preencha as informações conforme solicitado, lembrando que campos numéricos devem ser preenchidos apenas com números, sem caracteres especiais como ".", ",", "-", ou "/". Após preencher todos os campos necessários, clique em "SALVAR" para concluir o cadastro.',
     },
     {
       value: "c",
       title: "O que devo inserir nos campos CPF/CNPJ e RG/IE?",
-      text: 'No campo CPF/CNPJ, insira o número correspondente do cliente. Se for um CPF, o preenchimento do campo RG/IE não é obrigatório. Se for um CNPJ, preencha o campo IE (Inscrição Estadual); caso o CNPJ seja isento, escreva "ISENTO"; se for não contribuinte, escreva "NÃOCONTRIBUINTE" (sem espaço).'
+      text: 'No campo CPF/CNPJ, insira o número correspondente do cliente. Se for um CPF, o preenchimento do campo RG/IE não é obrigatório. Se for um CNPJ, preencha o campo IE (Inscrição Estadual); caso o CNPJ seja isento, escreva "ISENTO"; se for não contribuinte, escreva "NÃOCONTRIBUINTE" (sem espaço).',
     },
     {
       value: "d",
@@ -50,17 +47,17 @@ export default function FaqCard() {
     {
       value: "e",
       title: "Como posso buscar produtos já cadastrados?",
-      text: 'No menu "PRODUTOS", na opção "PROCURAR", você pode realizar uma busca inserindo qualquer letra. Por exemplo, ao digitar a letra "C", serão exibidos todos os produtos que possuem essa letra no nome. Quanto mais específica a busca, menos resultados serão retornados.'
+      text: 'No menu "PRODUTOS", na opção "PROCURAR", você pode realizar uma busca inserindo qualquer letra. Por exemplo, ao digitar a letra "C", serão exibidos todos os produtos que possuem essa letra no nome. Quanto mais específica a busca, menos resultados serão retornados.',
     },
     {
       value: "f",
       title: "Como faço para cadastrar um novo produto?",
-      text: 'No menu "PRODUTOS", selecione a opção "NOVO" para cadastrar um novo produto. Os campos com asterisco (*) são obrigatórios. Preencha as informações conforme solicitado, lembrando que campos numéricos devem ser preenchidos apenas com números, sem caracteres especiais como ".", ",", "-", ou "/". Após preencher todos os campos necessários, clique em "SALVAR" para concluir o cadastro.'
+      text: 'No menu "PRODUTOS", selecione a opção "NOVO" para cadastrar um novo produto. Os campos com asterisco (*) são obrigatórios. Preencha as informações conforme solicitado, lembrando que campos numéricos devem ser preenchidos apenas com números, sem caracteres especiais como ".", ",", "-", ou "/". Após preencher todos os campos necessários, clique em "SALVAR" para concluir o cadastro.',
     },
     {
       value: "g",
       title: "O que devo inserir nos campos de cadastro do produto?",
-      text: 'No campo "Nome Produto*", insira o nome do produto e detalhes relevantes. No campo "Valor Unitário*", insira o valor unitário de venda do produto. Selecione a "Origem*" do produto (nacional ou importado). No campo "NCM*", insira a Nomenclatura Comum do Mercosul correspondente'
+      text: 'No campo "Nome Produto*", insira o nome do produto e detalhes relevantes. No campo "Valor Unitário*", insira o valor unitário de venda do produto. Selecione a "Origem*" do produto (nacional ou importado). No campo "NCM*", insira a Nomenclatura Comum do Mercosul correspondente',
     },
   ];
 
@@ -68,7 +65,7 @@ export default function FaqCard() {
     {
       value: "d",
       title: "Como posso iniciar a emissão de uma nova nota fiscal?",
-      text: 'No menu principal, clique na opção "NOTAS FISCAIS" e, em seguida, selecione "NOVA" para iniciar a emissão de uma nova nota fiscal.'
+      text: 'No menu principal, clique na opção "NOTAS FISCAIS" e, em seguida, selecione "NOVA" para iniciar a emissão de uma nova nota fiscal.',
     },
     {
       value: "e",
@@ -91,32 +88,32 @@ export default function FaqCard() {
           index:4,
           text:'4 - Revisão: Revise todos os dados inseridos para garantir que estão corretos antes de prosseguir.'
         },
-      ]
+      ],
     },
     {
       value: "f",
       title: "Como finalizo e emito a nota fiscal?",
-      text: 'Após revisar todas as informações, clique no botão "SALVAR" para armazenar a nota fiscal no sistema. Em seguida, para transmiti-la à SEFAZ, clique em "TRANSMITIR".'
+      text: 'Após revisar todas as informações, clique no botão "SALVAR" para armazenar a nota fiscal no sistema. Em seguida, para transmiti-la à SEFAZ, clique em "TRANSMITIR".',
     },
     {
       value: "g",
       title: "O que devo fazer se encontrar erros durante a emissão ou transmissão da nota fiscal?",
-      text: 'Caso ocorra algum erro, o sistema exibirá uma mensagem com a descrição do problema. Corrija as informações conforme indicado e tente transmitir novamente. Se o problema persistir, entre em contato com o suporte técnico para assistência.'
+      text: 'Caso ocorra algum erro, o sistema exibirá uma mensagem com a descrição do problema. Corrija as informações conforme indicado e tente transmitir novamente. Se o problema persistir, entre em contato com o suporte técnico para assistência.',
     },
     {
       value: "h",
       title: "Como posso visualizar ou imprimir a DANFE após a emissão?",
-      text: 'Após a emissão bem-sucedida, vá ao menu "NOTAS FISCAIS" e selecione "PROCURAR". Encontre a nota desejada e clique no ícone de impressão para visualizar ou imprimir a DANFE.'
+      text: 'Após a emissão bem-sucedida, vá ao menu "NOTAS FISCAIS" e selecione "PROCURAR". Encontre a nota desejada e clique no ícone de impressão para visualizar ou imprimir a DANFE.',
     },
     {
       value: "i",
       title: "É possível cancelar uma nota fiscal após a emissão?",
-      text: 'Sim, desde que esteja dentro do prazo legal permitido para cancelamento. No menu "NOTAS FISCAIS", selecione "PROCURAR", encontre a nota que deseja cancelar e clique no ícone de cancelamento. Siga as instruções fornecidas pelo sistema para concluir o processo.'
+      text: 'Sim, desde que esteja dentro do prazo legal permitido para cancelamento. No menu "NOTAS FISCAIS", selecione "PROCURAR", encontre a nota que deseja cancelar e clique no ícone de cancelamento. Siga as instruções fornecidas pelo sistema para concluir o processo.',
     },
     {
       value: "j",
       title: "Como posso exportar o arquivo XML de uma nota fiscal?",
-      text: 'No menu "NOTAS FISCAIS", selecione "PROCURAR", localize a nota desejada e clique no ícone de download para exportar o arquivo XML correspondente.'
+      text: 'No menu "NOTAS FISCAIS", selecione "PROCURAR", localize a nota desejada e clique no ícone de download para exportar o arquivo XML correspondente.',
     },
     
   ];
@@ -196,6 +193,7 @@ export default function FaqCard() {
                   <Accordion.ItemBody ml={1} bg="white">
                     <Blockquote.Root>
                       <Blockquote.Content>{question.text}</Blockquote.Content>
+                      <Blockquote.Content><Link fontSize={'sm'} color={'blue.700'} href={'/suporte/sistema'}>Ver mais<LuExternalLink /></Link></Blockquote.Content>
                     </Blockquote.Root>
                   </Accordion.ItemBody>
                 </Accordion.ItemContent>
@@ -203,7 +201,6 @@ export default function FaqCard() {
             ))}
           </Accordion.Root>
         </Flex>
-          <Link fontSize={'sm'} color={'blue.700'} href="/suporte/sistema">Ver Passo a Passo...</Link>
       </Flex>
       <Flex
         mt={[4, 6, 6]}
@@ -271,6 +268,7 @@ export default function FaqCard() {
                   <Accordion.ItemBody ml={1} bg="white">
                     <Blockquote.Root>
                       <Blockquote.Content>{question.text}{question.link && <Link target='_blank' fontSize={'sm'} color={'blue.600'} href={question.link}>{question.link}<LuExternalLink /></Link>}</Blockquote.Content>
+                      <Blockquote.Content><Link fontSize={'sm'} color={'blue.700'} href={'/suporte/clienteseprodutos'}>Ver mais<LuExternalLink /></Link></Blockquote.Content>
                     </Blockquote.Root>
                   </Accordion.ItemBody>
                 </Accordion.ItemContent>
@@ -278,7 +276,6 @@ export default function FaqCard() {
             ))}
           </Accordion.Root>
         </Flex>
-        <Link fontSize={'sm'} color={'blue.700'} href="/suporte/clienteseprodutos">Ver Passo a Passo...</Link>
       </Flex>
       <Flex
         mt={[4, 6, 6]}
@@ -346,6 +343,7 @@ export default function FaqCard() {
                   <Accordion.ItemBody ml={1} bg="white">
                     <Blockquote.Root>
                       <Blockquote.Content>{question.text}{question.passos ? question.passos.map((passo, index) => (<li key={index}>{passo.text}</li>)) : null}</Blockquote.Content>
+                      <Blockquote.Content><Link fontSize={'sm'} color={'blue.700'} href={'/suporte/notafiscal'}>Ver mais<LuExternalLink /></Link></Blockquote.Content>
                     </Blockquote.Root>
                   </Accordion.ItemBody>
                 </Accordion.ItemContent>
