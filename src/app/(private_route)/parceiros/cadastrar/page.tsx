@@ -5,27 +5,23 @@ import LoadingProvider from "@/providers/LoadingProvider";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
 export default function Partner() {
-
-  const handleCreatePartner = async () => {
-    
-  }
+  const handleCreatePartner = async () => {};
   return (
     <>
       <Flex flexDir={"column"} p={3} w="full" h="full">
-        <Flex w={"full"}>
-          {" "}
-          <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>
-            Cadastrar Parceiro
-          </Text>
-        </Flex>
         <Flex
           w={"full"}
           border={"3px solid #00713C"}
           rounded={"md"}
-          flexDir={{ base: "column", lg: "column"}}
+          flexDir={{ base: "column", lg: "column" }}
           p={2}
           gap={3}
         >
+          <Flex w={"full"}>
+            <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>
+              Cadastrar Parceiro
+            </Text>
+          </Flex>
           <LoadingProvider>
             <CardForm.Form action={handleCreatePartner}>
               <Flex gap={2} flexDir={"column"} flexWrap={"wrap"}>
@@ -82,7 +78,12 @@ export default function Partner() {
                 </Box>
               </Flex>
             </CardForm.Form>
-            <BtnSubmit w={'5%'} size={'sm'} colorPalette={"green"} label="Salvar" />
+            <BtnSubmit
+              w={"5%"}
+              size={"sm"}
+              colorPalette={"green"}
+              label="Salvar"
+            />
           </LoadingProvider>
         </Flex>
       </Flex>

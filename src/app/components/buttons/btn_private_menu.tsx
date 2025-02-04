@@ -10,6 +10,7 @@ import React from "react";
 import { FaUserPlus, FaUsers, FaUsersCog } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { PiUsersFourFill } from "react-icons/pi";
 import { TiHome } from "react-icons/ti";
 
 export default function BtnPrivateMenu() {
@@ -33,19 +34,22 @@ export default function BtnPrivateMenu() {
         </MenuTrigger>
         <MenuContent bg={"#00713C"}>
         <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/notanfe/home"><TiHome />Home</Link>
+            <Link href="/home"><TiHome />Home</Link>
           </MenuItem>
         <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/notanfe/cliente/cadastrar"><FaUserPlus />Cadastrar Cliente</Link>
+            <Link href="/cliente/cadastrar"><FaUserPlus />Cadastrar Cliente</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/notanfe/cliente"><FaUsers />Lista Clientes</Link>
+            <Link href="/cliente"><FaUsers />Lista Clientes</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/notanfe/usuarios/cadastrar"><MdAdminPanelSettings />Criar Usuario</Link>
+            <Link href="/usuarios/cadastrar"><MdAdminPanelSettings />Criar Usuario</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/notanfe/usuarios"><FaUsersCog />Lista Usuarios</Link>
+            <Link href="/usuarios"><FaUsersCog />Lista Usuarios</Link>
+          </MenuItem>
+          <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
+            <Link href="/parceiros"><PiUsersFourFill />Lista Parceiros</Link>
           </MenuItem>
         </MenuContent>
       </MenuRoot>
