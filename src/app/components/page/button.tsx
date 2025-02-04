@@ -12,21 +12,21 @@ interface ButtonLoadingProps {
 export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps {
   scrollTo?: string;
   callnum?: string;
-  IconSize?: string | number; 
-  color?: string; 
+  IconSize?: string | number;
+  color?: string;
   href?: string;
 }
 
 export const ButtonPage = (props: ButtonProps) => {
-  const { scrollTo, callnum, children,href, color = "black", ...rest } = props;
+  const { scrollTo, callnum, children, href, color = "black", ...rest } = props;
   const router = useRouter();
 
   const Clickfunc = () => {
-    
+
     if (scrollTo) {
       const section = document.getElementById(scrollTo);
-    if (section) {
-        section.scrollIntoView({ behavior: "auto" });
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
       }
     }
     if (callnum) {
@@ -35,7 +35,7 @@ export const ButtonPage = (props: ButtonProps) => {
       window.open(url, "_blank");
     }
     if (href) {
-      router.push('/notanfe/faq'); 
+      router.push('/notanfe/suporte');
     }
   };
 
@@ -44,7 +44,7 @@ export const ButtonPage = (props: ButtonProps) => {
       {...rest}
       onClick={Clickfunc}
     >
-      <Box  color={color}>
+      <Box color={color}>
         {children}
       </Box>
     </IconButton>
