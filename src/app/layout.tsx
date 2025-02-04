@@ -1,6 +1,6 @@
 import ProvidersChakra from "@/providers/ProvidersChakra";
 import { roboto } from "./fonts";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/app/components/ui/toaster";
 
 
 export default function RootLayout({
