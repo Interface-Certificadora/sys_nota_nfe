@@ -353,6 +353,7 @@ export default function FaqCard() {
             ))}
           </Accordion.Root>
         </Flex>
+        <Link fontSize={'sm'} color={'blue.700'} href="/suporte/notafiscal">Ver Passo a Passo...</Link>
       </Flex>
     </Flex>
   );
