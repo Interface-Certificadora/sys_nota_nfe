@@ -10,7 +10,7 @@ export async function GET() {
             console.error("Usuário não autenticado. Token ausente.");
             return;
         }
-        
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros`, {
             method: "GET",
             headers: {
@@ -18,9 +18,9 @@ export async function GET() {
                 "Authorization": `Bearer ${session.token}`,
             },
         });
-        
+
         const data = await response.json();
-        return NextResponse.json(data,{status: 200})
+        return NextResponse.json(data, { status: 200 })
     } catch (error) {
         return NextResponse.json(
             { error: true, message: error, data: null },

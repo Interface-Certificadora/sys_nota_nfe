@@ -26,7 +26,7 @@ export async function DELETE(request: Request,
             method: "DELETE",
             headers: {
                 "content-Type": "application/json",
-                "Authorization": `beared ${session.token}`,
+                "Authorization": `Bearer ${session.token}`,
             },
         });
 
