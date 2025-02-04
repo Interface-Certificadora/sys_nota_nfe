@@ -22,7 +22,11 @@ export async function POST(request: Request) {
             );
         }
 
-        if (!body.nome || !body.cpf || !body.telefone || !body.pix || !body.valor) {
+        console.log(body);
+
+
+
+        if (!body.nome || !body.cpf || !body.telefone || !body.chave_pix || !body.valor || !body.email) {
 
             return NextResponse.json(
                 {
@@ -35,20 +39,22 @@ export async function POST(request: Request) {
             );
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro`, {
             method: "POST",
             headers: {
                 "content-Type": "application/json",
-                "Authorization": `beared ${session.token}`,
+                "Authorization": `Bearer ${session.token}`,
             },
             body: JSON.stringify(body),
         });
-        console.log(body)
+        console.log(response);
 
         if (!response.ok) {
 
+
             const errorData = await response.json();
             throw new error(errorData.message);
+
         }
 
         NextResponse.json({
