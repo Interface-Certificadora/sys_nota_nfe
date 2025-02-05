@@ -65,8 +65,8 @@ export default function AddClient() {
   return (
     
       <Flex
-        border={"2px" + " solid" + "#00713C"}
-        shadow={"md"}
+        
+        
         flexDir={"column"}
         w={"100%"}
         h={"fit-content"}

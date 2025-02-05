@@ -27,7 +27,7 @@ export async function PATCH(request: Request,
             method: "PATCH",
             headers: {
                 "content-Type": "application/json",
-                "Authorization": `beared ${session.token}`,
+                "Authorization": `Bearer ${session.token}`,
             },
             body: JSON.stringify(body),
         });
