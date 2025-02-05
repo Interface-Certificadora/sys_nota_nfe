@@ -40,16 +40,19 @@ export default function BtnPrivateMenu() {
             <Link href="/cliente/cadastrar"><FaUserPlus />Cadastrar Cliente</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/cliente"><FaUsers />Lista Clientes</Link>
+            <Link href="/cliente"><FaUsers />Listar Clientes</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
             <Link href="/usuarios/cadastrar"><MdAdminPanelSettings />Criar Usuario</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/usuarios"><FaUsersCog />Lista Usuarios</Link>
+            <Link href="/usuarios"><FaUsersCog />Listar Usuarios</Link>
           </MenuItem>
           <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
-            <Link href="/parceiros"><PiUsersFourFill />Lista Parceiros</Link>
+            <Link href="/parceiros/cadastrar"><FaUserPlus />Cadastrar Parceiro</Link>
+          </MenuItem>
+          <MenuItem asChild color={"white"} value="suporte" _hover={{ bg: "#00713C", opacity: "50%", cursor: "pointer" }}>
+            <Link href="/parceiros"><PiUsersFourFill />Listar Parceiros</Link>
           </MenuItem>
         </MenuContent>
       </MenuRoot>
