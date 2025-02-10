@@ -3,9 +3,10 @@
 import { CardForm } from "@/app/components/form";
 import { toaster } from "@/app/components/ui/toaster";
 import { UserList } from "@/types/user.type";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
 import { useEffect, useState, useMemo } from "react";
 import { FaUserAlt } from "react-icons/fa";
+
 
 export default function ListPartners() {
     const [Partners, setPartners] = useState<UserList[]>([]);
@@ -23,7 +24,7 @@ export default function ListPartners() {
 
             const res = await req.json();
             if (Array.isArray(res)) {
-                setPartners(res); 
+                setPartners(res);
             } else {
                 console.error("Resposta inesperada da API:", res);
             }
@@ -108,11 +109,13 @@ export default function ListPartners() {
 
                             <FaUserAlt color="#00713C" size={40} />
                             <Box flex={1} ml={3} color={"black"}>
-                                <Text fontWeight="bold">ID: {partner.id}</Text>
+                                <Flex justify={"space-between"}>
+                                    <Text fontWeight="bold">ID: {partner.id}</Text>
+                                    <Button _hover={{ bg: "red.600" }} onClick={() => handleDelete(partner.id)}><Image color={"red"} boxSize={25} src={"/erase.svg"} alt="Excluir" /></Button>
+                                </Flex>
                                 <Text fontWeight="bold">Nome: {partner.nome}</Text>
                                 <Text>Email: {partner.email}</Text>
                                 <Text>Telefone: {partner.telefone}</Text>
-                                <Button  bg={"red"} onClick={() => handleDelete(partner.id)}> </Button>
                             </Box>
                         </Flex>
                     ))

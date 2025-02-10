@@ -2,11 +2,22 @@
 
 import BtnSubmit from "@/app/components/buttons/btn_submit";
 import { CardForm } from "@/app/components/form";
+import { toaster } from "@/app/components/ui/toaster";
 import LoadingProvider from "@/providers/LoadingProvider";
 import { Box, Flex, Text } from "@chakra-ui/react";
+
 import { useState } from "react";
 
 export default function Partner() {
+
+  const initialValues = {
+    nome: "",
+    cpf: "",
+    email: "",
+    telefone: "",
+    chave_pix: "",
+    valor: null,
+  };
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -14,7 +25,7 @@ export default function Partner() {
     email: "",
     telefone: "",
     chave_pix: "",
-    valor: 0,
+    valor: null,
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,7 +38,7 @@ export default function Partner() {
 
 
   const handleCreatePartner = async () => {
-    console.log(formData);
+
 
 
     try {
@@ -39,15 +50,32 @@ export default function Partner() {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        console.log("Parceiro criado com sucesso");
+      if (!response.ok) {
+        toaster.create({
+          title: "Erro",
+          description: "Erro ao cadastrar parceiro",
+          type: "error",
+          duration: 3000,
+        });
       } else {
-        console.error("Erro ao criar parceiro");
+        toaster.create({
+          title: "Sucesso",
+          description: "Parceiro cadastrado com sucesso",
+          type: "success",
+          duration: 3000,
+        });
+        
+        setFormData(initialValues);
       }
     } catch (error) {
       console.error("Erro ao enviar os dados", error);
+      toaster.create({
+        title: "Erro",
+        description: "Falha ao conectar-se ao servidor",
+        type: "error",
+        duration: 3000,
+      });
     }
-
   }
   return (
     <>

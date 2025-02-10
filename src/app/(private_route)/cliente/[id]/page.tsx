@@ -142,7 +142,7 @@ export default function ClientePage({ params }: Props) {
             toaster.create({
                 title: "erro",
                 description: response ||
-                 "o cliente não foi excluido corretamente",
+                    "o cliente não foi excluido corretamente",
                 type: "error"
             })
         } else
@@ -151,9 +151,9 @@ export default function ClientePage({ params }: Props) {
                 description: "",
                 type: "success"
             })
-            setTimeout(() => {
-                route.push("/notanfe/cliente");
-            }, 500);
+        setTimeout(() => {
+            route.push("/cliente");
+        }, 500);
         setdelete(false);
     }
 

@@ -1,5 +1,5 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import {  NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET(
     request: Request,
@@ -8,9 +8,12 @@ export async function GET(
 
     try {
         const { id } = params;
-     
+
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
+
+        console.log(session);
+
 
         if (!session || !session.token) {
             console.error("Usuário não autenticado. Token ausente.");
@@ -35,15 +38,13 @@ export async function GET(
             },
         });
 
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar dados do cliente: ${response.statusText}`);
-        }
 
         const data = await response.json();
+        console.log(data);
 
         return NextResponse.json(data, { status: 200 });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return NextResponse.json(
             { error: true, message: "Erro interno ao buscar usuário.", data: null },
