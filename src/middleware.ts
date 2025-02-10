@@ -9,6 +9,9 @@ const publicPages = [
     '/',
     '/',
     '/suporte',
+    '/suporte/clienteseprodutos',
+    '/suporte/sistema',
+    '/suporte/notafiscal',
     '/treinamento',
     '/login'
 ]
