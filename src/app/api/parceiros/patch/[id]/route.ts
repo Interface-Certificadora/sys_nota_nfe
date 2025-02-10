@@ -23,7 +23,7 @@ export async function PATCH(request: Request,
             );
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro/${id}`, {
             method: "PATCH",
             headers: {
                 "content-Type": "application/json",

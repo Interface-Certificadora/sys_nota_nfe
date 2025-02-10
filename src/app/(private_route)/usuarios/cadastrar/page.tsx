@@ -18,11 +18,8 @@ export default function AddUser() {
       <Flex
         w={"100%"}
         flexDir="column"
-        border="2px solid #00713C"
-        rounded="md"
         p={2}
         bg="white"
-        boxShadow="md"
       >
         <Text fontSize="2xl" ml={4} fontWeight="bold" color="black">
           Criar Usuário

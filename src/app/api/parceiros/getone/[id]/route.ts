@@ -22,7 +22,7 @@ export async function GET(request: Request,
             );
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro/${id}`, {
             method: "GET",
             headers: {
                 "content-Type": "application/json",
