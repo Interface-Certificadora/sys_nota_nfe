@@ -9,6 +9,10 @@ export interface UserSession {
 }
 
 export interface UserList {
+    [x: string]: ReactNode;
+    cpf: ReactNode;
+    chave_pix: ReactNode;
+    telefone: ReactNode;
     id: number;
     name: string;
     email: string;

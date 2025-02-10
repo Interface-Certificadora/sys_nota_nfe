@@ -22,7 +22,7 @@ export async function DELETE(request: Request,
             );
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro/${id}`, {
             method: "DELETE",
             headers: {
                 "content-Type": "application/json",
@@ -30,11 +30,7 @@ export async function DELETE(request: Request,
             },
         });
 
-        if (!response.ok) {
 
-            const errorData = await response.json();
-            throw new error(errorData.message);
-        }
 
     } catch (error) {
 
