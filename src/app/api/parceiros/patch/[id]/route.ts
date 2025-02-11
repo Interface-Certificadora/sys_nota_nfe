@@ -1,12 +1,13 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import { error } from "console";
+
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request,
     { params }: { params: { id: string } }) {
 
     try {
-        const body = request.json();
+        const body = await request.json();
+        console.log(body);
         const { id } = params;
         const sessionData = await AuthService.sessionUser();
         const session = sessionData.data;
@@ -23,6 +24,7 @@ export async function PATCH(request: Request,
             );
         }
 
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro/${id}`, {
             method: "PATCH",
             headers: {
@@ -32,10 +34,8 @@ export async function PATCH(request: Request,
             body: JSON.stringify(body),
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new error(errorData.message);
-        } else {
+
+        if (response.ok) {
             const data = await response.json();
             return NextResponse.json(data, { status: 200 });
         }

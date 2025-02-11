@@ -3,7 +3,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 import { CardForm } from "@/app/components/form";
 import { toaster } from "@/app/components/ui/toaster"
 import { useRouter } from "next/navigation";
@@ -73,7 +73,7 @@ export default function ClientePage({ params }: Props) {
         fantasia: formData.fantasia,
         cliente: formData.cliente,
         telefone: formData.telefone.replace(/[^a-zA-Z0-9]/g, ""),
-        telefone2: formData.telefone2.replace(/[^a-zA-Z0-9]/g, ""),
+        telefone2: formData.telefone2 ? formData.telefone2.replace(/[^a-zA-Z0-9]/g, "") : "",
         email: formData.email,
         cep: formData.cep,
         endereco: formData.endereco,
@@ -198,8 +198,13 @@ export default function ClientePage({ params }: Props) {
     };
 
 
-    return (
-        <Box w="full" h="full" p={4} bg="gray.50">
+    return loading ? (
+        <HStack justify={"center"} align={"center"} gap="5">
+            <Spinner color="green.800" size="xl" />
+            <Text color="green.800">Carregando...</Text>
+        </HStack>
+    ) : (
+        < Box w="full" h="full" p={4} bg="gray.50" >
             <Text fontSize="2xl" color="black" fontWeight="bold">Detalhes do Cliente</Text>
             <Flex direction="column" gap={4} mt={4}>
                 <Flex wrap="wrap" gap={3}>
@@ -209,16 +214,13 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString name="inscestadual" color="black" label="Inscrição Estadual" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.ie} onChange={handleChange} required />
                     <CardForm.InputString name="razaosocial" color="black" label="Razão Social" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.razaoSocial} onChange={handleChange} required />
                     <CardForm.InputString name="telefone" color="black" label="Telefone" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone} onChange={handleChange} required />
-                    <CardForm.InputString name="whatsapp" color="black" label="WhatsApp" value={formData.telefone} onChange={handleChange} />
                     <CardForm.InputString name="telefone2" color="black" label="Telefone Secundário" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone2} onChange={handleChange} />
-
                     <CardForm.InputString name="cep" color="black" label="CEP" value={formData.cep} onChange={handleChange} />
-                    <CardForm.InputString name="cidade" color="black" label="cidade" value={formData.cidade} onChange={handleChange} />
-                    <CardForm.InputString name="bairro" color="black" label="bairro" value={formData.bairro} onChange={handleChange} />
-                    <CardForm.InputString name="endereco" color="black" label="endereco" value={formData.endereco} onChange={handleChange} />
-                    <CardForm.InputString name="numero" color="black" label="numero" value={formData.numero} onChange={handleChange} />
+                    <CardForm.InputString name="cidade" color="black" label="Cidade" value={formData.cidade} onChange={handleChange} />
+                    <CardForm.InputString name="bairro" color="black" label="Bairro" value={formData.bairro} onChange={handleChange} />
+                    <CardForm.InputString name="endereco" color="black" label="Endereco" value={formData.endereco} onChange={handleChange} />
+                    <CardForm.InputString name="numero" color="black" label="Numero" value={formData.numero} onChange={handleChange} />
                     <CardForm.InputString name="Complemento" color="black" label="Complemento" value={formData.complemento} onChange={handleChange} />
-
                     <CardForm.InputString name="email" color="black" label="E-mail" w={{ base: "100%", lg: "400px" }} type="email" fontWeight="semibold" value={formData.email} onChange={handleChange} required />
                     <CardForm.InputString name="plano" color="black" label="Plano" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.plano} onChange={handleChange} required />
                     <CardForm.InputString name="status" color="black" label="Status" checked={formData.status} onChange={handleChange} />
@@ -226,7 +228,6 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString name="valorcomissao" color="black" label="valor da comissao" value={formData.valorcomissao} onChange={handleChange} />
                     <CardForm.InputString name="contador" color="black" label="Contador" w={{ base: "100%", lg: "250px" }} type="text" fontWeight="semibold" value={formData.contador} onChange={handleChange} />
                     <CardForm.InputString name="tel_contador" color="black" label="Telefone Contador" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.tel_contador} onChange={handleChange} />
-                    <CardForm.InputString name="whatsapp_cont" color="black" label="WhatsApp Contador" value={formData.tel_contador} onChange={handleChange} />
                     <CardForm.InputNumber name="fechamento" color="black" label="Data de Fechamento" fontWeight="semibold" value={formData.fechamento} onChange={handleChange} required />
                     <CardForm.InputNumber name="teste" color="black" label="Teste" w={{ base: "100%", lg: "100px" }} fontWeight="semibold" value={formData.teste} onChange={handleChange} required />
                     <CardForm.InputString name="comissao" color="black" label="Comissão" checked={formData.comissao} onChange={handleChange} />
@@ -237,6 +238,6 @@ export default function ClientePage({ params }: Props) {
                     <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
                 </Flex>
             </Flex>
-        </Box>
+        </Box >
     );
 }

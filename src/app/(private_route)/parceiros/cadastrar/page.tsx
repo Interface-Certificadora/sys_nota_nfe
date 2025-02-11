@@ -4,11 +4,12 @@ import BtnSubmit from "@/app/components/buttons/btn_submit";
 import { CardForm } from "@/app/components/form";
 import { toaster } from "@/app/components/ui/toaster";
 import LoadingProvider from "@/providers/LoadingProvider";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 export default function Partner() {
+  const[loading, setLoading] = useState(false)
 
   const initialValues = {
     nome: "",
@@ -64,7 +65,7 @@ export default function Partner() {
           type: "success",
           duration: 3000,
         });
-        
+
         setFormData(initialValues);
       }
     } catch (error) {
@@ -77,7 +78,22 @@ export default function Partner() {
       });
     }
   }
-  return (
+  return loading ? (
+    <HStack
+      justify="center"
+      align="center"
+      gap="5"
+      position="absolute"
+      top="50%"
+      left="50%"
+      transform="translate(-50%, -50%)"
+      w="full"
+      h="full"
+    >
+      <Spinner color="green.800" size="lg" />
+      <Text color="green.800" fontSize="xl">Carregando...</Text>
+    </HStack>
+  ) : (
     <>
       <Flex flexDir={"column"} p={3} w="full" h="full">
         <Flex

@@ -3,12 +3,14 @@
 import { CardForm } from "@/app/components/form";
 import { toaster } from "@/app/components/ui/toaster";
 import { UserList } from "@/types/user.type";
-import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Image, HStack, Spinner } from "@chakra-ui/react";
 import { useEffect, useState, useMemo } from "react";
 import { FaUserAlt } from "react-icons/fa";
-
+import { useRouter } from 'next/navigation'
 
 export default function ListPartners() {
+    const [loading, setLoading] = useState(true);
+    const router = useRouter();
     const [Partners, setPartners] = useState<UserList[]>([]);
     const [id, setId] = useState("");
     const [nome, setNome] = useState("");
@@ -31,6 +33,7 @@ export default function ListPartners() {
         } catch (error) {
             console.error("Erro ao buscar parceiros:", error);
         }
+        setLoading(false);
     };
 
 
@@ -50,6 +53,31 @@ export default function ListPartners() {
             });
 
 
+            fetchUsers();
+        } catch (error) {
+            toaster.create({
+                title: "Erro",
+                description: error instanceof Error ? error.message : "Erro ao excluir parceiro",
+                type: "error",
+                duration: 3000,
+            });
+        }
+    };
+
+    const handleGetID = async (id: number) => {
+        try {
+            const response = await fetch(`/api/parceiros/getone/${id}`, { method: "GET" });
+            if (!response.ok) {
+                throw new Error("Erro ao encontrar parceiro parceiro");
+            }
+
+            toaster.create({
+                title: "Sucesso",
+                description: "Parceiro encontrado com sucesso!",
+                type: "success",
+                duration: 3000,
+            });
+            router.push(`/parceiros/${id}`);
             fetchUsers();
         } catch (error) {
             toaster.create({
@@ -90,7 +118,22 @@ export default function ListPartners() {
         setTelefone("");
     };
 
-    return (
+    return loading ? (
+        <HStack
+            justify="center"
+            align="center"
+            gap="5"
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            w="full"
+            h="full"
+        >
+            <Spinner color="green.800" size="lg" />
+            <Text color="green.800" fontSize="xl">Carregando...</Text>
+        </HStack>
+    ) : (
         <Flex w="100%" alignItems="center" flexDir="column" h="full">
             <Flex w="full" p={2} justifyContent="center" h="fit-content" flexDir={{ base: "column", lg: "row" }}>
                 <Flex direction={{ base: "column", lg: "row" }} p={2} border="2px solid #00713C" rounded="md" gap={5}>
@@ -111,7 +154,10 @@ export default function ListPartners() {
                             <Box flex={1} ml={3} color={"black"}>
                                 <Flex justify={"space-between"}>
                                     <Text fontWeight="bold">ID: {partner.id}</Text>
-                                    <Button _hover={{ bg: "red.600" }} onClick={() => handleDelete(partner.id)}><Image color={"red"} boxSize={25} src={"/erase.svg"} alt="Excluir" /></Button>
+                                    <Flex>
+                                        <Button _hover={{ bg: "red.600" }} onClick={() => handleDelete(partner.id)}><Image color={"red"} boxSize={25} src={"/erase.svg"} alt="Excluir" /></Button>
+                                        <Button _hover={{ bg: "yellow.400" }} onClick={() => handleGetID(partner.id)}><Image color={"yellow"} boxSize={25} src={"/file.svg"} alt="Editar" /></Button>
+                                    </Flex>
                                 </Flex>
                                 <Text fontWeight="bold">Nome: {partner.nome}</Text>
                                 <Text>Email: {partner.email}</Text>

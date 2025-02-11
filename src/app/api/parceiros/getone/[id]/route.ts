@@ -1,11 +1,11 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import { error } from "console";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request,
     { params }: { params: { id: string } }) {
 
     try {
+        
         const { id } = params;
         const sessionData = await AuthService.sessionUser();
         const session = sessionData.data;
@@ -28,12 +28,14 @@ export async function GET(request: Request,
                 "content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,
             },
+            
         });
 
-        if (!response.ok) {
+        console.log(response)
 
-            const errorData = await response.json();
-            throw new error(errorData.message);
+        if (response.ok) {
+            const data = await response.json();
+            return NextResponse.json(data, { status: 200 })
         }
 
     } catch (error) {

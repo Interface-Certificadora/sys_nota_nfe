@@ -22,7 +22,7 @@ import {
 import { MdAdminPanelSettings } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
 
-// 1. Importando AnimatePresence e motion
+
 import { AnimatePresence, color, motion } from "framer-motion";
 
 export default function PrivateMenu() {
@@ -108,6 +108,7 @@ export default function PrivateMenu() {
               transition={{ duration: 0.2 }}
             >
               <Link
+                _focus={{ outline: "none" }}
                 href={"/cliente/cadastrar"}
                 style={{ textDecoration: "none" }}
                 w="100%"
@@ -126,6 +127,7 @@ export default function PrivateMenu() {
               </Link>
 
               <Link
+                _focus={{ outline: "none" }}
                 href={"/cliente"}
                 style={{ textDecoration: "none" }}
                 w="100%"
@@ -139,7 +141,7 @@ export default function PrivateMenu() {
                   >
                     <FaUsers />
                   </IconButton>
-                  <Text fontSize="sm">Listar Clientes</Text>
+                  <Text fontSize="sm">Lista De Clientes</Text>
                 </Flex>
               </Link>
             </motion.div>
@@ -175,6 +177,7 @@ export default function PrivateMenu() {
               transition={{ duration: 0.2 }}
             >
               <Link
+                _focus={{ outline: "none" }}
                 href={"/usuarios/cadastrar"}
                 style={{ textDecoration: "none" }}
                 w="100%"
@@ -193,6 +196,7 @@ export default function PrivateMenu() {
               </Link>
 
               <Link
+                _focus={{ outline: "none" }}
                 href={"/usuarios"}
                 style={{ textDecoration: "none" }}
                 w="100%"
@@ -206,7 +210,7 @@ export default function PrivateMenu() {
                   >
                     <FaUsersCog />
                   </IconButton>
-                  <Text fontSize="sm">Listar Usuários</Text>
+                  <Text fontSize="sm">Lista De Usuários</Text>
                 </Flex>
               </Link>
             </motion.div>
@@ -242,6 +246,7 @@ export default function PrivateMenu() {
               transition={{ duration: 0.2 }}
             >
               <Link
+                _focus={{ outline: "none" }}
                 href={"/parceiros/cadastrar"}
                 style={{ textDecoration: "none" }}
                 w="100%"
@@ -260,6 +265,7 @@ export default function PrivateMenu() {
               </Link>
 
               <Link
+                _focus={{ outline: "none" }}
                 href={"/parceiros"}
                 style={{ textDecoration: "none" }}
                 w="100%"
@@ -273,7 +279,7 @@ export default function PrivateMenu() {
                   >
                     <FaUser />
                   </IconButton>
-                  <Text fontSize="sm">Listar Parceiros</Text>
+                  <Text fontSize="sm">Lista De Parceiros</Text>
                 </Flex>
               </Link>
             </motion.div>
