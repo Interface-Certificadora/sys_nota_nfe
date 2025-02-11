@@ -18,7 +18,7 @@ import CaptureIPClient from "../(private_route)/home/CaptureIPClient";
 
 
 const Home = () => {
-  
+
 
   return (
     <Flex direction="column" minH="100vh" fontFamily="sans-serif">
@@ -283,7 +283,7 @@ const Home = () => {
                 bg="transparent"
                 fontSize={{ base: "sm", md: "md" }}
                 _hover={{ bg: "green.500" }}
-                href="/notanfe/faq"
+                href="/suporte"
               >
                 ENTRE EM CONTATO.<br /> FALE COM NOSSO SUPORTE
               </ButtonPage>

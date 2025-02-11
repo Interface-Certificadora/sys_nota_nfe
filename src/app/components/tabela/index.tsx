@@ -19,6 +19,7 @@ import {
     useBreakpointValue,
     LinkBox,
     LinkOverlay,
+    Spinner,
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 
@@ -28,8 +29,7 @@ const CustomTable = () => {
     const [items, setItems] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
-
-
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 14;
 
@@ -58,6 +58,7 @@ const CustomTable = () => {
 
             setItems(transformedData);
             setFilteredData(transformedData);
+            setLoading(false);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
@@ -97,7 +98,22 @@ const CustomTable = () => {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
 
-    return (
+    return loading ? (
+        <HStack
+            justify="center"
+            align="center"
+            gap="5"
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            w="full"
+            h="full"
+        >
+            <Spinner color="green.800" size="lg" />
+            <Text color="green.800" fontSize="xl">Carregando...</Text>
+        </HStack>
+    ) : (
         <Stack width="full" gap="4" h="fit" color="white">
 
             <Flex
