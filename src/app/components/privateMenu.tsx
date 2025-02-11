@@ -4,7 +4,6 @@ import React from "react";
 import {
   Flex,
   IconButton,
-  Image,
   Link,
   Text
 } from "@chakra-ui/react";
@@ -42,7 +41,6 @@ export default function PrivateMenu() {
     w: "100%",
     justifyContent: "flex-start",
     gap: 2,
-
     py: 1,
     color: "black",
   };
@@ -149,7 +147,7 @@ export default function PrivateMenu() {
         </AnimatePresence>
       </Flex>
 
-      {/** USUÁRIOS */}
+      
       <Flex flexDir="column" w="100%">
         <Flex
           {...getButtonStyle(2)}
@@ -218,7 +216,6 @@ export default function PrivateMenu() {
         </AnimatePresence>
       </Flex>
 
-      {/** PARCEIROS */}
       <Flex flexDir="column" w="100%">
         <Flex
           {...getButtonStyle(3)}

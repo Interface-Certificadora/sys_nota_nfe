@@ -4,12 +4,11 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request,
     { params }: { params: { id: string } }) {
 
-    try {
-        
+    try {        
         const { id } = params;
         const sessionData = await AuthService.sessionUser();
         const session = sessionData.data;
-
+        
         if (!session) {
             console.error("usuario não identificado, token está ausente");
             return NextResponse.json({
@@ -31,21 +30,16 @@ export async function GET(request: Request,
             
         });
 
-        console.log(response)
-
         if (response.ok) {
             const data = await response.json();
             return NextResponse.json(data, { status: 200 })
         }
 
     } catch (error) {
-
         return NextResponse.json({
             error: true,
             message: error || "erro ao achar parceiro",
             staus: 500,
         });
-
     }
-
 }
