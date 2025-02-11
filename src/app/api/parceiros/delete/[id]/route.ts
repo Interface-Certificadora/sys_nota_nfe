@@ -30,6 +30,13 @@ export async function DELETE(request: Request,
             },
         });
 
+        if (response.ok) {
+            return NextResponse.json({
+                error: false,
+                message: "parceiro excluido com sucesso",
+                staus: 200,
+            });
+        }
 
 
     } catch (error) {

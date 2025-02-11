@@ -29,26 +29,26 @@ export default function PrivateHeader() {
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      h="180" 
+      h="180"
       w="100%"
       bg="#FFFFFF"
       borderBottom="1px solid #00713C"
-      p="3"  
+      p="3"
     >
-      
+
       <Flex alignItems="center">
-        <Link href="/home">
+        <Link href="/home" _focus={{ outline: "none" }}>
           <Image
             w="150px"
             h="36px"
             src="/NFEB.svg"
             alt="Logo"
             objectFit="cover"
+
           />
         </Link>
       </Flex>
 
-      {/* Botão de Logout */}
       <Flex alignItems="center" gap={2}>
         <Button
           onClick={handleLogout}
@@ -59,7 +59,6 @@ export default function PrivateHeader() {
           justifyContent="center"
           gap={2}
           p={2}
-          _hover={{ bg: "#00713C", color: "white" }}
         >
           <FaPowerOff color="#00713C" size={18} />
           <Text color="#00713C">Logout</Text>
