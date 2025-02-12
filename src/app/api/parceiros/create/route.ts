@@ -6,6 +6,7 @@ export async function POST(request: Request) {
         const body = await request.json();
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
+        body.cpf = body.cpf.replace(/\D/g, "");
 
         if (!session) {
             console.error("Usuário não identificado, token está ausente");
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
         if (!body.nome || !body.cpf || !body.telefone || !body.chave_pix || !body.valor || !body.email) {
             return NextResponse.json(
                 { error: true, message: "Todos os campos são obrigatórios, confirme se todos foram preenchidos corretamente" },
-                { status: 400 } 
+                { status: 400 }
             );
         }
 
@@ -30,11 +31,12 @@ export async function POST(request: Request) {
             },
             body: JSON.stringify(body),
         });
+        console.log(response)
 
         if (!response.ok) {
             const errorData = await response.json();
             return NextResponse.json(
-                { error: true, message: errorData.message || "Erro ao cadastrar parceiro" },
+                { error: true, message: errorData.message || "Erro ao cadastrar parceiro, verifique se todos os campos foram preenchidos corretamente" },
                 { status: response.status }
             );
         }

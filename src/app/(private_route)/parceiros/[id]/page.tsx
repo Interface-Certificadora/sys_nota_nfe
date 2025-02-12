@@ -21,16 +21,16 @@ export default function PartnerPage({ params }: Props) {
     const router = useRouter();
     const { id } = params;
 
-    const [partner, setPartner] = useState<any>(null); 
+    const [partner, setPartner] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
     const [totalPages, setTotalPages] = useState(1);
 
-   
+
     const [formData, setFormData] = useState({
         nome: "",
         email: "",
@@ -49,7 +49,7 @@ export default function PartnerPage({ params }: Props) {
         valor: formData.valor,
     };
 
-    // Muda campos do form
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -58,7 +58,7 @@ export default function PartnerPage({ params }: Props) {
         }));
     };
 
-    // Paginação
+
     const handlenextPage = () => {
         if (currentPage < totalPages) {
             setCurrentPage((prev) => prev + 1);
@@ -70,7 +70,7 @@ export default function PartnerPage({ params }: Props) {
         }
     };
 
-    // Busca dados do parceiro
+
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -80,10 +80,10 @@ export default function PartnerPage({ params }: Props) {
             }
             const data = await response.json();
 
-            // Armazena o parceiro inteiro em 'partner'
+
             setPartner(data);
 
-            // Preenche formData apenas com campos que devem ser editados
+
             setFormData({
                 nome: data.nome || "",
                 email: data.email || "",
@@ -93,7 +93,7 @@ export default function PartnerPage({ params }: Props) {
                 valor: data.valor || "",
             });
 
-            // Define total de páginas (caso use a paginação para os clientes)
+
             if (data.clientes && data.clientes.length > 0) {
                 setTotalPages(Math.ceil(data.clientes.length / pageSize));
             }
@@ -109,7 +109,7 @@ export default function PartnerPage({ params }: Props) {
         }
     };
 
-    // Atualiza dados do parceiro (PATCH)
+
     const handlePatch = async () => {
         setSaving(true);
         try {
@@ -147,7 +147,7 @@ export default function PartnerPage({ params }: Props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
-    
+
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const visibleClients = partner?.clientes?.slice(startIndex, endIndex) ?? [];
@@ -171,7 +171,7 @@ export default function PartnerPage({ params }: Props) {
         </HStack>
     ) : (
         <Flex gap={6} w="full" h="full">
-           
+
             <Flex flexDir="column" gap={6} w="40%">
                 <Text
                     w="full"
@@ -286,6 +286,7 @@ export default function PartnerPage({ params }: Props) {
                                 fontSize="md"
                                 color="white"
                                 textAlign="center"
+                                roundedLeft={"md"}
                             >
                                 Id
                             </Table.ColumnHeader>
@@ -313,8 +314,9 @@ export default function PartnerPage({ params }: Props) {
                                 fontSize="md"
                                 color="white"
                                 textAlign="center"
+                                roundedRight={"md"}
                             >
-                                Qtd. Cobranças
+                                Cobranças Abertas
                             </Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
@@ -354,7 +356,7 @@ export default function PartnerPage({ params }: Props) {
                             ))
                         ) : (
                             <Table.Row>
-                                <Table.Cell colSpan={4} textAlign="center">
+                                <Table.Cell colSpan={4} bg={"white"} textAlign="center">
                                     Nenhum cliente encontrado
                                 </Table.Cell>
                             </Table.Row>
@@ -362,7 +364,7 @@ export default function PartnerPage({ params }: Props) {
                     </Table.Body>
                 </Table.Root>
 
-                
+
                 <Flex gap={4} mt={4} justify="center">
                     <Button
                         onClick={handleprevPage}

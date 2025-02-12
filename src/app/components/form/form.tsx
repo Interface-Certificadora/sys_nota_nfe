@@ -19,60 +19,44 @@ type FormProps = PropsWithChildren<
 export function FormComponent(props: FormProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
-  const {setLoading} = useContext(LoadingContext)
+  const { setLoading } = useContext(LoadingContext)
 
   const [state, formAction] = useFormState(props.action, { error: null });
-  console.log("🚀 ~ FormComponent ~ state:", state)
+
+ 
 
   const handleSubmit = () => {
     setLoading(true)
   };
+  
 
   useEffect(() => {
     if (state?.error) {
       setIsError(true);
-    } else if (state?.error == null) {
-      
-    } else if (state?.id) {
-      setIsSuccess(true);
-    }else {
+    } else if (state?.success) {
       setIsSuccess(true);
     }
-  }, [state]);
 
-  useEffect(() => {
-    if (isSuccess) {
+    if (state?.message) {
       toaster.create({
-        title: "Sucesso",
-        description: "Informações salvas com sucesso",
-        type: "success",
+        title: state.error ? "Erro" : "Sucesso",
+        description: state.message,
+        type: state.error ? "error" : "success",
         duration: 3000,
       });
+    }
+
+    if (state?.success) {
       setTimeout(() => {
-        window.location.reload()
-      }, 2000)
-      setLoading(false)
-      setIsSuccess(false); // Reset state after showing toast
+        window.location.reload();
+      }, 2000);
     }
-    if (isError) {
-      if (state?.message) {
-        toaster.create({
-          title: "Erro",
-          description: state?.message,
-          duration: 3000,
-          type: 'error'
-        });
-      }
-      toaster.create({
-        title: "Erro",
-        description: "Erro ao salvar as informações",
-        type: "error",
-        duration: 3000,
-      });
-      setLoading(false)
-      setIsError(false); // Reset state after showing toast
-    }
-  }, [isSuccess, isError, setLoading ,state?.message]);
+
+    setLoading(false);
+    setIsSuccess(false);
+    setIsError(false);
+  }, [state, setLoading]);
+
 
   return <form {...props} action={formAction} onSubmit={handleSubmit} />;
 }
