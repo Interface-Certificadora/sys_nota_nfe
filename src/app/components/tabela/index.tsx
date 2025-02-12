@@ -20,6 +20,7 @@ import {
     LinkBox,
     LinkOverlay,
     Spinner,
+    Link,
 } from "@chakra-ui/react";
 import { ButtonPage } from "../page/button";
 
@@ -190,39 +191,45 @@ const CustomTable = () => {
 
 
             {isMobile ? (
-                <VStack>
-                    {paginatedData.map((user) => (
-                        <Box
-                            key={user.id}
-                            bg="white"
-                            p={4}
-                            borderRadius="lg"
-                            boxShadow="sm"
-                            w="full"
-                            color="black"
-                            _hover={{ bg: "green.100", cursor: "pointer" }}
-                            onClick={() => console.log(`Card clicado: ${user.nome}`)}
-                        >
-                            <ButtonPage w="full" h="full" textAlign="left" variant="plain">
-                                <Text>
-                                    <b>ID:</b> {user.id}
-                                </Text>
-                                <Text>
-                                    <b>Nome:</b> {user.nome}
-                                </Text>
-                                <Text>
-                                    <b>Razão Social:</b> {user.rs}
-                                </Text>
-                                <Text>
-                                    <b>Telefone:</b> {user.telefone}
-                                </Text>
-                                <Text>
-                                    <b>CNPJ:</b> {user.cnpj}
-                                </Text>
-                            </ButtonPage>
-                        </Box>
-                    ))}
+                <VStack w="full" align="stretch">
+                    <Flex w="full" justify="center" wrap="wrap" gap={4}>
+                        {paginatedData.map((user) => (
+                            <Link key={user.id} href={`/cliente/${user.id}`} _hover={{ textDecoration: "none" }}>
+                                <Box
+                                    bg="white"
+                                    p={4}
+                                    borderRadius="lg"
+                                    boxShadow="sm"
+                                    color="black"
+                                    transition="0.2s"
+                                    _hover={{ bg: "green.100", transform: "scale(1.02)" }}
+                                    w={{ base: "100%", sm: "100%", md: "320px" }}
+                                    minW="280px"
+                                    cursor="pointer"
+                                >
+                                    <Flex direction="column" align="start" w="full">
+                                        <Text>
+                                            <b>ID:</b> {user.id}
+                                        </Text>
+                                        <Text>
+                                            <b>Nome:</b> {user.nome}
+                                        </Text>
+                                        <Text>
+                                            <b>Razão Social:</b> {user.rs}
+                                        </Text>
+                                        <Text>
+                                            <b>Telefone:</b> {user.telefone}
+                                        </Text>
+                                        <Text>
+                                            <b>CNPJ:</b> {user.cnpj}
+                                        </Text>
+                                    </Flex>
+                                </Box>
+                            </Link>
+                        ))}
+                    </Flex>
                 </VStack>
+
             ) : (
 
 
