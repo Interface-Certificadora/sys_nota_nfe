@@ -9,7 +9,7 @@ import { Box, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Partner() {
-  const[loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const initialValues = {
     nome: "",
@@ -17,7 +17,7 @@ export default function Partner() {
     email: "",
     telefone: "",
     chave_pix: "",
-    valor: null,
+    valor: "",
   };
 
   const [formData, setFormData] = useState({

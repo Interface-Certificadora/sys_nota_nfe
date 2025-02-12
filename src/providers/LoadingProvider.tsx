@@ -7,15 +7,15 @@ interface ClientProps {
     children: React.ReactNode
 }
 
-export default function  LoadingProvider({children}: ClientProps){
+export default function LoadingProvider({ children }: ClientProps) {
     const [loading, setLoading] = useState<boolean>(false)
 
     return (
         <LoadingContext.Provider
-        value={{
-            loading,
-            setLoading
-        }}
+            value={{
+                loading,
+                setLoading
+            }}
         >
             {children}
         </LoadingContext.Provider>
