@@ -18,11 +18,9 @@ import CaptureIPClient from "../(private_route)/home/CaptureIPClient";
 
 
 const Home = () => {
-
-
   return (
     <Flex direction="column" minH="100vh" fontFamily="sans-serif">
-      <CaptureIPClient />
+      
       <Box bg="#15803D" color="white">
         <Container maxW="1200px" mx="auto" py={{ base: 4, md: 6 }}>
           <Flex

@@ -1,5 +1,5 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import { error } from "console";
+
 import { NextResponse } from "next/server";
 
 export async function DELETE(request: Request,

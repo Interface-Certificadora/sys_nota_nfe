@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { openDb } from "@/database";
 
-export async function GET(req: NextRequest) {
+export async function GET( ) {
     try {
         const db = await openDb();
         const logs = await db.all(`SELECT * FROM logs ORDER BY id DESC`);
