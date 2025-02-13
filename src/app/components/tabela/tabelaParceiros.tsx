@@ -25,7 +25,8 @@ import { ButtonPage } from "../page/button";
 
 
 const CustomTable = () => {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<Array<{ id: string; nome: string; email: string; telefone: string; cnpj?: string; rs?: string }>>([]);
+
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState
         ({
@@ -40,23 +41,26 @@ const CustomTable = () => {
 
     const fetchData = async () => {
         try {
-
             const response = await fetch(`/api/parceiros/getall`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
             });
+
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
             }
 
             const data = await response.json();
-           
+
+         
+            setItems(data);
+            setFilteredData(data);
+
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
     };
+
 
     useEffect(() => {
         fetchData();
@@ -64,18 +68,19 @@ const CustomTable = () => {
 
 
     const applyFilters = () => {
-        const newFilteredData = items.filter((user) => {
-            return (
-                (filters.id === "" || user.id?.toString().includes(filters.id)) &&
-                (filters.nome === "" || user.nome?.toLowerCase().includes(filters.nome.toLowerCase())) &&
-                (filters.email === "" || user.cnpj?.includes(filters.cnpj)) &&
-                (filters.telefone === "" || user.rs?.toLowerCase().includes(filters.rs.toLowerCase()))
-            );
-        });
+    const newFilteredData = items.filter((user) => {
+        return (
+            (filters.id === "" || user.id?.toString().includes(filters.id)) &&
+            (filters.nome === "" || user.nome?.toLowerCase().includes(filters.nome.toLowerCase())) &&
+            (filters.cnpj === "" || user.cnpj?.includes(filters.cnpj)) && // Corrigindo acesso à propriedade `cnpj`
+            (filters.telefone === "" || user.telefone?.toLowerCase().includes(filters.telefone.toLowerCase()))
+        );
+    });
 
-        setFilteredData(newFilteredData);
-        setCurrentPage(1);
-    };
+    setFilteredData(newFilteredData);
+    setCurrentPage(1);
+};
+
 
 
     const totalPages = Math.ceil(filteredData.length / pageSize);

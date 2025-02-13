@@ -3,7 +3,7 @@ import { openDb } from "@/database";
 
 export async function POST(req: NextRequest) {
   try {
-    const { ip } = await req.json(); // Pegando o IP enviado pelo client
+    const { ip } = await req.json();
 
     if (!ip) {
       return NextResponse.json({ error: "IP não fornecido" }, { status: 400 });
@@ -14,8 +14,6 @@ export async function POST(req: NextRequest) {
       ip,
       new Date().toISOString(),
     ]);
-
-    console.log(`IP do usuário capturado: ${ip}`);
     return NextResponse.json({ message: "IP registrado com sucesso" });
   } catch (error) {
     console.error("Erro ao capturar o IP:", error);

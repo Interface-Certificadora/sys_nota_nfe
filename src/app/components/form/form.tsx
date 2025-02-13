@@ -2,7 +2,7 @@
 "use client";
 import { toaster } from "@/app/components/ui/toaster";
 import { LoadingContext } from "@/context/LoadingContext";
-import { PropsWithChildren, useContext, useEffect, useState } from "react";
+import { PropsWithChildren, useContext, useEffect} from "react";
 import { useFormState } from "react-dom";
 
 type HTMLFormProps = React.DetailedHTMLProps<
@@ -17,8 +17,7 @@ type FormProps = PropsWithChildren<
 >;
 
 export function FormComponent(props: FormProps) {
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isError, setIsError] = useState(false);
+  
   const { setLoading } = useContext(LoadingContext)
 
   const [state, formAction] = useFormState(props.action, { error: null });
@@ -31,11 +30,7 @@ export function FormComponent(props: FormProps) {
   
 
   useEffect(() => {
-    if (state?.error) {
-      setIsError(true);
-    } else if (state?.success) {
-      setIsSuccess(true);
-    }
+  
 
     if (state?.message) {
       toaster.create({
@@ -53,8 +48,7 @@ export function FormComponent(props: FormProps) {
     }
 
     setLoading(false);
-    setIsSuccess(false);
-    setIsError(false);
+    
   }, [state, setLoading]);
 
 

@@ -23,7 +23,6 @@ export default function PartnerPage({ params }: Props) {
 
     const [partner, setPartner] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
 
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -111,7 +110,7 @@ export default function PartnerPage({ params }: Props) {
 
 
     const handlePatch = async () => {
-        setSaving(true);
+
         try {
             const response = await fetch(`/api/parceiros/patch/${id}`, {
                 method: "PATCH",
@@ -131,14 +130,12 @@ export default function PartnerPage({ params }: Props) {
                 type: "success",
             });
             router.push(`/parceiros`);
-        } catch (error) {
+        } catch (error: any) {
             toaster.create({
                 title: "Erro",
-                description: "Falha ao atualizar o parceiro",
+                description: error.message || "Falha ao atualizar o parceiro",
                 type: "error",
             });
-        } finally {
-            setSaving(false);
         }
     };
 
