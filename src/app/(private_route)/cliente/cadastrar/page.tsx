@@ -8,13 +8,13 @@ import { toaster } from "@/app/components/ui/toaster"
 import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import createClient from "@/modules/auth/actions/auth-createClient";
+import { Parceiro } from "@/types/parceiro.type";
 
 export default function AddClient() {
   const [razaosocial, setRazaoSocial] = useState("");
   const [inscestadual, setInscEstadual] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [setValor] = useState("");
   const [plano,] = useState("");
   const [temParceiros,] = useState(false);
   const [parceiros, setParceiros] = useState<{ label: string; value: string }[]>([]);
@@ -29,7 +29,7 @@ export default function AddClient() {
       const data = await response.json();
       if (Array.isArray(data)) {
 
-        const formattedParceiros = data.map((parceiro: any) => ({
+        const formattedParceiros = data.map((parceiro: Parceiro) => ({
           label: parceiro.nome,
           value: parceiro.id.toString(),
 
@@ -40,31 +40,9 @@ export default function AddClient() {
       console.error("Erro ao buscar parceiros:", error);
     }
   };
-
-  const fetchParceiro = async () => {
-    try {
-      const response = await fetch(`/api/parceiros/patch/${selectedParceiro}`);
-      if (!response.ok) throw new Error("Erro ao adicionar parceiros");
-
-      const data = await response.json();
-      if (Array.isArray(data)) {
-
-        const formattedParceiros = data.map((parceiro: any) => ({
-          label: parceiro.nome,
-          value: parceiro.id.toString(),
-        }));
-        setParceiros(formattedParceiros);
-      }
-    } catch (error) {
-      console.error("Erro ao buscar parceiros:", error);
-    }
-  };
-
-
 
   useEffect(() => {
     fetchParceiros();
-    fetchParceiro
   }, [plano, temParceiros]);
 
 

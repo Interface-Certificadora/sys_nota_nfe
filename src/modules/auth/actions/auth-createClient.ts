@@ -37,6 +37,7 @@ export default async function createClient(_: any, form: FormData) {
     const senha = "1234" as string
     const url = `www.${cnpj}.notanfe.com.br` as string
     const parceiro_id = form.get('parceiro_id')
+    console.log("🚀 ~ createClient ~ parceiro_id:", parceiro_id)
 
     const data = {
         justificativa: justificativa,
@@ -73,6 +74,7 @@ export default async function createClient(_: any, form: FormData) {
         parceiro_id: parceiro_id ? Number(parceiro_id) : null,
     }
 
+    
     const sessionData = await AuthService.sessionUser();
     const session = sessionData.data;
 
@@ -96,6 +98,7 @@ export default async function createClient(_: any, form: FormData) {
         });
 
         const responseData = await response.json();
+        console.log("🚀 ~ createClient ~ responseData:", responseData)
 
         if (!response.ok) {
             return { error: true, message: responseData.message || "Erro ao criar cliente" };
