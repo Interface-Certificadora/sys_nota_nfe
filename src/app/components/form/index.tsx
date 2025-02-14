@@ -3,6 +3,7 @@ import { FormComponent } from "./form";
 import InputCep from "./input/inputCep";
 import InputDate from "./input/inputDate";
 import InputNumber from "./input/inputNumber";
+import PartnerInput from "./input/inputPartner";
 import InputSelect from "./input/inputSelect";
 import InputString from "./input/inputString";
 
@@ -14,4 +15,5 @@ export const CardForm = {
     InputDate: InputDate,
     InputSelect: InputSelect,
     InputCep: InputCep,
+    InputPartner: PartnerInput,
 }

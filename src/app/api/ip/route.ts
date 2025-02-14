@@ -1,34 +1,19 @@
 import { NextResponse } from "next/server";
-import fetch from "node-fetch";
-import { openDb } from "@/database";
-
-interface IpifyResponse {
-    ip: string;
-}
+import { getIPAddress, saveIPToDatabase } from "@/modules/auth/services/ipService";
 
 export async function GET() {
     try {
-
-        const response = await fetch("https://api.ipify.org?format=json");
-        const data = (await response.json()) as IpifyResponse;
-        const ip = data.ip;
-
-
-        const db = await openDb();
-        await db.run("INSERT INTO logs (ip, accessed_at) VALUES (?, ?)", [
-            ip,
-            new Date().toISOString(),
-        ]);
+        const ip = await getIPAddress();
+        await saveIPToDatabase(ip);
 
         return NextResponse.json({
             success: true,
             message: "IP registrado com sucesso",
             ip,
         });
-    } catch (error) {
-        console.error("Erro ao buscar IP ou inserir no banco:", error);
+    } catch (error: any) {
         return NextResponse.json(
-            { success: false, error: "Erro interno ao processar a requisição" },
+            { success: false, error: error.message },
             { status: 500 }
         );
     }
