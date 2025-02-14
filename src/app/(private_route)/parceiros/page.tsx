@@ -100,14 +100,16 @@ export default function ListPartners() {
         return Partners.filter((partner) => {
             return (
                 (id.trim() === "" || partner.id === Number(id)) &&
-                (nome.trim() === "" || partner.name.toLowerCase().includes(nome.toLowerCase())) &&
-                (email.trim() === "" || partner.email.toLowerCase().includes(email.toLowerCase())) &&
-                (cpf.trim() === "" || partner.cpf.includes(cpf)) &&
-                (chave_pix.trim() === "" || partner.chave_pix.includes(chave_pix)) &&
-                (telefone.trim() === "" || partner.telefone.includes(telefone))
+                (nome.trim() === "" || typeof partner.name === "string" && partner.name.toLowerCase().includes(nome.toLowerCase())) &&
+                (email.trim() === "" || typeof partner.email === "string" && partner.email.toLowerCase().includes(email.toLowerCase())) &&
+                (cpf.trim() === "" || partner.cpf?.toString().includes(cpf)) &&
+                (chave_pix.trim() === "" || typeof partner.chave_pix === "string" && partner.chave_pix.includes(chave_pix)) &&
+                (telefone.trim() === "" || typeof partner.telefone === "string" && partner.telefone.includes(telefone))
             );
         });
     }, [Partners, id, nome, email, cpf, chave_pix, telefone]);
+
+
 
     const handleLimparFilter = () => {
         setId("");

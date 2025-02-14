@@ -12,7 +12,7 @@ import { ButtonPage } from "@/app/components/page/button";
 import FeatureCard from "@/app/components/page/iconcards";
 import FeatureList from "@/app/components/page/list";
 import Enterprise from "@/app/components/page/enterprise";
-import CaptureIPClient from "../(private_route)/home/CaptureIPClient";
+
 
 
 

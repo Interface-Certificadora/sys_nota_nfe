@@ -36,6 +36,7 @@ export default async function createClient(_: any, form: FormData) {
     const user = cnpj as string
     const senha = "1234" as string
     const url = `www.${cnpj}.notanfe.com.br` as string
+    const parceiro_id = form.get('parceiro_id')
 
     const data = {
         justificativa: justificativa,
@@ -69,6 +70,7 @@ export default async function createClient(_: any, form: FormData) {
         contador: contador,
         tel_contador: whatsappcontador,
         situacao: situacaotributaria,
+        parceiro_id: parceiro_id ? Number(parceiro_id) : null,
     }
 
     const sessionData = await AuthService.sessionUser();

@@ -2,12 +2,11 @@
 import { CardForm } from "@/app/components/form";
 import UploadFile from "@/app/components/form/uploadFile";
 import UploadLogo from "@/app/components/form/uploadLogo";
-import { AtivoDesativadoOptions } from "@/data/selectAtivoDesativado";
-import { ComissaoOptions, planoOptions } from "@/data/selectComisao";
+import { planoOptions } from "@/data/selectComisao";
 import { SituacaoTributariaOptions } from "@/data/selectSituacaoTributaria";
 import { toaster } from "@/app/components/ui/toaster"
 import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import createClient from "@/modules/auth/actions/auth-createClient";
 
 export default function AddClient() {
@@ -15,10 +14,66 @@ export default function AddClient() {
   const [inscestadual, setInscEstadual] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [setValor] = useState("");
+  const [plano,] = useState("");
+  const [temParceiros,] = useState(false);
+  const [parceiros, setParceiros] = useState<{ label: string; value: string }[]>([]);
+  const [selectedParceiro, setSelectedParceiro] = useState("");
+
+
+  const fetchParceiros = async () => {
+    try {
+      const response = await fetch(`/api/parceiros/getall`);
+      if (!response.ok) throw new Error("Erro ao buscar parceiros");
+
+      const data = await response.json();
+      if (Array.isArray(data)) {
+
+        const formattedParceiros = data.map((parceiro: any) => ({
+          label: parceiro.nome,
+          value: parceiro.id.toString(),
+
+        }));
+        setParceiros(formattedParceiros);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar parceiros:", error);
+    }
+  };
+
+  const fetchParceiro = async () => {
+    try {
+      const response = await fetch(`/api/parceiros/patch/${selectedParceiro}`);
+      if (!response.ok) throw new Error("Erro ao adicionar parceiros");
+
+      const data = await response.json();
+      if (Array.isArray(data)) {
+
+        const formattedParceiros = data.map((parceiro: any) => ({
+          label: parceiro.nome,
+          value: parceiro.id.toString(),
+        }));
+        setParceiros(formattedParceiros);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar parceiros:", error);
+    }
+  };
+
+
+
+  useEffect(() => {
+    fetchParceiros();
+    fetchParceiro
+  }, [plano, temParceiros]);
+
+
+
 
   const replacestring = (string: string) => {
     return string.replace(/\D/g, '')
   }
+
 
   const getInfosCnpj = async (cnpj: string) => {
     cnpj = replacestring(cnpj)
@@ -71,8 +126,6 @@ export default function AddClient() {
   return (
 
     <Flex
-
-
       flexDir={"column"}
       w={"100%"}
       h={"fit-content"}
@@ -220,14 +273,7 @@ export default function AddClient() {
             flexWrap={"wrap"}
             gap={3}
           >
-            <CardForm.InputSelect
-              label="Comissão"
-              w="200px"
-              options={ComissaoOptions}
-              placeholder=""
-              name="comissao"
-              obrigatorio
-            />
+
             <CardForm.InputSelect
               label="Plano"
               w="200px"
@@ -236,23 +282,18 @@ export default function AddClient() {
               name="plano"
               obrigatorio
             />
-            <CardForm.InputNumber
-              label="R$ Comissão"
-              w={"75px"}
-              name="valorcomissao"
-              color={"black"}
-              placeholder="50"
+
+            <CardForm.InputPartner
+              label="Parceiros"
+              w="200px"
+              options={parceiros}
+              placeholder="Digite ou selecione um parceiro"
+              name="parceiro"
               obrigatorio
+              value={selectedParceiro}
+              onChange={setSelectedParceiro}
             />
 
-            <CardForm.InputSelect
-              label="Situação"
-              w="150px"
-              options={AtivoDesativadoOptions}
-              placeholder="Ativo"
-              name={"situacao"}
-              obrigatorio
-            />
             <CardForm.InputNumber
               label="Valor"
               w={"75px"}
@@ -322,6 +363,11 @@ export default function AddClient() {
               name="justificativa"
               color={"black"}
               placeholder=""
+            />
+            <input
+              type="hidden"
+              name="parceiro_id"
+              value={selectedParceiro} 
             />
           </Flex>
           <Flex
