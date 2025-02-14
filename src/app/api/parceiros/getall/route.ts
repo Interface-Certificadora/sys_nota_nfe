@@ -11,14 +11,13 @@ export async function GET() {
             return;
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,
             },
         });
-
         const data = await response.json();
         return NextResponse.json(data, { status: 200 })
     } catch (error) {

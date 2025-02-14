@@ -18,11 +18,8 @@ export default function AddUser() {
       <Flex
         w={"100%"}
         flexDir="column"
-        border="2px solid #00713C"
-        rounded="md"
         p={2}
         bg="white"
-        boxShadow="md"
       >
         <Text fontSize="2xl" ml={4} fontWeight="bold" color="black">
           Criar Usuário
@@ -57,6 +54,9 @@ export default function AddUser() {
                     type="text"
                     placeholder="Insira seu Nome e Sobrenome"
                     obrigatorio
+                    border={"none"}
+                    borderBottom=" 1px solid black"
+                    borderRadius={"none"}
                   />
                   <CardForm.InputString
                     name="email"
@@ -66,6 +66,9 @@ export default function AddUser() {
                     type="email"
                     placeholder="Insira seu Email"
                     obrigatorio
+                    border={"none"}
+                    borderBottom=" 1px solid black"
+                    borderRadius={"none"}
                   />
                 </Box>
                 <Box
@@ -81,6 +84,9 @@ export default function AddUser() {
                     type="password"
                     placeholder="Insira a senha"
                     obrigatorio
+                    border={"none"}
+                    borderBottom=" 1px solid black"
+                    borderRadius={"none"}
                   />
                   <CardForm.InputString
                     name="confirmpassword"
@@ -90,6 +96,9 @@ export default function AddUser() {
                     type="password"
                     placeholder="Confirme sua senha"
                     obrigatorio
+                    border={"none"}
+                    borderBottom=" 1px solid black"
+                    borderRadius={"none"}
                   />
                 </Box>
                 <Spacer />

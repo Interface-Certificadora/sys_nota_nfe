@@ -19,8 +19,10 @@ import {
     useBreakpointValue,
     LinkBox,
     LinkOverlay,
+    Spinner,
+    Link,
 } from "@chakra-ui/react";
-import { ButtonPage } from "../page/button";
+
 
 
 
@@ -28,10 +30,9 @@ const CustomTable = () => {
     const [items, setItems] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [filters, setFilters] = useState({ id: "", nome: "", cnpj: "", rs: "" });
-
-
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 25;
+    const pageSize = 14;
 
     const fetchData = async () => {
         try {
@@ -58,6 +59,7 @@ const CustomTable = () => {
 
             setItems(transformedData);
             setFilteredData(transformedData);
+            setLoading(false);
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
@@ -97,12 +99,27 @@ const CustomTable = () => {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
 
-    return (
-        <Stack width="full" gap="4" h="full" color="white">
+    return loading ? (
+        <HStack
+            justify="center"
+            align="center"
+            gap="5"
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            w="full"
+            h="full"
+        >
+            <Spinner color="green.800" size="lg" />
+            <Text color="green.800" fontSize="xl">Carregando...</Text>
+        </HStack>
+    ) : (
+        <Stack width="full" gap="4" h="fit" color="white">
 
             <Flex
                 bg="green.600"
-                p={4}
+                py={4}
                 borderRadius="lg"
                 direction="column"
                 gap={4}
@@ -174,79 +191,84 @@ const CustomTable = () => {
 
 
             {isMobile ? (
-                <VStack>
-                    {paginatedData.map((user) => (
-                        <Box
-                            key={user.id}
-                            bg="white"
-                            p={4}
-                            borderRadius="lg"
-                            boxShadow="sm"
-                            w="full"
-                            color="black"
-                            _hover={{ bg: "green.100", cursor: "pointer" }}
-                            onClick={() => console.log(`Card clicado: ${user.nome}`)}
-                        >
-                            <ButtonPage w="full" h="full" textAlign="left" variant="plain">
-                                <Text>
-                                    <b>ID:</b> {user.id}
-                                </Text>
-                                <Text>
-                                    <b>Nome:</b> {user.nome}
-                                </Text>
-                                <Text>
-                                    <b>Razão Social:</b> {user.rs}
-                                </Text>
-                                <Text>
-                                    <b>Telefone:</b> {user.telefone}
-                                </Text>
-                                <Text>
-                                    <b>CNPJ:</b> {user.cnpj}
-                                </Text>
-                            </ButtonPage>
-                        </Box>
-                    ))}
+                <VStack w="full" align="stretch">
+                    <Flex w="full" justify="center" wrap="wrap" gap={4}>
+                        {paginatedData.map((user) => (
+                            <Link key={user.id} href={`/cliente/${user.id}`} _hover={{ textDecoration: "none" }}>
+                                <Box
+                                    bg="white"
+                                    p={4}
+                                    borderRadius="lg"
+                                    boxShadow="sm"
+                                    color="black"
+                                    transition="0.2s"
+                                    _hover={{ bg: "green.100", transform: "scale(1.02)" }}
+                                    w={{ base: "100%", sm: "100%", md: "320px" }}
+                                    minW="280px"
+                                    cursor="pointer"
+                                >
+                                    <Flex direction="column" align="start" w="full">
+                                        <Text>
+                                            <b>ID:</b> {user.id}
+                                        </Text>
+                                        <Text>
+                                            <b>Nome:</b> {user.nome}
+                                        </Text>
+                                        <Text>
+                                            <b>Razão Social:</b> {user.rs}
+                                        </Text>
+                                        <Text>
+                                            <b>Telefone:</b> {user.telefone}
+                                        </Text>
+                                        <Text>
+                                            <b>CNPJ:</b> {user.cnpj}
+                                        </Text>
+                                    </Flex>
+                                </Box>
+                            </Link>
+                        ))}
+                    </Flex>
                 </VStack>
-            ) : (
-    
 
-            <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black">
-                <Table.Header py={4}>
-                    <Table.Row bg="green.600">
-                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="50px" textAlign="center">Id</Table.ColumnHeader>
-                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="150px" textAlign="center">Nome</Table.ColumnHeader>
-                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="200px" textAlign="center">Razão Social</Table.ColumnHeader>
-                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="150px" textAlign="center">Telefone</Table.ColumnHeader>
-                        <Table.ColumnHeader py="5" fontSize="lg" color="white" minW="180px" textAlign="center">CNPJ</Table.ColumnHeader>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {paginatedData.map((user) => (
-                        <LinkBox as={Table.Row}
-                            key={user.id}
-                            _hover={{ bg: "green.100" }}
-                            fontWeight="bold"
-                            color="black"
-                        >
-                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
-                                <LinkOverlay href={`/notanfe/cliente/${user.id}`}>{user.id}</LinkOverlay>
-                            </Table.Cell>
-                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">
-                                {user.nome}
-                            </Table.Cell>
-                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">{user.rs}</Table.Cell>
-                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">{user.telefone}</Table.Cell>
-                            <Table.Cell px={6} py={3} textAlign="center" verticalAlign="middle">{user.cnpj}</Table.Cell>
-                        </LinkBox>
-                    ))}
-                </Table.Body>
-            </Table.Root>
+            ) : (
+
+
+                <Table.Root variant="outline" size="sm" boxShadow="lg" rounded="lg" color="black">
+                    <Table.Header py={4}>
+                        <Table.Row bg="green.600">
+                            <Table.ColumnHeader py="4" fontSize="lg" color="white" minW="50px" textAlign="center">Id</Table.ColumnHeader>
+                            <Table.ColumnHeader py="4" fontSize="lg" color="white" minW="150px" textAlign="center">Nome</Table.ColumnHeader>
+                            <Table.ColumnHeader py="4" fontSize="lg" color="white" minW="200px" textAlign="center">Razão Social</Table.ColumnHeader>
+                            <Table.ColumnHeader py="4" fontSize="lg" color="white" minW="150px" textAlign="center">Telefone</Table.ColumnHeader>
+                            <Table.ColumnHeader py="4" fontSize="lg" color="white" minW="180px" textAlign="center">CNPJ</Table.ColumnHeader>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {paginatedData.map((user) => (
+                            <LinkBox as={Table.Row}
+                                key={user.id}
+                                _hover={{ bg: "green.100" }}
+                                fontWeight="bold"
+                                color="black"
+                            >
+                                <Table.Cell fontSize={"sm"} px={6} py={3} textAlign="center" verticalAlign="middle">
+                                    <LinkOverlay href={`/cliente/${user.id}`}>{user.id}</LinkOverlay>
+                                </Table.Cell>
+                                <Table.Cell fontSize={"sm"} px={6} py={3} textAlign="center" verticalAlign="middle">
+                                    {user.nome}
+                                </Table.Cell>
+                                <Table.Cell fontSize={"sm"} px={6} py={3} textAlign="center" verticalAlign="middle">{user.rs}</Table.Cell>
+                                <Table.Cell fontSize={"sm"} px={6} py={3} textAlign="center" verticalAlign="middle">{user.telefone}</Table.Cell>
+                                <Table.Cell fontSize={"sm"} px={6} py={3} textAlign="center" verticalAlign="middle">{user.cnpj}</Table.Cell>
+                            </LinkBox>
+                        ))}
+                    </Table.Body>
+                </Table.Root>
 
             )}
 
 
             <PaginationRoot
-                pb="6"
                 count={filteredData.length}
                 pageSize={pageSize}
                 page={currentPage}
@@ -255,7 +277,7 @@ const CustomTable = () => {
                     setCurrentPage(page);
                 }}
             >
-                <HStack wrap="wrap" justify="end" mt={4}>
+                <HStack wrap="wrap" justify="end" >
                     <PaginationPrevTrigger
                         onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                         _hover={{ bg: "green.600", color: "white" }}

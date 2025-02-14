@@ -16,8 +16,7 @@ import {
   VStack,
   Text,
   useBreakpointValue,
-  LinkBox,
-  LinkOverlay,
+
 } from "@chakra-ui/react";
 
 interface Log {

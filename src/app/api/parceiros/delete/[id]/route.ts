@@ -1,5 +1,5 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import { error } from "console";
+
 import { NextResponse } from "next/server";
 
 export async function DELETE(request: Request,
@@ -22,7 +22,7 @@ export async function DELETE(request: Request,
             );
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiros/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/parceiro/${id}`, {
             method: "DELETE",
             headers: {
                 "content-Type": "application/json",
@@ -30,11 +30,14 @@ export async function DELETE(request: Request,
             },
         });
 
-        if (!response.ok) {
-
-            const errorData = await response.json();
-            throw new error(errorData.message);
+        if (response.ok) {
+            return NextResponse.json({
+                error: false,
+                message: "parceiro excluido com sucesso",
+                staus: 200,
+            });
         }
+
 
     } catch (error) {
 

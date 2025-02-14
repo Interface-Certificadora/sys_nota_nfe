@@ -1,75 +1,69 @@
 'use client'
 import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
-import BtnPrivateMenu from "../buttons/btn_private_menu";
 import { FaPowerOff } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { toaster } from "../ui/toaster";
 
-
-
 export default function PrivateHeader() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLogout = async () => {
-    try{
-     const res = await fetch('/api/logout')
-     if(!res.ok){
-       toaster.create({
-         title: "Erro",
-         description: "Erro!",
-         type: "error",
-         duration: 3000,
-       })
-
-       
-     }else{
-       router.push('/login')
-     }
-    }catch(err){
-      console.log(err)
+    try {
+      const res = await fetch('/api/logout');
+      if (!res.ok) {
+        toaster.create({
+          title: "Erro",
+          description: "Erro!",
+          type: "error",
+          duration: 3000,
+        });
+      } else {
+        router.push('/login');
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }
-  
+  };
+
   return (
-    <>
-      <Flex
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        h={"5%"}
-        w={"100%"}
-        bg={"#00713C"}
-        borderBottom={"1px" + " solid" + " #33D388"}
-        position={"relative"}
-      >
-        <Flex>
-        <Link href="/home" >
+    <Flex
+      justifyContent="space-between"
+      alignItems="center"
+      h="180"
+      w="100%"
+      bg="#FFFFFF"
+      borderBottom="1px solid #00713C"
+      p="3"
+    >
+
+      <Flex alignItems="center">
+        <Link href="/home" _focus={{ outline: "none" }}>
           <Image
-            w={'150px'}
-            h={'40px'}
-            src="/img/Logo_NOTA_NFE_02.svg"
+            w="150px"
+            h="36px"
+            src="/NFEB.svg"
             alt="Logo"
             objectFit="cover"
-              />
+
+          />
         </Link>
-        <BtnPrivateMenu />
-        </Flex>
-        <Flex alignItems={"center"} gap={2} mr={4}>
-          
-          <Button 
-          onClick={() => {handleLogout()}}
-          size={"sm"}
-          bg={'transparent'}
-          w={'fit-content'}
-          h={'fit-content'}>
-        <FaPowerOff  color="#FFFFFF" />
-          <Text color={"#FFFFFF"}>
-            Logout
-          </Text>
-
-          </Button>
-
-        </Flex>
       </Flex>
-    </>     
+
+      <Flex alignItems="center" gap={2}>
+        <Button
+          onClick={handleLogout}
+          size="sm"
+          bg="transparent"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={2}
+          p={2}
+        >
+          <FaPowerOff color="#00713C" size={18} />
+          <Text color="#00713C">Logout</Text>
+        </Button>
+      </Flex>
+    </Flex>
   );
 }

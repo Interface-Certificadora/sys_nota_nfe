@@ -12,17 +12,15 @@ import { ButtonPage } from "@/app/components/page/button";
 import FeatureCard from "@/app/components/page/iconcards";
 import FeatureList from "@/app/components/page/list";
 import Enterprise from "@/app/components/page/enterprise";
-import CaptureIPClient from "../(private_route)/home/CaptureIPClient";
+
 
 
 
 
 const Home = () => {
-  
-
   return (
     <Flex direction="column" minH="100vh" fontFamily="sans-serif">
-      <CaptureIPClient />
+      
       <Box bg="#15803D" color="white">
         <Container maxW="1200px" mx="auto" py={{ base: 4, md: 6 }}>
           <Flex
@@ -283,7 +281,7 @@ const Home = () => {
                 bg="transparent"
                 fontSize={{ base: "sm", md: "md" }}
                 _hover={{ bg: "green.500" }}
-                href="/notanfe/faq"
+                href="/suporte"
               >
                 ENTRE EM CONTATO.<br /> FALE COM NOSSO SUPORTE
               </ButtonPage>

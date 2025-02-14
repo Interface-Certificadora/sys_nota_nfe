@@ -4,7 +4,7 @@ import { CardForm } from "@/app/components/form";
 import { toaster } from "@/app/components/ui/toaster";
 import { Tooltip } from "@/app/components/ui/tooltip";
 import { UserList } from "@/types/user.type";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { MdOutlinePassword } from "react-icons/md";
@@ -15,6 +15,7 @@ export default function ListUsers() {
   const [id, setId] = useState("");
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const handleFilter = () => {
     let filtered = users;
@@ -57,6 +58,7 @@ export default function ListUsers() {
     const res = await req.json();
     setUsers(res.data);
     setUsersFilter(res.data);
+    setLoading(false);
   };
 
   const handleResetPassword = async (id: number) => {
@@ -87,7 +89,22 @@ export default function ListUsers() {
     fetchUsers();
   }, []);
 
-  return (
+  return loading ? (
+    <HStack
+      justify="center"
+      align="center"
+      gap="5"
+      position="absolute"
+      top="50%"
+      left="50%"
+      transform="translate(-50%, -50%)"
+      w="full"
+      h="full"
+    >
+      <Spinner color="green.800" size="lg" />
+      <Text color="green.800" fontSize="xl">Carregando...</Text>
+    </HStack>
+  ) : (
     <>
       <Flex
         w={"100%"}
@@ -97,20 +114,20 @@ export default function ListUsers() {
       >
         <Flex
           w={"full"}
-          
+
           p={2}
           justifyContent={"center"}
           h={"fit-content"}
-          flexDir={{base:"column", lg:"row"}}
-          
+          flexDir={{ base: "column", lg: "row" }}
+
         >
           <Flex
-            direction={{base:"column", lg:"row"}}
-            alignItems={{base:"flex-start", lg:"flex-end"}}
+            direction={{ base: "column", lg: "row" }}
+            alignItems={{ base: "flex-start", lg: "flex-end" }}
             p={2}
             border={"2px solid #00713C"}
             rounded={"md"}
-            gap={{base:2, lg:5}}
+            gap={{ base: 2, lg: 5 }}
             h="fit-content"
           >
             <CardForm.InputNumber
@@ -126,7 +143,7 @@ export default function ListUsers() {
             <CardForm.InputString
               name="name"
               label="Filtrar Nome"
-              w={{base:'300px', lg:"350px"}}
+              w={{ base: '300px', lg: "350px" }}
               color={"black"}
               value={nome}
               onChange={(e) => setNome(e.target.value)}
@@ -137,19 +154,19 @@ export default function ListUsers() {
               name="email"
               label="Filtrar Email"
               color={"black"}
-              w={{base:'300px', lg:"350px"}}
+              w={{ base: '300px', lg: "350px" }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"
               placeholder="Digite o Email do Usuário"
             />
             <Flex gap={2}>
-            <Button size={"sm"} onClick={handleFilter} colorPalette={"blue"}>
-              <Text fontSize={"sm"}>Buscar</Text>
-            </Button>
-            <Button size={"sm"} onClick={handleLimparFilter} colorPalette={"cyan"}>
-              <Text fontSize={"sm"}>Limpar</Text>
-            </Button>
+              <Button size={"sm"} onClick={handleFilter} colorPalette={"blue"}>
+                <Text fontSize={"sm"}>Buscar</Text>
+              </Button>
+              <Button size={"sm"} onClick={handleLimparFilter} colorPalette={"cyan"}>
+                <Text fontSize={"sm"}>Limpar</Text>
+              </Button>
             </Flex>
           </Flex>
         </Flex>
@@ -162,7 +179,7 @@ export default function ListUsers() {
           justifyContent={{ base: "normal", lg: "center" }}
           gap={{ base: 2, lg: 3 }}
         >
-          {usersFilter.length > 0 ?  usersFilter.map((user) => (
+          {usersFilter.length > 0 ? usersFilter.map((user) => (
             <Flex
               border={"2px solid #00713C"}
               rounded={"md"}
@@ -227,7 +244,7 @@ export default function ListUsers() {
                 </Flex>
               </Flex>
             </Flex>
-          )) : (<Flex> <Text color={"black"}>Nenhum usuário encontrado</Text></Flex>) }
+          )) : (<Flex> <Text color={"black"}>Nenhum usuário encontrado</Text></Flex>)}
         </Flex>
       </Flex>
     </>

@@ -1,340 +1,288 @@
 "use client";
 
-import {  Flex, IconButton, Link, Text } from "@chakra-ui/react";
 import React from "react";
-import { FaUser, FaUserPlus, FaUsers, FaUsersCog } from "react-icons/fa";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import { IoMenu } from "react-icons/io5";
+import {
+  Flex,
+  IconButton,
+  Link,
+  Text
+} from "@chakra-ui/react";
+
+import {
+  FaUser,
+  FaUserPlus,
+  FaUsers,
+  FaUsersCog
+} from "react-icons/fa";
+import {
+  IoMdArrowDropdown,
+  IoMdArrowDropup
+} from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
-import { TiHome } from "react-icons/ti";
+
+
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function PrivateMenu() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [menuOpen, setMenuOpen] = React.useState( [] as number[]);
+
+  const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
   const handleMenuClick = (index: number) => {
-    setIsOpen(true);
-    if (menuOpen.includes(index)) {
-      setMenuOpen(menuOpen.filter((i) => i !== index));
-      return;
-    }
-    setMenuOpen([...menuOpen, index]);
+
+    setOpenIndex((current) => (current === index ? null : index));
+  };
+
+
+  const buttonStyle = {
+    borderRadius: "4px",
+    cursor: "pointer",
+    alignItems: "center",
+    w: "100%",
+    justifyContent: "flex-start",
+    gap: 2,
+    py: 1,
+    color: "black",
+  };
+
+
+  const getButtonStyle = (index: number) => {
+    const isOpen = openIndex === index;
+    return {
+      ...buttonStyle,
+      bg: isOpen ? "green.600" : "transparent",
+      color: isOpen ? "white" : "#00713C",
+      _hover: {
+        bg: isOpen ? "green.700" : "rgba(0, 113, 60, 0.1)",
+      },
+    };
   };
 
   return (
-    <>
-      <Flex
-        minW={isOpen ? "10%" : "3%"}
-        bg={"#00713C"}
-        alignItems={isOpen ? "flex-start" : "center"}
-        flexDir={"column"}
-        display={{ base: "none", lg: "flex" }}
-        gap={2}
-        borderRight={"1px" + " solid" + " #33D388"}
-      >
+    <Flex
+      w="full"
+      h={"full"}
+      bg="white"
+      color="#00713C"
+
+      flexDir="column"
+      display={{ base: "none", lg: "flex" }}
+      gap={3}
+      py="12px"
+    >
+
+      <Flex>
+        <Text fontSize="lg" fontWeight="bold">
+          Menu
+        </Text>
+      </Flex>
+
+
+      <Flex flexDir="column" w="100%" pr={"12px"}>
         <Flex
-          alignSelf={"center"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          w={isOpen ? "100%" : "100%"}
-          _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-          onClick={() => setIsOpen(!isOpen)}
+          {...getButtonStyle(1)}
+          onClick={() => handleMenuClick(1)}
         >
           <IconButton
-            bg={"transparent"}
-            outline={"none"}
-            color={"white"}
-            aria-label="Open Menu"
+            aria-label="Clientes"
+            bg="transparent"
+            color="inherit"
+            _hover={{ bg: "transparent" }}
           >
-            <IoMenu />
+            <FaUser />
           </IconButton>
-          {isOpen && (
-            <Text color={"white"} fontSize={"sm"}>
-              Menu
-            </Text>
+          <Text fontSize="sm">Clientes</Text>
+          {openIndex === 1 ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
+        </Flex>
+
+
+        <AnimatePresence initial={false}>
+          {openIndex === 1 && (
+            <motion.div
+              key="submenu1"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link
+                _focus={{ outline: "none" }}
+                href={"/cliente/cadastrar"}
+                style={{ textDecoration: "none" }}
+                w="100%"
+              >
+                <Flex {...buttonStyle} pl="10" mt={1}>
+                  <IconButton
+                    aria-label="Cadastrar Clientes"
+                    bg="transparent"
+                    color="#00713C"
+                    _hover={{ bg: "transparent" }}
+                  >
+                    <FaUserPlus />
+                  </IconButton>
+                  <Text fontSize="sm">Cadastrar Clientes</Text>
+                </Flex>
+              </Link>
+
+              <Link
+                _focus={{ outline: "none" }}
+                href={"/cliente"}
+                style={{ textDecoration: "none" }}
+                w="100%"
+              >
+                <Flex {...buttonStyle} pl="10" mt={1}>
+                  <IconButton
+                    aria-label="Listar Clientes"
+                    bg="transparent"
+                    color="#00713C"
+                    _hover={{ bg: "transparent" }}
+                  >
+                    <FaUsers />
+                  </IconButton>
+                  <Text fontSize="sm">Lista De Clientes</Text>
+                </Flex>
+              </Link>
+            </motion.div>
           )}
+        </AnimatePresence>
+      </Flex>
+
+      
+      <Flex flexDir="column" w="100%">
+        <Flex
+          {...getButtonStyle(2)}
+          onClick={() => handleMenuClick(2)}
+        >
+          <IconButton
+            aria-label="Usuários"
+            bg="transparent"
+            color="inherit"
+            _hover={{ bg: "transparent" }}
+          >
+            <MdAdminPanelSettings />
+          </IconButton>
+          <Text fontSize="sm">Usuários</Text>
+          {openIndex === 2 ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
         </Flex>
 
-          <Link w={"100%"} href={"/home"}>
-            <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
+        <AnimatePresence initial={false}>
+          {openIndex === 2 && (
+            <motion.div
+              key="submenu2"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Cadastrar Clientes"
+              <Link
+                _focus={{ outline: "none" }}
+                href={"/usuarios/cadastrar"}
+                style={{ textDecoration: "none" }}
+                w="100%"
               >
-                <TiHome />
-              </IconButton>
-              {isOpen && (
-                <Text color={"white"} fontSize={"sm"}>
-                  Home
-                </Text>
-              )}
-            </Flex>
-          </Link>
-
-          <Flex flexDir={"column"} gap={1} alignItems={"center"} w={"100%"}>
-        <Flex w={"100%"} alignItems={"center"} flexDir={"column"}>
-            <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
-              onClick={() => handleMenuClick(1)}
-            >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Listar Parceiros"
-              >
-                <FaUser />
-              </IconButton>
-              {isOpen && (
-                <>
-                  <Text color={"white"} fontSize={"sm"}>
-                    Clientes
-                  </Text>
-                  {menuOpen.includes(1) ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
-                </>
-              )}
-            </Flex>
-            {menuOpen.includes(1) && (
-              <>
-          <Link w={"100%"} href={"/cliente/cadastrar"}>
-            <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
-            >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Cadastrar Clientes"
-              >
-                <FaUserPlus />
-              </IconButton>
-              {isOpen && (
-                <Text color={"white"} fontSize={"sm"}>
-                  Cadastrar Clientes
-                </Text>
-              )}
-            </Flex>
-          </Link>
-
-          <Link w={"100%"} href={"/cliente"}>
-            <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
-            >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Listar Clientes"
-              >
-                <FaUsers />
-              </IconButton>
-              {isOpen && (
-                <Text color={"white"} fontSize={"sm"}>
-                  Listar Clientes
-                </Text>
-              )}
-            </Flex>
-          </Link>
-              </>)}
-
-          <Flex w={"100%"} alignItems={"center"} flexDir={"column"}>
-            <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
-              onClick={() => handleMenuClick(2)}
-            >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Usuarios"
-              >
-                <MdAdminPanelSettings />
-              </IconButton>
-              {isOpen && (
-                <>
-                  <Text color={"white"} fontSize={"sm"}>
-                    Usuarios
-                  </Text>
-                  {menuOpen.includes(2) ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
-                </>
-              )}
-            </Flex>
-            {menuOpen.includes(2) && (
-              <>
-                <Link w={"100%"} href={"/usuarios/cadastrar"}>
-                  <Flex
-                    flexDir={"row"}
-                    alignItems={"center"}
-                    _hover={{
-                      cursor: "pointer",
-                      bg: "#33D388",
-                      opacity: "50%"
-                    }}
-                    w={"100%"}
-                    justifyContent={"center"}
+                <Flex {...buttonStyle} pl="10" mt={1}>
+                  <IconButton
+                    aria-label="Criar Usuário"
+                    bg="transparent"
+                    color="#00713C"
+                    _hover={{ bg: "transparent" }}
                   >
-                    <IconButton
-                      bg={"transparent"}
-                      outline={"none"}
-                      color={"white"}
-                      aria-label="Cadastrar Usuarios"
-                    >
-                      <FaUserPlus />
-                    </IconButton>
-                    {isOpen && (
-                      <Text color={"white"} fontSize={"sm"}>
-                        Criar Usuario
-                      </Text>
-                    )}
-                  </Flex>
-                </Link>
+                    <FaUserPlus />
+                  </IconButton>
+                  <Text fontSize="sm">Criar Usuário</Text>
+                </Flex>
+              </Link>
 
-                <Link w={"100%"} href={"/usuarios"}>
-                  <Flex
-                    flexDir={"row"}
-                    alignItems={"center"}
-                    _hover={{
-                      cursor: "pointer",
-                      bg: "#33D388",
-                      opacity: "50%"
-                    }}
-                    w={"100%"}
-                    justifyContent={"center"}
-                  >
-                    <IconButton
-                      bg={"transparent"}
-                      outline={"none"}
-                      color={"white"}
-                      aria-label="Listar Usuarios"
-                    >
-                      <FaUsersCog />
-                    </IconButton>
-                    {isOpen && (
-                      <Text color={"white"} fontSize={"sm"}>
-                        Listar Usuarios
-                      </Text>
-                    )}
-                  </Flex>
-                </Link>
-              </>
-            )}
-          </Flex>
-
-          <Flex w={"100%"} alignItems={"center"} flexDir={"column"}>
-            <Flex
-              flexDir={"row"}
-              alignItems={"center"}
-              _hover={{ cursor: "pointer", bg: "#33D388", opacity: "50%" }}
-              w={"100%"}
-              justifyContent={"center"}
-              onClick={() => handleMenuClick(3)}
-            >
-              <IconButton
-                bg={"transparent"}
-                outline={"none"}
-                color={"white"}
-                aria-label="Parceiros"
+              <Link
+                _focus={{ outline: "none" }}
+                href={"/usuarios"}
+                style={{ textDecoration: "none" }}
+                w="100%"
               >
-                <PiUsersFourFill />
-              </IconButton>
-              {isOpen && (
-                <>
-                  <Text color={"white"} fontSize={"sm"}>
-                    Parceiros
-                  </Text>
-                  {menuOpen.includes(3) ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
-                </>
-              )}
-            </Flex>
-
-            {menuOpen.includes(3) && (
-              <Flex w={"100%"} flexDir={"column"}>
-                <Link w={"100%"} href={"/parceiros/cadastrar"}>
-                  <Flex
-                    flexDir={"row"}
-                    alignItems={"center"}
-                    _hover={{
-                      cursor: "pointer",
-                      bg: "#33D388",
-                      opacity: "50%"
-                    }}
-                    w={"100%"}
-                    justifyContent={"center"}
+                <Flex {...buttonStyle} pl="10" mt={1}>
+                  <IconButton
+                    aria-label="Listar Usuários"
+                    bg="transparent"
+                    color="#00713C"
+                    _hover={{ bg: "transparent" }}
                   >
-                    <IconButton
-                      bg={"transparent"}
-                      outline={"none"}
-                      color={"white"}
-                      aria-label="Cadastrar Parceiro"
-                    >
-                      <FaUserPlus />
-                    </IconButton>
-                    {isOpen && (
-                      <Text color={"white"} fontSize={"sm"}>
-                        Cadastrar Parceiro
-                      </Text>
-                    )}
-                  </Flex>
-                </Link>
+                    <FaUsersCog />
+                  </IconButton>
+                  <Text fontSize="sm">Lista De Usuários</Text>
+                </Flex>
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Flex>
 
-                <Link w={"100%"} href={"/parceiros"}>
-                  <Flex
-                    flexDir={"row"}
-                    alignItems={"center"}
-                    _hover={{
-                      cursor: "pointer",
-                      bg: "#33D388",
-                      opacity: "50%"
-                    }}
-                    w={"100%"}
-                    justifyContent={"center"}
-                  >
-                    <IconButton
-                      bg={"transparent"}
-                      outline={"none"}
-                      color={"white"}
-                      aria-label="Listar Parceiros"
-                    >
-                      <FaUsers />
-                    </IconButton>
-                    {isOpen && (
-                      <Text color={"white"} fontSize={"sm"}>
-                        Listar Parceiros
-                      </Text>
-                    )}
-                  </Flex>
-                </Link>
-              </Flex>
-            )}
-          </Flex>
+      <Flex flexDir="column" w="100%">
+        <Flex
+          {...getButtonStyle(3)}
+          onClick={() => handleMenuClick(3)}
+        >
+          <IconButton
+            aria-label="Parceiros"
+            bg="transparent"
+            color="inherit"
+            _hover={{ bg: "transparent" }}
+          >
+            <PiUsersFourFill />
+          </IconButton>
+          <Text fontSize="sm">Parceiros</Text>
+          {openIndex === 3 ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
         </Flex>
+
+        <AnimatePresence initial={false}>
+          {openIndex === 3 && (
+            <motion.div
+              key="submenu3"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link
+                _focus={{ outline: "none" }}
+                href={"/parceiros/cadastrar"}
+                style={{ textDecoration: "none" }}
+                w="100%"
+              >
+                <Flex {...buttonStyle} pl="10" mt={1}>
+                  <IconButton
+                    aria-label="Cadastrar Parceiro"
+                    bg="transparent"
+                    color="#00713C"
+                    _hover={{ bg: "transparent" }}
+                  >
+                    <FaUserPlus />
+                  </IconButton>
+                  <Text fontSize="sm">Cadastrar Parceiro</Text>
+                </Flex>
+              </Link>
+
+              <Link
+                _focus={{ outline: "none" }}
+                href={"/parceiros"}
+                style={{ textDecoration: "none" }}
+                w="100%"
+              >
+                <Flex {...buttonStyle} pl="10" mt={1}>
+                  <IconButton
+                    aria-label="Listar Parceiros"
+                    bg="transparent"
+                    color="#00713C"
+                    _hover={{ bg: "transparent" }}
+                  >
+                    <FaUser />
+                  </IconButton>
+                  <Text fontSize="sm">Lista De Parceiros</Text>
+                </Flex>
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Flex>
-      </Flex>
-    </>
+    </Flex>
   );
 }
