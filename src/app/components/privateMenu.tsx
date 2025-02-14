@@ -1,38 +1,21 @@
 "use client";
 
 import React from "react";
-import {
-  Flex,
-  IconButton,
-  Link,
-  Text
-} from "@chakra-ui/react";
+import { Flex, IconButton, Link, Text } from "@chakra-ui/react";
 
-import {
-  FaUser,
-  FaUserPlus,
-  FaUsers,
-  FaUsersCog
-} from "react-icons/fa";
-import {
-  IoMdArrowDropdown,
-  IoMdArrowDropup
-} from "react-icons/io";
-import { MdAdminPanelSettings } from "react-icons/md";
+import { FaUser, FaUserPlus, FaUsers, FaUsersCog } from "react-icons/fa";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { MdAdminPanelSettings, MdOutlineAttachMoney } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
-
 
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function PrivateMenu() {
-
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
   const handleMenuClick = (index: number) => {
-
     setOpenIndex((current) => (current === index ? null : index));
   };
-
 
   const buttonStyle = {
     borderRadius: "4px",
@@ -42,9 +25,8 @@ export default function PrivateMenu() {
     justifyContent: "flex-start",
     gap: 2,
     py: 1,
-    color: "black",
+    color: "black"
   };
-
 
   const getButtonStyle = (index: number) => {
     const isOpen = openIndex === index;
@@ -53,8 +35,8 @@ export default function PrivateMenu() {
       bg: isOpen ? "green.600" : "transparent",
       color: isOpen ? "white" : "#00713C",
       _hover: {
-        bg: isOpen ? "green.700" : "rgba(0, 113, 60, 0.1)",
-      },
+        bg: isOpen ? "green.700" : "rgba(0, 113, 60, 0.1)"
+      }
     };
   };
 
@@ -64,25 +46,19 @@ export default function PrivateMenu() {
       h={"full"}
       bg="white"
       color="#00713C"
-
       flexDir="column"
       display={{ base: "none", lg: "flex" }}
       gap={3}
       py="12px"
     >
-
       <Flex>
         <Text fontSize="lg" fontWeight="bold">
           Menu
         </Text>
       </Flex>
 
-
       <Flex flexDir="column" w="100%" pr={"12px"}>
-        <Flex
-          {...getButtonStyle(1)}
-          onClick={() => handleMenuClick(1)}
-        >
+        <Flex {...getButtonStyle(1)} onClick={() => handleMenuClick(1)}>
           <IconButton
             aria-label="Clientes"
             bg="transparent"
@@ -94,7 +70,6 @@ export default function PrivateMenu() {
           <Text fontSize="sm">Clientes</Text>
           {openIndex === 1 ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
         </Flex>
-
 
         <AnimatePresence initial={false}>
           {openIndex === 1 && (
@@ -147,12 +122,8 @@ export default function PrivateMenu() {
         </AnimatePresence>
       </Flex>
 
-      
       <Flex flexDir="column" w="100%">
-        <Flex
-          {...getButtonStyle(2)}
-          onClick={() => handleMenuClick(2)}
-        >
+        <Flex {...getButtonStyle(2)} onClick={() => handleMenuClick(2)}>
           <IconButton
             aria-label="Usuários"
             bg="transparent"
@@ -217,10 +188,7 @@ export default function PrivateMenu() {
       </Flex>
 
       <Flex flexDir="column" w="100%">
-        <Flex
-          {...getButtonStyle(3)}
-          onClick={() => handleMenuClick(3)}
-        >
+        <Flex {...getButtonStyle(3)} onClick={() => handleMenuClick(3)}>
           <IconButton
             aria-label="Parceiros"
             bg="transparent"
@@ -282,6 +250,28 @@ export default function PrivateMenu() {
             </motion.div>
           )}
         </AnimatePresence>
+      </Flex>
+
+      <Flex flexDir="column" w="100%">
+        <Link
+          _focus={{ outline: "none" }}
+          href={"/pagamentos"}
+          style={{ textDecoration: "none" }}
+          w="100%"
+        >
+
+        <Flex {...getButtonStyle(0)}>
+          <IconButton
+            aria-label="Parceiros"
+            bg="transparent"
+            color="inherit"
+            _hover={{ bg: "transparent" }}
+          >
+            <MdOutlineAttachMoney />
+          </IconButton>
+          <Text fontSize="sm">Pagamentos</Text>
+        </Flex>
+        </Link>
       </Flex>
     </Flex>
   );
