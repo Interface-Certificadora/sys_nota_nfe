@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValueText
 } from "@/app/components/ui/select";
-import { ItemPagamentos, Pagamentos } from "@/types/pagamentos.type";
+import { Cobrancas, ItemCobrancas } from "@/types/cobrancas.type";
 import {
   useBreakpointValue,
   HStack,
@@ -30,12 +30,12 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
-export default function PagamentosPage() {
-  const [items, setItems] = useState<ItemPagamentos[]>([]);
-  const [filteredData, setFilteredData] = useState<ItemPagamentos[]>([]);
+export default function CobrancaPage() {
+  const [items, setItems] = useState<ItemCobrancas[]>([]);
+  const [filteredData, setFilteredData] = useState<ItemCobrancas[]>([]);
   const [filters, setFilters] = useState({
     id: "",
-    nomeparceiro: "",
+    nomecliente: "",
     status: null
   });
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ export default function PagamentosPage() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/pagamentos/getall`, {
+      const response = await fetch(`/api/cobranca/getall`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -56,19 +56,17 @@ export default function PagamentosPage() {
         );
       }
 
-      const data = await response.json();
+      const data: Cobrancas[] = await response.json();
 
-      const transformedData: ItemPagamentos[] = data.map(
-        (item: Pagamentos) => ({
-          id: item.id,
-          nomeparceiro: item.parceiro.nome,
-          banco: item.parceiro.banco,
-          chave_pix: item.parceiro.chave_pix,
-          cpf: item.parceiro.cpf,
-          valor: item.valor,
-          status: item.status
-        })
-      );
+      const transformedData : ItemCobrancas[] = data.map((item: Cobrancas) => ({
+        id: item.id,
+        nomecliente: item.cliente.cliente,
+        status: item.status,
+        venc: item.venc,
+        obs: item.obs,
+        valor: item.valor,
+        link_boleto: item.link_boleto
+      }));
 
       setItems(transformedData);
       setFilteredData(transformedData);
@@ -86,10 +84,10 @@ export default function PagamentosPage() {
     const newFilteredData = items.filter((user) => {
       return (
         (filters.id === "" || user.id?.toString().includes(filters.id)) &&
-        (filters.nomeparceiro === "" ||
-          user.nomeparceiro
+        (filters.nomecliente === "" ||
+          user.nomecliente
             ?.toLowerCase()
-            .includes(filters.nomeparceiro.toLowerCase())) &&
+            .includes(filters.nomecliente.toLowerCase())) &&
         (filters.status === null || user.status === Boolean(filters.status))
       );
     });
@@ -115,9 +113,9 @@ export default function PagamentosPage() {
 
   const options = createListCollection({
     items: [
-      { key: "status", label: "Todos", value: 'Todos', status: null, },
-      { key: "status", label: "Pendente", value: 'Pendente', status: true, },
-      { key: "status", label: "Pagas", value: 'Pagas', status: false, },
+      { key: "status", label: "Todos", value: "Todos", status: null },
+      { key: "status", label: "Pendente", value: "Pendente", status: true },
+      { key: "status", label: "Pago", value: "Pago", status: false }
     ]
   });
 
@@ -166,8 +164,10 @@ export default function PagamentosPage() {
             <label>Nome: </label>
             <Input
               placeholder="Filtrar por Nome"
-              value={filters.nomeparceiro}
-              onChange={(e) => handleFilterChange("nomeparceiro", e.target.value)}
+              value={filters.nomecliente}
+              onChange={(e) =>
+                handleFilterChange("nomecliente", e.target.value)
+              }
               size="sm"
               maxW="200px"
               bg="white"
@@ -190,17 +190,15 @@ export default function PagamentosPage() {
                 <SelectValueText placeholder="Status" />
               </SelectTrigger>
               <SelectContent bg={"white"} color={"black"}>
-                {
-                  options.items.map((item) => (
-                    <SelectItem
-                      key={item.label}
-                      item={item}
-                      onClick={() => handleFilterChange("status", item.status)}
-                    >
-                      {item.label}
-                    </SelectItem>
-                  ))
-                }
+                {options.items.map((item) => (
+                  <SelectItem
+                    key={item.label}
+                    item={item}
+                    onClick={() => handleFilterChange("status", item.status)}
+                  >
+                    {item.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </SelectRoot>
           </Box>
@@ -220,36 +218,35 @@ export default function PagamentosPage() {
         <VStack w="full" align="stretch">
           <Flex w="full" justify="center" wrap="wrap" gap={4}>
             {paginatedData.map((user) => (
-                <Box
-                  key={user.id}
-                  bg="white"
-                  p={4}
-                  borderRadius="lg"
-                  boxShadow="sm"
-                  color="black"
-                  transition="0.2s"
-                  _hover={{ bg: "green.100", transform: "scale(1.02)" }}
-                  w={{ base: "100%", sm: "100%", md: "320px" }}
-                  minW="280px"
-                  cursor="pointer"
-                >
-                  <Flex direction="column" align="start" w="full">
-                    <Text>
-                      <b>ID:</b> {user.id}
-                    </Text>
-                    <Text>
-                      <b>Nome:</b> {user.nomeparceiro}
-                    </Text>
-                    <Text>
-                      <b>Valor:</b> {user.valor}
-                    </Text>
-                    <Text>
-                      <b>Status:</b> {user.status ? "Pendente" : "Pago"}
-                    </Text>
-                    <Dialog item={user} />
-                  </Flex>
-                </Box>
-
+              <Box
+                key={user.id}
+                bg="white"
+                p={4}
+                borderRadius="lg"
+                boxShadow="sm"
+                color="black"
+                transition="0.2s"
+                _hover={{ bg: "green.100", transform: "scale(1.02)" }}
+                w={{ base: "100%", sm: "100%", md: "320px" }}
+                minW="280px"
+                cursor="pointer"
+              >
+                <Flex direction="column" align="start" w="full">
+                  <Text>
+                    <b>ID:</b> {user.id}
+                  </Text>
+                  <Text>
+                    <b>Nome:</b> {user.nomecliente}
+                  </Text>
+                  <Text>
+                    <b>Valor:</b> {user.valor}
+                  </Text>
+                  <Text>
+                    <b>Status:</b> {user.status ? "Pendente" : "Pago"}
+                  </Text>
+                  <Dialog itemCobranca={user} />
+                </Flex>
+              </Box>
             ))}
           </Flex>
         </VStack>
@@ -335,7 +332,7 @@ export default function PagamentosPage() {
                   textAlign="center"
                   verticalAlign="middle"
                 >
-                  {user.nomeparceiro}
+                  {user.nomecliente}
                 </Table.Cell>
                 <Table.Cell
                   fontSize={"sm"}
@@ -344,7 +341,7 @@ export default function PagamentosPage() {
                   textAlign="center"
                   verticalAlign="middle"
                 >
-                 R$ {user.valor}
+                  R$ {user.valor}
                 </Table.Cell>
                 <Table.Cell
                   fontSize={"sm"}
@@ -362,9 +359,7 @@ export default function PagamentosPage() {
                   textAlign="center"
                   verticalAlign="middle"
                 >
-                  {user.status ? (
-                    <Dialog item={user} />
-                  ) : null}
+                  {user.status ? <Dialog itemCobranca={user} /> : null}
                 </Table.Cell>
               </LinkBox>
             ))}

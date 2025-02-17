@@ -18,20 +18,44 @@ import {
 import { InputGroup } from "../ui/input-group";
 import { ItemPagamentos } from "@/types/pagamentos.type";
 import { toaster } from "../ui/toaster";
+import { ItemCobrancas } from "@/types/cobrancas.type";
 
-interface DialogProps {
-  item: ItemPagamentos
+interface DialogPropsItem {
+  item: ItemPagamentos;
+  itemCobranca?: never; 
 }
 
-export default function Dialog({item} : DialogProps) {
+interface DialogPropsItemCobranca {
+  itemCobranca: ItemCobrancas;
+  item?: never;
+}
+
+type DialogProps = DialogPropsItem | DialogPropsItemCobranca;
+
+
+export default function Dialog({item, itemCobranca} : DialogProps) {
+
+  const body = itemCobranca
+    ? { id: itemCobranca.id, status: false }
+    : item
+    ? { id: item.id, status: false }
+    : null;
+
+  const html = itemCobranca 
+  ? true
+  : item
+  ? false
+  : null
 
     const handlePago = async () => {
-        const response = await fetch(`/api/pagamentos/patch`, {
+      const rota: string = html ? "/api/cobranca/patch" : "/api/pagamentos/patch"
+      
+        const response = await fetch(rota, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id: item.id, status: false})
+            body: JSON.stringify(body)
         })
 
         if(response.ok) {
@@ -57,23 +81,23 @@ export default function Dialog({item} : DialogProps) {
     <DialogRoot>
       <DialogTrigger asChild>
         <Button colorPalette={"blue"} size="sm">
-          Pagar
+          {html ? "Status" : "Pagar"}
         </Button>
       </DialogTrigger>
       <DialogContent color={"black"} bg={"white"}>
         <DialogHeader>
-          <DialogTitle>PIX Parceiro:</DialogTitle>
+          <DialogTitle>{html ? "Boleto Cliente: " : "PIX Parceiro"}</DialogTitle>
         </DialogHeader>
         <DialogBody>
           <VStack w={"100%"} display={"flex"} gap={5} alignItems={"flex-start"}>
             <HStack w={"100%"} justifyContent={"space-between"}>
               <Badge size={"md"} bg={"#00713C"}>
-                Chave PIX
+                {html ? "Link Boleto" : "Chave PIX"}
               </Badge>
               <ClipboardRoot
                 maxW="300px"
                 w={{base: '200px', lg: '300px'}}
-                value={item.chave_pix}
+                value={html ? itemCobranca?.link_boleto : item?.chave_pix} 
               >
                 <InputGroup
                   width="full"
@@ -91,12 +115,12 @@ export default function Dialog({item} : DialogProps) {
               </ClipboardRoot>
             </HStack>
             <HStack borderBottom={"1px solid black"} w={"100%"} justifyContent={"space-between"}>
-              <Text fontWeight={"bold"}>Banco</Text>
-              <Text fontWeight={"bold"}>{item.banco}</Text>
+              <Text fontWeight={"bold"}>{html ? "Cliente" : "Banco"}</Text>
+              <Text fontWeight={"bold"}>{html ? itemCobranca?.nomecliente : item?.banco}</Text>
             </HStack>
             <HStack w={"100%"} borderBottom={"1px solid black"}  justifyContent={"space-between"}>
-              <Text fontWeight={"bold"}>CPF</Text>
-              <Text fontWeight={"bold"}>{item.cpf}</Text>
+              <Text fontWeight={"bold"}>{html ? "Obs:" : "CPF"}</Text>
+              <Text fontWeight={"bold"}>{html ? itemCobranca?.obs : item?.cpf}</Text>
             </HStack>
           </VStack>
         </DialogBody>
@@ -104,7 +128,7 @@ export default function Dialog({item} : DialogProps) {
           <DialogActionTrigger asChild>
             <Button colorPalette={'red'}>Cancel</Button>
           </DialogActionTrigger>
-          <Button colorPalette={'green'} onClick={handlePago}>Pago</Button>
+          <Button colorPalette={'green'} onClick={handlePago}>{html ? "Alterar Status" : "Pago"}</Button>
         </DialogFooter>
         <DialogCloseTrigger />
       </DialogContent>

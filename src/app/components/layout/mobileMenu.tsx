@@ -24,6 +24,7 @@ import { PiUsersFourFill } from "react-icons/pi";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { toaster } from "../ui/toaster";
+import { GiReceiveMoney } from "react-icons/gi";
 
 export default function MobileHeader() {
   const router = useRouter();
@@ -282,6 +283,28 @@ export default function MobileHeader() {
                   </IconButton>
                   <Text fontSize="sm" color="#00713C">
                     Pagamentos
+                  </Text>
+                </Flex>
+                <IconButton aria-label="Expandir" bg="transparent"></IconButton>
+              </Link>
+            </Flex>
+
+            <Flex
+              justify="space-between"
+              align="center"
+              w="100%"
+              p="8px"
+              borderRadius="4px"
+              cursor="pointer"
+              _hover={{ bg: "rgba(0, 113, 60, 0.1)" }}
+            >
+              <Link href="/cobranca" _focus={{ outline: "none" }}>
+                <Flex align="center" gap={2}>
+                  <IconButton aria-label="Cobrança" bg="transparent">
+                    <GiReceiveMoney color="#00713C" />
+                  </IconButton>
+                  <Text fontSize="sm" color="#00713C">
+                    Cobranças
                   </Text>
                 </Flex>
                 <IconButton aria-label="Expandir" bg="transparent"></IconButton>

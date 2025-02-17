@@ -9,6 +9,7 @@ import { MdAdminPanelSettings, MdOutlineAttachMoney } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { GiReceiveMoney } from "react-icons/gi";
 
 export default function PrivateMenu() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
@@ -270,6 +271,28 @@ export default function PrivateMenu() {
             <MdOutlineAttachMoney />
           </IconButton>
           <Text fontSize="sm">Pagamentos</Text>
+        </Flex>
+        </Link>
+      </Flex>
+
+      <Flex flexDir="column" w="100%">
+        <Link
+          _focus={{ outline: "none" }}
+          href={"/cobranca"}
+          style={{ textDecoration: "none" }}
+          w="100%"
+        >
+
+        <Flex {...getButtonStyle(0)}>
+          <IconButton
+            aria-label="Cobranças"
+            bg="transparent"
+            color="inherit"
+            _hover={{ bg: "transparent" }}
+          >
+            <GiReceiveMoney />
+          </IconButton>
+          <Text fontSize="sm">Cobranças</Text>
         </Flex>
         </Link>
       </Flex>
