@@ -49,7 +49,7 @@ export default function AddClient() {
 
   const handleFileChange = (file: File) => {
     setCertificateFile(file);
-    handleUploadCertificate;
+    handleUploadCertificate();
   };
 
   const replacestring = (string: string) => {
