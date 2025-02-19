@@ -372,7 +372,7 @@ export default function AddClient() {
               onChange={(e) => setSenha(e.target.value)}
               obrigatorio
             />
-            <UploadFile onFileSelect={handleFileChange} />
+            
           </Flex>
           <Flex flexDir={{ base: "column", lg: "row" }} gap={3}></Flex>
           <Flex
