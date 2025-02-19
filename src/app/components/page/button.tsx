@@ -35,7 +35,7 @@ export const ButtonPage = (props: ButtonProps) => {
       window.open(url, "_blank");
     }
     if (href) {
-      router.push('/notanfe/suporte');
+      router.push(href);
     }
   };
 

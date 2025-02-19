@@ -22,7 +22,6 @@ export default function AddClient() {
   >([]);
   const [selectedParceiro, setSelectedParceiro] = useState("");
   const [certificateFile, setCertificateFile] = useState<File | null>(null);
-  const [validadeCertificado, setValidadeCertificado] = useState("");
   const [senha, setSenha] = useState("");
 
   const fetchParceiros = async () => {
@@ -121,7 +120,6 @@ export default function AddClient() {
         "metadata",
         JSON.stringify({
           password: senha,
-          validade: validadeCertificado,
           status: true
         })
       );
@@ -366,16 +364,6 @@ export default function AddClient() {
               placeholder="16993672156"
               obrigatorio
             />
-            <CardForm.InputDate
-              label="Vencimento Certificado"
-              w={"150px"}
-              name="vencicertificado"
-              color={"black"}
-              value={validadeCertificado}
-              onChange={(e) => setValidadeCertificado(e.target.value)}
-              obrigatorio
-            />
-
             <CardForm.InputString
               label="Senha Certificado"
               name="certificadosenha"
