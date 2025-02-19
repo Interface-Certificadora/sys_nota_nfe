@@ -104,22 +104,23 @@ export default function ClientePage({ params }: Props) {
     logo: logostring
   };
 
-    const handleSave = async () => {
-        await handleUploadCertificate();
-        await handlePatch(); 
-    };
+  const handleSave = async () => {
+    await handlePatch();
+    if (certificateFile) {
+      await handleUploadCertificate();
+    }
+  };
 
-    const fetchData = async () => {
-        try {
-
-            const response = await fetch(`/api/cliente/getone/${id}`);
-            if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`/api/cliente/getone/${id}`);
+      if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
 
       const data = await response.json();
 
       if (data.certificates.length > 0) {
         const [certificados] = data.certificates.filter(
-          (certificado) => certificado.status === true
+          (certificado: { status: boolean }) => certificado.status === true
         );
         console.log(certificados);
 
@@ -287,107 +288,352 @@ export default function ClientePage({ params }: Props) {
     }
   };
 
-    return loading ? (
-        <HStack justify={"center"} align={"center"} gap="5">
-            <Spinner color="green.800" size="xl" />
-            <Text color="green.800">Carregando...</Text>
-        </HStack>
-    ) : (
-        < Box w="full" h="full" p={4}  >
-            <Text fontSize="2xl" color="black" fontWeight="bold">Detalhes do Cliente</Text>
-            <Flex direction="column" gap={4} mt={4}>
-                <Flex wrap="wrap" gap={3}>
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="cliente" color="black" label="Nome Completo" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.cliente} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="fantasia" color="black" label="Fantasia" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.fantasia} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="cnpj" color="black" label="CNPJ" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.cnpj} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="inscestadual" color="black" label="Inscrição Estadual" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.ie} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="razaosocial" color="black" label="Razão Social" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.razaoSocial} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="telefone" color="black" label="Telefone" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="telefone2" color="black" label="Telefone Secundário" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.telefone2} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="cep" color="black" label="CEP" value={formData.cep} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="cidade" color="black" label="Cidade" value={formData.cidade} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="bairro" color="black" label="Bairro" value={formData.bairro} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="numero" color="black" label="Numero" value={formData.numero} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="Complemento" color="black" label="Complemento" value={formData.complemento} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="email" color="black" label="E-mail" w={{ base: "100%", lg: "400px" }} type="email" fontWeight="semibold" value={formData.email} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="plano" color="black" label="Plano" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.plano} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="status" color="black" label="Status" checked={formData.status} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="dominio" color="black" label="Domínio" w={{ base: "100%", lg: "400px" }} type="text" fontWeight="semibold" value={formData.dominio} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="valorcomissao" color="black" label="valor da comissao" value={formData.valorcomissao} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="contador" color="black" label="Contador" w={{ base: "100%", lg: "250px" }} type="text" fontWeight="semibold" value={formData.contador} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="tel_contador" color="black" label="Telefone Contador" w={{ base: "100%", lg: "200px" }} type="text" fontWeight="semibold" value={formData.tel_contador} onChange={handleChange} />
-                    <CardForm.InputNumber border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="fechamento" color="black" label="Data de Fechamento" fontWeight="semibold" value={formData.fechamento} onChange={handleChange} required />
-                    <CardForm.InputNumber border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="teste" color="black" label="Teste" w={{ base: "100%", lg: "100px" }} fontWeight="semibold" value={formData.teste} onChange={handleChange} required />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="comissao" color="black" label="Comissão" checked={formData.comissao} onChange={handleChange} />
-                    <CardForm.InputString border={"none"}
-                        borderBottom={" 1px solid black"}
-                        borderRadius={"none"} name="sefaz" color="black" label="SEFAZ" checked={formData.sefaz} onChange={handleChange} />
-                    <Flex gap={4}>
-                        <CardForm.InputString
-                            label="Senha Certificado"
-                            name="certificadosenha"
-                            color={"black"}
-                            placeholder="123456"
-                            onChange={(e) => setSenha(e.target.value)}
-                            value={senha}
-                            obrigatorio
-                            border={"none"}
-                            rounded={"none"}
-                            borderBottom={" 1px solid black"}
-                        />
-                    </Flex>
-                </Flex>
-                <Flex w="full" gap={5} justify="start">
-                    <Button type="submit" onClick={handleSave} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
-                    <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
-                    <Button type="submit" onClick={handleDownload} bg="blue.700" color="white" _hover={{ background: "red.600" }} w="150px">Baixar Certificado</Button>
-                    {senha && <UploadFile onFileSelect={setCertificateFile} selectedFile={certificateFile} />}
-                </Flex>
-            </Flex>
-        </Box >
-    );
+  return loading ? (
+    <HStack justify={"center"} align={"center"} gap="5">
+      <Spinner color="green.800" size="xl" />
+      <Text color="green.800">Carregando...</Text>
+    </HStack>
+  ) : (
+    <Box w="full" h="full" p={4}>
+      <Text fontSize="2xl" color="black" fontWeight="bold">
+        Detalhes do Cliente
+      </Text>
+      <Flex direction="column" gap={4} mt={4}>
+        <Flex wrap="wrap" gap={3}>
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="cliente"
+            color="black"
+            label="Nome Completo"
+            w={{ base: "100%", lg: "400px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.cliente}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="fantasia"
+            color="black"
+            label="Fantasia"
+            w={{ base: "100%", lg: "400px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.fantasia}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="cnpj"
+            color="black"
+            label="CNPJ"
+            w={{ base: "100%", lg: "200px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.cnpj}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="inscestadual"
+            color="black"
+            label="Inscrição Estadual"
+            w={{ base: "100%", lg: "200px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.ie}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="razaosocial"
+            color="black"
+            label="Razão Social"
+            w={{ base: "100%", lg: "400px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.razaoSocial}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="telefone"
+            color="black"
+            label="Telefone"
+            w={{ base: "100%", lg: "200px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.telefone}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="telefone2"
+            color="black"
+            label="Telefone Secundário"
+            w={{ base: "100%", lg: "200px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.telefone2}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="cep"
+            color="black"
+            label="CEP"
+            value={formData.cep}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="cidade"
+            color="black"
+            label="Cidade"
+            value={formData.cidade}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="bairro"
+            color="black"
+            label="Bairro"
+            value={formData.bairro}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="numero"
+            color="black"
+            label="Numero"
+            value={formData.numero}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="Complemento"
+            color="black"
+            label="Complemento"
+            value={formData.complemento}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="email"
+            color="black"
+            label="E-mail"
+            w={{ base: "100%", lg: "400px" }}
+            type="email"
+            fontWeight="semibold"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="plano"
+            color="black"
+            label="Plano"
+            w={{ base: "100%", lg: "200px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.plano}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="status"
+            color="black"
+            label="Status"
+            checked={formData.status}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="dominio"
+            color="black"
+            label="Domínio"
+            w={{ base: "100%", lg: "400px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.dominio}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="valorcomissao"
+            color="black"
+            label="valor da comissao"
+            value={formData.valorcomissao}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="contador"
+            color="black"
+            label="Contador"
+            w={{ base: "100%", lg: "250px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.contador}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="tel_contador"
+            color="black"
+            label="Telefone Contador"
+            w={{ base: "100%", lg: "200px" }}
+            type="text"
+            fontWeight="semibold"
+            value={formData.tel_contador}
+            onChange={handleChange}
+          />
+          <CardForm.InputNumber
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="fechamento"
+            color="black"
+            label="Data de Fechamento"
+            fontWeight="semibold"
+            value={formData.fechamento}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputNumber
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="teste"
+            color="black"
+            label="Teste"
+            w={{ base: "100%", lg: "100px" }}
+            fontWeight="semibold"
+            value={formData.teste}
+            onChange={handleChange}
+            required
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="comissao"
+            color="black"
+            label="Comissão"
+            checked={formData.comissao}
+            onChange={handleChange}
+          />
+          <CardForm.InputString
+            border={"none"}
+            borderBottom={" 1px solid black"}
+            borderRadius={"none"}
+            name="sefaz"
+            color="black"
+            label="SEFAZ"
+            checked={formData.sefaz}
+            onChange={handleChange}
+          />
+          <Flex gap={4}>
+            <CardForm.InputString
+              label="Senha Certificado"
+              name="certificadosenha"
+              color={"black"}
+              placeholder="123456"
+              onChange={(e) => setSenha(e.target.value)}
+              value={senha}
+              obrigatorio
+              border={"none"}
+              rounded={"none"}
+              borderBottom={" 1px solid black"}
+            />
+          </Flex>
+        </Flex>
+        <Flex w="full" gap={5} justify="start">
+          <Button
+            type="submit"
+            onClick={handleSave}
+            bg="#00713C"
+            color="white"
+            _hover={{ background: "green.600" }}
+            w="150px"
+          >
+            Salvar
+          </Button>
+          <Button
+            type="submit"
+            onClick={handleDelete}
+            bg="red.700"
+            color="white"
+            _hover={{ background: "red.600" }}
+            w="150px"
+          >
+            Excluir
+          </Button>
+          <Button
+            type="submit"
+            onClick={handleDownload}
+            bg="blue.700"
+            color="white"
+            _hover={{ background: "red.600" }}
+            w="150px"
+          >
+            Baixar Certificado
+          </Button>
+          {senha && (
+            <UploadFile
+              onFileSelect={setCertificateFile}
+              selectedFile={certificateFile}
+            />
+          )}
+        </Flex>
+      </Flex>
+    </Box>
+  );
 }
