@@ -12,8 +12,6 @@ export async function GET(
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
 
-        console.log(session);
-
 
         if (!session || !session.token) {
             console.error("Usuário não autenticado. Token ausente.");
@@ -37,13 +35,8 @@ export async function GET(
                 "Authorization": `Bearer ${session.token}`,
             },
         });
-
-
         const data = await response.json();
-        console.log(data);
-
         return NextResponse.json(data, { status: 200 });
-
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return NextResponse.json(

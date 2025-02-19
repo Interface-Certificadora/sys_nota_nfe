@@ -1,18 +1,16 @@
 import AuthService from "@/modules/auth/services/auth-service";
-import {  NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function DELETE(
     request: Request,
     { params }: { params: { id: string } }
 ) {
-    
+
     try {
         const { id } = params;
         const sessionData = await AuthService.sessionUser();
         const session = sessionData?.data;
 
-
-        console.log("hello")
         if (!session) {
             console.error("Usuário não autenticado. Token ausente.");
             return NextResponse.json(
@@ -34,14 +32,15 @@ export async function DELETE(
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${session.token}`,
             },
-           
-        });
 
+        });
+        console.log(response);
+        console.log("hello");
 
         const data = await response.json();
         return NextResponse.json(data, { status: 200 });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return NextResponse.json(
             { error: true, message: "Erro interno ao buscar usuário.", data: null },

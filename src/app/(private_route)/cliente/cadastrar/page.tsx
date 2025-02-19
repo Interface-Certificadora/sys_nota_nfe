@@ -19,6 +19,9 @@ export default function AddClient() {
   const [temParceiros,] = useState(false);
   const [parceiros, setParceiros] = useState<{ label: string; value: string }[]>([]);
   const [selectedParceiro, setSelectedParceiro] = useState("");
+  const [certificateFile, setCertificateFile] = useState<File | null>(null);
+  const [validadeCertificado, setValidadeCertificado] = useState("");
+  const [senha, setSenha] = useState("");
 
 
   const fetchParceiros = async () => {
@@ -45,13 +48,14 @@ export default function AddClient() {
     fetchParceiros();
   }, [plano, temParceiros]);
 
-
-
+  const handleFileChange = (file: File) => {
+    setCertificateFile(file);
+    handleUploadCertificate
+  };
 
   const replacestring = (string: string) => {
     return string.replace(/\D/g, '')
   }
-
 
   const getInfosCnpj = async (cnpj: string) => {
     cnpj = replacestring(cnpj)
@@ -100,6 +104,55 @@ export default function AddClient() {
       setTelefone(telefone);
     }
   }
+
+  const handleUploadCertificate = async () => {
+    if (!certificateFile) {
+      toaster.create({
+        title: "Erro",
+        description: "Selecione um certificado digital antes de enviar.",
+        type: "error",
+      });
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", certificateFile);
+      formData.append("metadata", JSON.stringify({
+        password: senha,
+        validade: validadeCertificado,
+        status: true,
+      }));
+
+      const response = await fetch("/api/certificado/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toaster.create({
+          title: "Sucesso",
+          description: "Certificado enviado com sucesso.",
+          type: "success",
+        });
+      } else {
+        toaster.create({
+          title: "Erro",
+          description: result.message || "Ocorreu um erro ao enviar o certificado.",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao enviar certificado:", error);
+      toaster.create({
+        title: "Erro",
+        description: "Erro ao tentar enviar o certificado.",
+        type: "error",
+      });
+    }
+  };
 
   return (
 
@@ -316,9 +369,20 @@ export default function AddClient() {
               w={"150px"}
               name="vencicertificado"
               color={"black"}
+              value={validadeCertificado}
+              onChange={(e) => setValidadeCertificado(e.target.value)}
               obrigatorio
             />
-            <UploadFile />
+
+            <CardForm.InputString
+              label="Senha Certificado"
+              name="certificadosenha"
+              color={"black"}
+              placeholder="123456"
+              onChange={(e) => setSenha(e.target.value)}
+              obrigatorio
+            />
+            <UploadFile onFileSelect={handleFileChange} />
           </Flex>
           <Flex flexDir={{ base: "column", lg: "row" }} gap={3}>
           </Flex>
@@ -345,7 +409,7 @@ export default function AddClient() {
             <input
               type="hidden"
               name="parceiro_id"
-              value={selectedParceiro} 
+              value={selectedParceiro}
             />
           </Flex>
           <Flex
