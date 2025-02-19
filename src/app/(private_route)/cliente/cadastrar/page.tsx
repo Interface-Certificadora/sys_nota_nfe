@@ -2,24 +2,28 @@
 import { CardForm } from "@/app/components/form";
 import UploadFile from "@/app/components/form/uploadFile";
 import UploadLogo from "@/app/components/form/uploadLogo";
+import { toaster } from "@/app/components/ui/toaster";
 import { planoOptions } from "@/data/selectComisao";
 import { SituacaoTributariaOptions } from "@/data/selectSituacaoTributaria";
-import { toaster } from "@/app/components/ui/toaster"
-import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import createClient from "@/modules/auth/actions/auth-createClient";
 import { Parceiro } from "@/types/parceiro.type";
+import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 export default function AddClient() {
   const [razaosocial, setRazaoSocial] = useState("");
   const [inscestadual, setInscEstadual] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [plano,] = useState("");
-  const [temParceiros,] = useState(false);
-  const [parceiros, setParceiros] = useState<{ label: string; value: string }[]>([]);
+  const [plano] = useState("");
+  const [temParceiros] = useState(false);
+  const [parceiros, setParceiros] = useState<
+    { label: string; value: string }[]
+  >([]);
   const [selectedParceiro, setSelectedParceiro] = useState("");
-
+  const [certificateFile, setCertificateFile] = useState<File | null>(null);
+  const [validadeCertificado, setValidadeCertificado] = useState("");
+  const [senha, setSenha] = useState("");
 
   const fetchParceiros = async () => {
     try {
@@ -28,11 +32,9 @@ export default function AddClient() {
 
       const data = await response.json();
       if (Array.isArray(data)) {
-
         const formattedParceiros = data.map((parceiro: Parceiro) => ({
           label: parceiro.nome,
-          value: parceiro.id.toString(),
-
+          value: parceiro.id.toString()
         }));
         setParceiros(formattedParceiros);
       }
@@ -45,17 +47,18 @@ export default function AddClient() {
     fetchParceiros();
   }, [plano, temParceiros]);
 
-
-
+  const handleFileChange = (file: File) => {
+    setCertificateFile(file);
+    handleUploadCertificate;
+  };
 
   const replacestring = (string: string) => {
-    return string.replace(/\D/g, '')
-  }
-
+    return string.replace(/\D/g, "");
+  };
 
   const getInfosCnpj = async (cnpj: string) => {
-    cnpj = replacestring(cnpj)
-    console.log(cnpj)
+    cnpj = replacestring(cnpj);
+    console.log(cnpj);
     const req = await fetch(`/api/cnpj/${cnpj}`, {
       method: "GET",
       headers: {
@@ -66,20 +69,20 @@ export default function AddClient() {
       toaster.create({
         title: "Erro",
         description: "CNPJ nao encontrado",
-        type: "error",
-      })
-      return
+        type: "error"
+      });
+      return;
     }
     const res = await req.json();
     const data = res.data;
     if (!data.razao_social) {
-      setRazaoSocial('')
+      setRazaoSocial("");
     } else {
       setRazaoSocial(data.razao_social);
     }
 
     if (!data.estabelecimento.inscricoes_estaduais[0]) {
-      setInscEstadual('')
+      setInscEstadual("");
     } else {
       setInscEstadual(
         data.estabelecimento.inscricoes_estaduais[0].inscricao_estadual || ""
@@ -87,33 +90,88 @@ export default function AddClient() {
     }
 
     if (!data.estabelecimento.email) {
-      setEmail('')
+      setEmail("");
     } else {
       setEmail(data.estabelecimento.email || "");
     }
 
     if (!data.estabelecimento.ddd1 || !data.estabelecimento.telefone1) {
-      setTelefone('')
+      setTelefone("");
     } else {
       const telefone =
         `${data.estabelecimento.ddd1}${data.estabelecimento.telefone1}` || "";
       setTelefone(telefone);
     }
-  }
+  };
+
+  const handleUploadCertificate = async () => {
+    if (!certificateFile) {
+      toaster.create({
+        title: "Erro",
+        description: "Selecione um certificado digital antes de enviar.",
+        type: "error"
+      });
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", certificateFile);
+      formData.append(
+        "metadata",
+        JSON.stringify({
+          password: senha,
+          validade: validadeCertificado,
+          status: true
+        })
+      );
+
+      const response = await fetch("/api/certificado/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toaster.create({
+          title: "Sucesso",
+          description: "Certificado enviado com sucesso.",
+          type: "success"
+        });
+      } else {
+        toaster.create({
+          title: "Erro",
+          description:
+            result.message || "Ocorreu um erro ao enviar o certificado.",
+          type: "error"
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao enviar certificado:", error);
+      toaster.create({
+        title: "Erro",
+        description: "Erro ao tentar enviar o certificado.",
+        type: "error"
+      });
+    }
+  };
 
   return (
-
     <Flex
       flexDir={"column"}
       w={"100%"}
       h={"fit-content"}
-      rounded={'md'}
+      rounded={"md"}
       gap={2}
       m={{ base: "0", lg: "2" }}
       p={4}
     >
-      <Flex
-        w={"full"}> <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>Cadastrar Cliente</Text>
+      <Flex w={"full"}>
+        {" "}
+        <Text color={"black"} fontSize={"2xl"} fontWeight={"bold"}>
+          Cadastrar Cliente
+        </Text>
       </Flex>
       <Spacer />
       <CardForm.Form action={createClient}>
@@ -121,7 +179,7 @@ export default function AddClient() {
           <Flex
             flexDir={{ base: "column", lg: "row" }}
             flexWrap={"wrap"}
-            alignItems={{ base: 'start', lg: 'end' }}
+            alignItems={{ base: "start", lg: "end" }}
             gap={3}
           >
             <CardForm.InputNumber
@@ -172,7 +230,6 @@ export default function AddClient() {
             <CardForm.InputString
               label="Cliente"
               w={{ base: "300px", lg: "400px" }}
-
               name="cliente"
               color={"black"}
               placeholder="JULIANO HENRIQUE SILVA"
@@ -251,7 +308,6 @@ export default function AddClient() {
             flexWrap={"wrap"}
             gap={3}
           >
-
             <CardForm.InputSelect
               label="Plano"
               w="200px"
@@ -287,11 +343,10 @@ export default function AddClient() {
               color={"black"}
               placeholder=""
             />
-
           </Flex>
           <Flex
             flexDir={{ base: "column", lg: "row" }}
-            alignItems={{ base: 'start', lg: 'end' }}
+            alignItems={{ base: "start", lg: "end" }}
             flexWrap={"wrap"}
             gap={3}
           >
@@ -316,12 +371,22 @@ export default function AddClient() {
               w={"150px"}
               name="vencicertificado"
               color={"black"}
+              value={validadeCertificado}
+              onChange={(e) => setValidadeCertificado(e.target.value)}
               obrigatorio
             />
-            <UploadFile />
+
+            <CardForm.InputString
+              label="Senha Certificado"
+              name="certificadosenha"
+              color={"black"}
+              placeholder="123456"
+              onChange={(e) => setSenha(e.target.value)}
+              obrigatorio
+            />
+            <UploadFile onFileSelect={handleFileChange} />
           </Flex>
-          <Flex flexDir={{ base: "column", lg: "row" }} gap={3}>
-          </Flex>
+          <Flex flexDir={{ base: "column", lg: "row" }} gap={3}></Flex>
           <Flex
             flexDir={{ base: "column", lg: "row" }}
             flexWrap={"wrap"}
@@ -342,18 +407,13 @@ export default function AddClient() {
               color={"black"}
               placeholder=""
             />
-            <input
-              type="hidden"
-              name="parceiro_id"
-              value={selectedParceiro} 
-            />
+            <input type="hidden" name="parceiro_id" value={selectedParceiro} />
           </Flex>
           <Flex
             flexDir={{ base: "column", lg: "row" }}
             flexWrap={"wrap"}
             gap={3}
-          >
-          </Flex>
+          ></Flex>
           <Flex flexDir={{ base: "column", lg: "row" }} w={"100%"}>
             <Button
               colorPalette={"green"}
