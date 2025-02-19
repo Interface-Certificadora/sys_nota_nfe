@@ -7,6 +7,7 @@ import { Box, Button, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 import { CardForm } from "@/app/components/form";
 import { toaster } from "@/app/components/ui/toaster"
 import { useRouter } from "next/navigation";
+import UploadFile from "@/app/components/form/uploadFile";
 
 
 type Props = {
@@ -22,6 +23,9 @@ export default function ClientePage({ params }: Props) {
     const [loading, setLoading] = useState(true);
     const [saving, setsaving] = useState(false);
     const { id } = params;
+    const [certificateFile, setCertificateFile] = useState<File | null>(null);
+    const [validadeCertificado, setValidadeCertificado] = useState("");
+    const [senha, setSenha] = useState("");
     const [formData, setFormData] = useState({
         cnpj: "",
         ie: "",
@@ -125,6 +129,25 @@ export default function ClientePage({ params }: Props) {
         }));
     };
 
+    const handleDownload = async () => {
+        try {
+            const response = await fetch(`/api/cliente/download/${id}`);
+            if (!response.ok) throw new Error("Erro ao baixar o arquivo");
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'arquivo.pdf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error("Erro ao baixar o arquivo:", error);
+        }
+    };
+
+
     const handleDelete = async () => {
         if (!confirm("deseja realmente excluir esse cliente da lista de ativos?")) return;
 
@@ -147,7 +170,7 @@ export default function ClientePage({ params }: Props) {
         } else
             toaster.create({
                 title: "sucesso",
-                description: "",
+                description: "cliente excluido com sucesso",
                 type: "success"
             })
         setTimeout(() => {
@@ -195,6 +218,69 @@ export default function ClientePage({ params }: Props) {
             setsaving(false);
         }
     };
+
+    // 1. Receber o arquivo diretamente como parâmetro
+    const handleUploadCertificate = async (file: File) => {
+        if (!file) {
+            toaster.create({
+                title: "Erro",
+                description: "Selecione um certificado digital antes de enviar.",
+                type: "error",
+            });
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append(
+                "metadata",
+                JSON.stringify({
+                    password: senha,
+                    validade: validadeCertificado,
+                    status: true,
+                    clientId: id,
+                })
+            );
+
+            const response = await fetch("/api/certificado/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                toaster.create({
+                    title: "Sucesso",
+                    description: "Certificado enviado com sucesso.",
+                    type: "success",
+                });
+            } else {
+                toaster.create({
+                    title: "Erro",
+                    description: result.message || "Ocorreu um erro ao enviar o certificado.",
+                    type: "error",
+                });
+            }
+        } catch (error) {
+            console.error("Erro ao enviar certificado:", error);
+            toaster.create({
+                title: "Erro",
+                description: "Erro ao tentar enviar o certificado.",
+                type: "error",
+            });
+        }
+    };
+
+
+    const handleFileChange = (file: File) => {
+        console.log("função certificado");
+        setCertificateFile(file);
+        handleUploadCertificate(file);
+    };
+
+
 
 
     return loading ? (
@@ -276,10 +362,26 @@ export default function ClientePage({ params }: Props) {
                     <CardForm.InputString border={"none"}
                         borderBottom={" 1px solid black"}
                         borderRadius={"none"} name="sefaz" color="black" label="SEFAZ" checked={formData.sefaz} onChange={handleChange} />
+                    <Flex gap={4}>
+                        <CardForm.InputString
+                            label="Senha Certificado"
+                            name="certificadosenha"
+                            color={"black"}
+                            placeholder="123456"
+                            onChange={(e) => setSenha(e.target.value)}
+                            obrigatorio
+                            border={"none"}
+                            rounded={"none"}
+                            borderBottom={" 1px solid black"}
+                        />
+
+                    </Flex>
                 </Flex>
                 <Flex w="full" gap={5} justify="start">
                     <Button type="submit" onClick={handlePatch} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
                     <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
+                    <Button type="submit" onClick={handleDownload} bg="blue.700" color="white" _hover={{ background: "red.600" }} w="150px">Baixar Certificado</Button>
+                    <UploadFile onFileSelect={handleFileChange} />
                 </Flex>
             </Flex>
         </Box >
