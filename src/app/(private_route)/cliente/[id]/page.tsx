@@ -101,10 +101,11 @@ export default function ClientePage({ params }: Props) {
         fechamento: formData.fechamento,
     }
 
-    const handlesave = async () => {
-        handleUploadCertificate(),
-            handlePatch()
-    }
+    const handleSave = async () => {
+        await handleUploadCertificate();
+        await handlePatch(); 
+    };
+
     const fetchData = async () => {
         try {
 
@@ -387,7 +388,7 @@ export default function ClientePage({ params }: Props) {
                     </Flex>
                 </Flex>
                 <Flex w="full" gap={5} justify="start">
-                    <Button type="submit" onClick={handlesave} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
+                    <Button type="submit" onClick={handleSave} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
                     <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
                     <Button type="submit" onClick={handleDownload} bg="blue.700" color="white" _hover={{ background: "red.600" }} w="150px">Baixar Certificado</Button>
                     {senha && <UploadFile onFileSelect={setCertificateFile} selectedFile={certificateFile} />}

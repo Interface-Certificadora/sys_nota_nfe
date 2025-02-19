@@ -1,7 +1,7 @@
 "use client";
 import CreateClient from "@/modules/auth/actions/auth-createClient";
 import { CardForm } from "@/app/components/form";
-import UploadFile from "@/app/components/form/uploadFile";
+
 import UploadLogo from "@/app/components/form/uploadLogo";
 import { AtivoDesativadoOptions } from "@/data/selectAtivoDesativado";
 import { ComissaoOptions } from "@/data/selectComisao";
@@ -231,7 +231,7 @@ export default function PageCreateClient() {
                 placeholder=""
               />
 
-              {/* gerar dominio automaticamente cnpj.notanfe.com.br */}
+              
             </Flex>
             <Flex
               flexDir={{ base: "column", lg: "row" }}
@@ -261,7 +261,7 @@ export default function PageCreateClient() {
                 color={"black"}
                 obrigatorio
               />
-                <UploadFile />
+             
             </Flex>
               <Flex flexDir={{ base: "column", lg: "row" }} gap={3}>
               </Flex>
