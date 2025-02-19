@@ -12,20 +12,20 @@ import UploadFile from "@/app/components/form/uploadFile";
 
 type Props = {
     params: { id: string };
+
 };
 
 
 export default function ClientePage({ params }: Props) {
-
-
     const route = useRouter();
     const [deleting, setdelete] = useState(false)
     const [loading, setLoading] = useState(true);
     const [saving, setsaving] = useState(false);
     const { id } = params;
     const [certificateFile, setCertificateFile] = useState<File | null>(null);
-    const [validadeCertificado, setValidadeCertificado] = useState("");
     const [senha, setSenha] = useState("");
+    const [url, seturl] = useState("");
+
     const [formData, setFormData] = useState({
         cnpj: "",
         ie: "",
@@ -101,6 +101,10 @@ export default function ClientePage({ params }: Props) {
         fechamento: formData.fechamento,
     }
 
+    const handlesave = async () => {
+        handleUploadCertificate(),
+            handlePatch()
+    }
     const fetchData = async () => {
         try {
 
@@ -108,6 +112,19 @@ export default function ClientePage({ params }: Props) {
             if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
 
             const data = await response.json();
+
+            if (data.certificates.length > 0) {
+                const [certificados] = data.certificates.filter((certificado) => certificado.status === true);
+                console.log(certificados);
+
+
+                if (certificados) {
+                    seturl(certificados.url);
+                    setSenha(certificados.password);
+                }
+            }
+
+
             setFormData(data);
         } catch (error) {
             console.error("Erro ao carregar dados:", error);
@@ -119,6 +136,8 @@ export default function ClientePage({ params }: Props) {
     useEffect(() => {
         fetchData();
     }, []);
+
+
 
 
     const handleChange = (e) => {
@@ -134,11 +153,9 @@ export default function ClientePage({ params }: Props) {
             const response = await fetch(`/api/cliente/download/${id}`);
             if (!response.ok) throw new Error("Erro ao baixar o arquivo");
 
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'arquivo.pdf');
+
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -219,9 +236,9 @@ export default function ClientePage({ params }: Props) {
         }
     };
 
-    // 1. Receber o arquivo diretamente como parâmetro
-    const handleUploadCertificate = async (file: File) => {
-        if (!file) {
+
+    const handleUploadCertificate = async () => {
+        if (!certificateFile) {
             toaster.create({
                 title: "Erro",
                 description: "Selecione um certificado digital antes de enviar.",
@@ -232,16 +249,14 @@ export default function ClientePage({ params }: Props) {
 
         try {
             const formData = new FormData();
-            formData.append("file", file);
-            formData.append(
-                "metadata",
-                JSON.stringify({
-                    password: senha,
-                    validade: validadeCertificado,
-                    status: true,
-                    clientId: id,
-                })
-            );
+            formData.append("file", certificateFile);
+            formData.append("metadata", JSON.stringify({
+                password: senha,
+                status: true,
+                clientId: Number(id),
+            }));
+
+            console.log("Enviando FormData para API...", formData);
 
             const response = await fetch("/api/certificado/upload", {
                 method: "POST",
@@ -259,7 +274,7 @@ export default function ClientePage({ params }: Props) {
             } else {
                 toaster.create({
                     title: "Erro",
-                    description: result.message || "Ocorreu um erro ao enviar o certificado.",
+                    description: result.message || "Erro ao enviar o certificado.",
                     type: "error",
                 });
             }
@@ -273,12 +288,6 @@ export default function ClientePage({ params }: Props) {
         }
     };
 
-
-    const handleFileChange = (file: File) => {
-        console.log("função certificado");
-        setCertificateFile(file);
-        handleUploadCertificate(file);
-    };
 
 
 
@@ -369,19 +378,19 @@ export default function ClientePage({ params }: Props) {
                             color={"black"}
                             placeholder="123456"
                             onChange={(e) => setSenha(e.target.value)}
+                            value={senha}
                             obrigatorio
                             border={"none"}
                             rounded={"none"}
                             borderBottom={" 1px solid black"}
                         />
-
                     </Flex>
                 </Flex>
                 <Flex w="full" gap={5} justify="start">
-                    <Button type="submit" onClick={handlePatch} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
+                    <Button type="submit" onClick={handlesave} bg="#00713C" color="white" _hover={{ background: "green.600" }} w="150px">Salvar</Button>
                     <Button type="submit" onClick={handleDelete} bg="red.700" color="white" _hover={{ background: "red.600" }} w="150px">Excluir</Button>
                     <Button type="submit" onClick={handleDownload} bg="blue.700" color="white" _hover={{ background: "red.600" }} w="150px">Baixar Certificado</Button>
-                    <UploadFile onFileSelect={handleFileChange} />
+                    {senha && <UploadFile onFileSelect={setCertificateFile} selectedFile={certificateFile} />}
                 </Flex>
             </Flex>
         </Box >
