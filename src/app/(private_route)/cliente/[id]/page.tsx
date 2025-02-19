@@ -2,104 +2,107 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useEffect, useState } from "react";
-import { Box, Button, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
+import BtnDownloadLogo from "@/app/components/buttons/btn_baixarlogo";
 import { CardForm } from "@/app/components/form";
-import { toaster } from "@/app/components/ui/toaster"
-import { useRouter } from "next/navigation";
 import UploadFile from "@/app/components/form/uploadFile";
-
+import UploadLogo from "@/app/components/form/uploadLogo";
+import { toaster } from "@/app/components/ui/toaster";
+import { Box, Button, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type Props = {
-    params: { id: string };
-
+  params: { id: string };
 };
 
-
 export default function ClientePage({ params }: Props) {
-    const route = useRouter();
-    const [deleting, setdelete] = useState(false)
-    const [loading, setLoading] = useState(true);
-    const [saving, setsaving] = useState(false);
-    const { id } = params;
-    const [certificateFile, setCertificateFile] = useState<File | null>(null);
-    const [senha, setSenha] = useState("");
-    const [url, seturl] = useState("");
+  const route = useRouter();
+  const [deleting, setdelete] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setsaving] = useState(false);
+  const { id } = params;
+  const [certificateFile, setCertificateFile] = useState<File | null>(null);
+  const [senha, setSenha] = useState("");
+  const [logostring, setLogoString] = useState("");
+  const [url, seturl] = useState("");
 
-    const [formData, setFormData] = useState({
-        cnpj: "",
-        ie: "",
-        razaoSocial: "",
-        fantasia: "",
-        cliente: "",
-        whatsapp: true,
-        telefone: "",
-        telefone2: "",
-        whatsapp2: true,
-        email: "",
-        user: "",
-        password: "",
-        cep: "",
-        endereco: "",
-        bairro: "",
-        numero: "",
-        complemento: "",
-        cidade: "",
-        uf: "",
-        serieultimanota: "",
-        numeroultimanota: "",
-        comissao: true,
-        plano: "",
-        valorcomissao: "",
-        situacao: "",
-        valor: "",
-        observacao: "",
-        contador: "",
-        tel_contador: "",
-        whatsapp_cont: false,
-        vencicertificado: "",
-        situacaotributaria: "",
-        justificativa: "",
-        simples: true,
-        status: true,
-        dominio: "",
-        fechamento: "",
-        teste: "",
-        sefaz: true
-    });
+  const [formData, setFormData] = useState({
+    cnpj: "",
+    ie: "",
+    razaoSocial: "",
+    fantasia: "",
+    cliente: "",
+    whatsapp: true,
+    telefone: "",
+    telefone2: "",
+    whatsapp2: true,
+    email: "",
+    user: "",
+    password: "",
+    cep: "",
+    endereco: "",
+    bairro: "",
+    numero: "",
+    complemento: "",
+    cidade: "",
+    uf: "",
+    serieultimanota: "",
+    numeroultimanota: "",
+    comissao: true,
+    plano: "",
+    valorcomissao: "",
+    situacao: "",
+    valor: "",
+    observacao: "",
+    contador: "",
+    tel_contador: "",
+    whatsapp_cont: false,
+    vencicertificado: "",
+    situacaotributaria: "",
+    justificativa: "",
+    simples: true,
+    status: true,
+    dominio: "",
+    fechamento: "",
+    teste: "",
+    sefaz: true,
+    logo: ""
+  });
 
-
-    const body = {
-        cnpj: formData.cnpj?.replace(/[^a-zA-Z0-9]/g, ""),
-        ie: formData.ie,
-        razaoSocial: formData.razaoSocial,
-        fantasia: formData.fantasia,
-        cliente: formData.cliente,
-        telefone: formData.telefone?.replace(/[^a-zA-Z0-9]/g, ""),
-        telefone2: formData.telefone2 ? formData.telefone2.replace(/[^a-zA-Z0-9]/g, "") : "",
-        email: formData.email,
-        cep: formData.cep,
-        endereco: formData.endereco,
-        bairro: formData.bairro,
-        numero: formData.numero,
-        complemento: formData.complemento,
-        cidade: formData.cidade,
-        uf: formData.uf,
-        serieultimanota: formData.serieultimanota,
-        numeroultimanota: formData.numeroultimanota,
-        plano: formData.plano,
-        valorcomissao: formData.valorcomissao,
-        situacao: formData.situacao,
-        valor: formData.valor,
-        observacao: formData.observacao,
-        contador: formData.contador,
-        tel_contador: formData.tel_contador?.replace(/[^a-zA-Z0-9]/g, ""),
-        vencicertificado: formData.vencicertificado,
-        situacaotributaria: formData.situacaotributaria,
-        justificativa: formData.justificativa,
-        dominio: formData.dominio,
-        fechamento: formData.fechamento,
-    }
+  const body = {
+    cnpj: formData.cnpj?.replace(/[^a-zA-Z0-9]/g, ""),
+    ie: formData.ie,
+    razaoSocial: formData.razaoSocial,
+    fantasia: formData.fantasia,
+    cliente: formData.cliente,
+    telefone: formData.telefone?.replace(/[^a-zA-Z0-9]/g, ""),
+    telefone2: formData.telefone2
+      ? formData.telefone2.replace(/[^a-zA-Z0-9]/g, "")
+      : "",
+    email: formData.email,
+    cep: formData.cep,
+    endereco: formData.endereco,
+    bairro: formData.bairro,
+    numero: formData.numero,
+    complemento: formData.complemento,
+    cidade: formData.cidade,
+    uf: formData.uf,
+    serieultimanota: formData.serieultimanota,
+    numeroultimanota: formData.numeroultimanota,
+    plano: formData.plano,
+    valorcomissao: formData.valorcomissao,
+    situacao: formData.situacao,
+    valor: formData.valor,
+    observacao: formData.observacao,
+    contador: formData.contador,
+    tel_contador: formData.tel_contador?.replace(/[^a-zA-Z0-9]/g, ""),
+    vencicertificado: formData.vencicertificado,
+    situacaotributaria: formData.situacaotributaria,
+    justificativa: formData.justificativa,
+    dominio: formData.dominio,
+    fechamento: formData.fechamento,
+    logo: logostring
+  };
 
     const handleSave = async () => {
         await handleUploadCertificate();
@@ -112,186 +115,177 @@ export default function ClientePage({ params }: Props) {
             const response = await fetch(`/api/cliente/getone/${id}`);
             if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
 
-            const data = await response.json();
+      const data = await response.json();
 
-            if (data.certificates.length > 0) {
-                const [certificados] = data.certificates.filter((certificado) => certificado.status === true);
-                console.log(certificados);
+      if (data.certificates.length > 0) {
+        const [certificados] = data.certificates.filter(
+          (certificado) => certificado.status === true
+        );
+        console.log(certificados);
 
-
-                if (certificados) {
-                    seturl(certificados.url);
-                    setSenha(certificados.password);
-                }
-            }
-
-
-            setFormData(data);
-        } catch (error) {
-            console.error("Erro ao carregar dados:", error);
-        } finally {
-            setLoading(false);
+        if (certificados) {
+          seturl(certificados.url);
+          setSenha(certificados.password);
         }
-    };
+      }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+      setFormData(data);
+    } catch (error) {
+      console.error("Erro ao carregar dados:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  const handleChange = (e) => {
+    const { name, type, value, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }));
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleLogoChange = (e: any) => {
+    setLogoString(e);
+  };
 
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(`/api/cliente/download/${id}`);
+      if (!response.ok) throw new Error("Erro ao baixar o arquivo");
 
-    const handleChange = (e) => {
-        const { name, type, value, checked } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value
-        }));
-    };
+      const link = document.createElement("a");
+      link.href = url;
 
-    const handleDownload = async () => {
-        try {
-            const response = await fetch(`/api/cliente/download/${id}`);
-            if (!response.ok) throw new Error("Erro ao baixar o arquivo");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Erro ao baixar o arquivo:", error);
+    }
+  };
 
-            const link = document.createElement('a');
-            link.href = url;
+  const handleDelete = async () => {
+    if (!confirm("deseja realmente excluir esse cliente da lista de ativos?"))
+      return;
 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (error) {
-            console.error("Erro ao baixar o arquivo:", error);
-        }
-    };
+    setdelete(true);
 
+    const response = await fetch(`/api/cliente/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
-    const handleDelete = async () => {
-        if (!confirm("deseja realmente excluir esse cliente da lista de ativos?")) return;
+    if (!response) {
+      toaster.create({
+        title: "erro",
+        description: response || "o cliente não foi excluido corretamente",
+        type: "error"
+      });
+    } else
+      toaster.create({
+        title: "sucesso",
+        description: "cliente excluido com sucesso",
+        type: "success"
+      });
+    setTimeout(() => {
+      route.push("/cliente");
+    }, 500);
+    setdelete(false);
+  };
 
-        setdelete(true);
+  const handlePatch = async () => {
+    setsaving(true);
 
-        const response = await fetch(`/api/cliente/delete/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+    try {
+      const response = await fetch(`/api/cliente/path/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
 
-        if (!response) {
-            toaster.create({
-                title: "erro",
-                description: response ||
-                    "o cliente não foi excluido corretamente",
-                type: "error"
-            })
-        } else
-            toaster.create({
-                title: "sucesso",
-                description: "cliente excluido com sucesso",
-                type: "success"
-            })
-        setTimeout(() => {
-            route.push("/cliente");
-        }, 500);
-        setdelete(false);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao atualizar cliente");
+      }
+      const data = await response.json();
+
+      toaster.create({
+        title: "Sucesso",
+        description: data.message || "Cliente atualizado com sucesso!",
+        type: "success"
+      });
+    } catch (error) {
+      toaster.create({
+        title: "Erro",
+        description: "Falha ao atualizar o cliente",
+        type: "error"
+      });
+    } finally {
+      setsaving(false);
+    }
+  };
+
+  const handleUploadCertificate = async () => {
+    if (!certificateFile) {
+      toaster.create({
+        title: "Erro",
+        description: "Selecione um certificado digital antes de enviar.",
+        type: "error"
+      });
+      return;
     }
 
+    try {
+      const formData = new FormData();
+      formData.append("file", certificateFile);
+      formData.append(
+        "metadata",
+        JSON.stringify({
+          password: senha,
+          clientId: Number(id)
+        })
+      );
 
-    const handlePatch = async () => {
-        setsaving(true);
+      console.log("Enviando FormData para API...", formData);
 
-        try {
+      const response = await fetch("/api/certificado/upload", {
+        method: "POST",
+        body: formData
+      });
 
-            const response = await fetch(`/api/cliente/path/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-            });
+      const result = await response.json();
 
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Erro ao atualizar cliente");
-            }
-            const data = await response.json();
-
-
-            toaster.create({
-                title: "Sucesso",
-                description: data.message || "Cliente atualizado com sucesso!",
-                type: "success",
-            });
-
-        } catch (error) {
-            toaster.create({
-                title: "Erro",
-                description: "Falha ao atualizar o cliente",
-                type: "error",
-            });
-
-        } finally {
-            setsaving(false);
-        }
-    };
-
-
-    const handleUploadCertificate = async () => {
-        if (!certificateFile) {
-            toaster.create({
-                title: "Erro",
-                description: "Selecione um certificado digital antes de enviar.",
-                type: "error",
-            });
-            return;
-        }
-
-        try {
-            const formData = new FormData();
-            formData.append("file", certificateFile);
-            formData.append("metadata", JSON.stringify({
-                password: senha,
-                status: true,
-                clientId: Number(id),
-            }));
-
-            console.log("Enviando FormData para API...", formData);
-
-            const response = await fetch("/api/certificado/upload", {
-                method: "POST",
-                body: formData,
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                toaster.create({
-                    title: "Sucesso",
-                    description: "Certificado enviado com sucesso.",
-                    type: "success",
-                });
-            } else {
-                toaster.create({
-                    title: "Erro",
-                    description: result.message || "Erro ao enviar o certificado.",
-                    type: "error",
-                });
-            }
-        } catch (error) {
-            console.error("Erro ao enviar certificado:", error);
-            toaster.create({
-                title: "Erro",
-                description: "Erro ao tentar enviar o certificado.",
-                type: "error",
-            });
-        }
-    };
-
-
-
-
+      if (response.ok) {
+        toaster.create({
+          title: "Sucesso",
+          description: "Certificado enviado com sucesso.",
+          type: "success"
+        });
+      } else {
+        toaster.create({
+          title: "Erro",
+          description: result.message || "Erro ao enviar o certificado.",
+          type: "error"
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao enviar certificado:", error);
+      toaster.create({
+        title: "Erro",
+        description: "Erro ao tentar enviar o certificado.",
+        type: "error"
+      });
+    }
+  };
 
     return loading ? (
         <HStack justify={"center"} align={"center"} gap="5">

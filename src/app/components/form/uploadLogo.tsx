@@ -1,20 +1,28 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+"use client";
 import {
   FileUploadRoot,
-  FileUploadTrigger,
+  FileUploadTrigger
 } from "@/app/components/ui/file-upload";
-import { HiUpload } from "react-icons/hi";
+import { Box, Button, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { HiUpload } from "react-icons/hi";
 
-export default function UploadLogo() {
-  const [base64String, setBase64String] = useState<string>('');
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRetorno?: any;
+}
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+export default function UploadLogo({ onRetorno }: Props) {
+  const [base64String, setBase64String] = useState<string>("");
+
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const base64 = await convertImageToBase64(file);
-      console.log("Imagem em Base64:", base64);
       setBase64String(base64);
+      onRetorno(base64);
     }
   };
 
@@ -37,24 +45,30 @@ export default function UploadLogo() {
 
   return (
     <>
-    <FileUploadRoot w={"fit-content"}>
-      <FileUploadTrigger asChild>
-        <label>
-          <Button as="span" variant="solid" colorPalette={"cyan"} size="sm">
-            <HiUpload /> Upload Logo
-          </Button>
-          <input
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleFileUpload}
-          />
-        </label>
-      </FileUploadTrigger>
-    </FileUploadRoot>
-    <Box hidden>
-    <Input value={base64String} name="logo" readOnly />
-    </Box>
+      <FileUploadRoot w={"fit-content"}>
+        <FileUploadTrigger asChild>
+          <label>
+            <Button as="span" variant="solid" colorPalette={"cyan"} size="sm">
+              <HiUpload /> Upload Logo
+            </Button>
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleFileUpload}
+            />
+          </label>
+        </FileUploadTrigger>
+      </FileUploadRoot>
+      <Box hidden>
+        <Input
+          color={"black"}
+          value={base64String}
+          type="text"
+          name="logo"
+          readOnly
+        />
+      </Box>
     </>
   );
 }
