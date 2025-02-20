@@ -155,21 +155,23 @@ export default function ClientePage({ params }: Props) {
     setLogoString(e);
   };
 
-  const handleDownload = async () => {
-    try {
-      const response = await fetch(`/api/cliente/download/${id}`);
-      if (!response.ok) throw new Error("Erro ao baixar o arquivo");
-
-      const link = document.createElement("a");
-      link.href = url;
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Erro ao baixar o arquivo:", error);
+  const handleDownload = () => {
+    if (!url) {
+      console.error("Erro: URL do certificado não disponível.");
+      return;
     }
+
+    console.log("Baixando certificado de:", url);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "certificado.pfx"; // Nome do arquivo ao baixar
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+
 
   const handleDelete = async () => {
     if (!confirm("deseja realmente excluir esse cliente da lista de ativos?"))

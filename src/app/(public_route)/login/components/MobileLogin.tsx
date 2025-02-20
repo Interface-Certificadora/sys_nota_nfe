@@ -8,8 +8,8 @@ import { useRememberMe } from "@/hook/useRememberMe";
 import { toaster } from "@/app/components/ui/toaster";
 import { useRouter } from "next/navigation";
 export default function MobileLogin() {
-      const [loading, setLoading] = useState<boolean>(false);
-    
+  const [loading, setLoading] = useState<boolean>(false);
+
   const {
     email,
     setEmail,
@@ -67,7 +67,7 @@ export default function MobileLogin() {
                 Email:
               </Text>
               <Input
-              color={"black"}
+                color={"black"}
                 rounded="xl"
                 placeholder="Digite seu email"
                 type="email"
@@ -91,7 +91,7 @@ export default function MobileLogin() {
                 Senha:
               </Text>
               <Input
-              color={"black"}
+                color={"black"}
                 rounded="xl"
                 placeholder="Digite sua senha"
                 type="password"
@@ -114,15 +114,6 @@ export default function MobileLogin() {
               >
                 Lembrar minha conta
               </Checkbox>
-              {/* <Text
-                fontSize="12px"
-                fontWeight="bold"
-                color={"#05D7DF"}
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-              >
-                Esqueci minha senha
-              </Text> */}
             </Flex>
           </Flex>
 

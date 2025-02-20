@@ -131,7 +131,7 @@ const Home = () => {
         </Flex>
       </Box>
 
-      {/* Seção "Sobre" */}
+    
       <Box id="Sobre" bg="#15803D" pt={12} pb={10}>
         <Container maxW="1200px" mx="auto" pb={6} px={4}>
           <SimpleGrid columns={{ base: 1, md: 3 }} gap={"12"}>
