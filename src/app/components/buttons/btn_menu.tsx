@@ -37,9 +37,9 @@ export default function BtnMenu() {
             <MenuItem asChild color={"black"} _hover={{ bg: "transparent",opacity: "50%", cursor: "pointer" }} value="notafiscal"><Link color={"black"} href="/suporte/notafiscal">Nota Fiscal</Link></MenuItem>
           </MenuContent>
         </MenuRoot>
-          {/* <MenuItem asChild color={"black"} value="treinamento" _hover={{ bg: "#33D388", opacity: "50%", cursor: "pointer" }}>
+          <MenuItem asChild color={"black"} value="treinamento" _hover={{ bg: "#33D388", opacity: "50%", cursor: "pointer" }}>
             <Link href="/treinamento">Videos</Link>
-          </MenuItem> */}
+          </MenuItem>
         </MenuContent>
       </MenuRoot>
     </Flex>

@@ -7,7 +7,6 @@ export const config = {
 
 const publicPages = [
     '/',
-    '/',
     '/suporte',
     '/suporte/clienteseprodutos',
     '/suporte/sistema',
@@ -27,12 +26,15 @@ export async function middleware(req: NextRequest){
     const session = await AuthService.isSessionValid()
 
     if(!session){
-        const isAPIRoute = pathname.startsWith('/api')
-
-        if(isAPIRoute){
-            return NextResponse.json({ message:'Unauthorized' }, { status: 401 })
+        if(pathname !== '/api/videos'){
+            const isAPIRoute = pathname.startsWith('/api')
+            
+    
+            if(isAPIRoute){
+                return NextResponse.json({ message:'Unauthorized' }, { status: 401 })
+            }
+            return NextResponse.redirect(new URL('/login', req.url))           
         }
-        return NextResponse.redirect(new URL('/login', req.url))
     }
 
     return NextResponse.next()

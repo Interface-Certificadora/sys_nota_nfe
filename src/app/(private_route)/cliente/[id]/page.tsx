@@ -131,6 +131,7 @@ export default function ClientePage({ params }: Props) {
       }
 
       setFormData(data);
+      setLogoString(data.logo);
     } catch (error) {
       console.error("Erro ao carregar dados:", error);
     } finally {
@@ -628,6 +629,9 @@ export default function ClientePage({ params }: Props) {
           >
             Baixar Certificado
           </Button>
+          
+          {logostring && <BtnDownloadLogo logo={logostring} />}
+          <UploadLogo onRetorno={handleLogoChange} />
           {senha && (
             <UploadFile
               onFileSelect={setCertificateFile}

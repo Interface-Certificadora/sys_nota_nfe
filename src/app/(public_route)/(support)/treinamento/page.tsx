@@ -7,66 +7,28 @@ import ContatoSup from '@/app/components/cards/contato_sup';
 
 const MotionFlex = motion(Flex);
 
-    const testeVideos = [
-      { 
-        "src" :  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" ,
-        "title" : "Big Buck Bunny"
-      },
-      { 
-        "src" :  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" ,
-        "title" : "Elephant Dream"
-      },
-      { 
-        "src" :  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" ,
-        "title" : "For Bigger Blazes"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" ,
-        "title" : "For Bigger Escape"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" ,
-        "title" : "For Bigger Fun"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" ,
-        "title" : "For Bigger Joyrides"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" ,
-        "title" : "For Bigger Meltdowns"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" ,
-        "title" : "Sintel"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" ,
-        "title" : "Subaru Outback On Street And Dirt"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" ,
-        "title" : "Tears of Steel"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" ,
+type VideosProps = {
+  id: number;
+  titulo: string;
+  url: string;
+};
 
-        "title" : "Volkswagen GTI Review"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" ,
-
-        "title" : "We Are Going On Bullrun"
-      },
-      { 
-        "src" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4" ,
-        "title" : "What care can you get for a grand?"
-      }
-]
 
 export default function Page() {
   const [isAtBottom, setIsAtBottom] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [Videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    (async() =>{
+      const req = await fetch(`/api/videos/`)
+      const res = await req.json()
+      console.log("🚀 ~ res:", res)
+      if (req.ok){
+        setVideos(res)
+      }
+    })()
+  }, []);
 
   const handleScroll = () => {
     const container = scrollContainerRef.current;
@@ -95,11 +57,13 @@ export default function Page() {
         h="100%"
         overflowY="auto"
         flexDirection={{ base: 'column', md: 'row' }}
+        gap={{ base: 4, md: 8 }}
         flexWrap={{ base: 'nowrap', md: 'wrap' }}
         alignItems={'center'}
+        justifyContent={'center'}
       >
-        {testeVideos.map((video, index) => (
-          <CardVideos key={index} src={video.src} title={video.title} />
+        {Videos.map((v: VideosProps) => (
+          <CardVideos key={v.id} src={v.url} title={v.titulo} />
         ))}
         <MotionFlex
         justifyContent="center"
