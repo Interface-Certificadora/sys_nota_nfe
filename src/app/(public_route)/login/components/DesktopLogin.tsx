@@ -124,9 +124,9 @@ export default function LoginPage() {
               >
                 Lembrar minha conta
               </Checkbox>
-              <Text fontSize="12px" fontWeight="bold" color="#05D7DF" cursor="pointer" _hover={{ textDecoration: "underline" }}>
+              {/* <Text fontSize="12px" fontWeight="bold" color="#05D7DF" cursor="pointer" _hover={{ textDecoration: "underline" }}>
                 Esqueci minha senha
-              </Text>
+              </Text> */}
             </Flex>
           </Flex>
 

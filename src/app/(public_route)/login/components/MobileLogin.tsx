@@ -114,7 +114,7 @@ export default function MobileLogin() {
               >
                 Lembrar minha conta
               </Checkbox>
-              <Text
+              {/* <Text
                 fontSize="12px"
                 fontWeight="bold"
                 color={"#05D7DF"}
@@ -122,7 +122,7 @@ export default function MobileLogin() {
                 _hover={{ textDecoration: "underline" }}
               >
                 Esqueci minha senha
-              </Text>
+              </Text> */}
             </Flex>
           </Flex>
 
