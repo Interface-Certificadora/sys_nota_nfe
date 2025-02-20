@@ -35,7 +35,7 @@ export default function AddUser() {
           rounded="md"
         >
           <LoadingProvider>
-            <CardForm.Form action={createUser}>
+            <CardForm.Form action={createUser} url={"/usuarios"}>
               <Flex
                 flexDir={{ base: "column", lg: "column" }}
                 flexWrap={{ base: "nowrap", lg: "wrap" }}
